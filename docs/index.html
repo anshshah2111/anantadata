@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roam - Your Walking Companion</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e0a;--surface:#111a11;--gold:#d4a037;--gold-light:#f0c75e;--forest:#1a3a1a;--text:#e8e4dc;--text-dim:#8a8678;--warm:#c45d3e;--glow:rgba(212,160,55,0.15)}
+body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,var(--glow),transparent 60%),radial-gradient(ellipse at 30% 20%,rgba(26,58,26,0.3),transparent 50%);pointer-events:none}
+.fog-grid{position:absolute;inset:0;opacity:0.08;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(212,160,55,0.3) 39px,rgba(212,160,55,0.3) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(212,160,55,0.3) 39px,rgba(212,160,55,0.3) 40px);pointer-events:none}
+.blob-container{position:relative;width:180px;height:180px;margin-bottom:2rem}
+.blob{width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 40% 40%,var(--gold-light),var(--gold),var(--warm));animation:breathe 4s ease-in-out infinite,morph 8s ease-in-out infinite;box-shadow:0 0 60px rgba(212,160,55,0.3),0 0 120px rgba(212,160,55,0.1)}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:0.9}50%{transform:scale(1.08);opacity:1}}
+@keyframes morph{0%,100%{border-radius:50% 45% 55% 50%/50% 55% 45% 50%}25%{border-radius:45% 50% 50% 55%/55% 50% 50% 45%}50%{border-radius:55% 50% 45% 50%/45% 50% 55% 50%}75%{border-radius:50% 55% 50% 45%/50% 45% 50% 55%}}
+.blob-ring{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(212,160,55,0.15);animation:ring-pulse 4s ease-in-out infinite}
+.blob-ring:nth-child(2){inset:-40px;animation-delay:0.5s;border-color:rgba(212,160,55,0.08)}
+.blob-ring:nth-child(3){inset:-60px;animation-delay:1s;border-color:rgba(212,160,55,0.04)}
+@keyframes ring-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:0.5}}
+h1{font-size:clamp(3rem,8vw,5.5rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tagline{font-size:clamp(1.1rem,3vw,1.4rem);color:var(--text-dim);max-width:500px;text-align:center;margin-bottom:2.5rem}
+.cta-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2.5rem;background:linear-gradient(135deg,var(--gold),var(--warm));color:var(--bg);font-size:1.1rem;font-weight:600;border:none;border-radius:60px;cursor:pointer;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 24px rgba(212,160,55,0.3)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,160,55,0.4)}
+.scroll-hint{position:absolute;bottom:2rem;color:var(--text-dim);font-size:0.85rem;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+section{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:1rem}
+.section-title{font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.section-text{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:4rem}
+.feature-card{background:var(--surface);border:1px solid rgba(212,160,55,0.08);border-radius:20px;padding:2.5rem;transition:all 0.3s}
+.feature-card:hover{border-color:rgba(212,160,55,0.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.feature-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem;background:var(--glow)}
+.feature-card h3{font-size:1.3rem;font-weight:600;margin-bottom:0.6rem}
+.feature-card p{color:var(--text-dim);font-size:0.95rem;line-height:1.7}
+.map-demo{position:relative;width:100%;max-width:700px;height:400px;margin:4rem auto;border-radius:24px;overflow:hidden;background:var(--surface);border:1px solid rgba(212,160,55,0.1)}
+.map-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(20,1fr);grid-template-rows:repeat(12,1fr);gap:2px;padding:2px}
+.tile{border-radius:3px;background:rgba(26,58,26,0.6);transition:all 0.5s}
+.tile.revealed{background:rgba(45,90,45,0.5)}
+.tile.warm{background:rgba(180,130,40,0.4)}
+.tile.hot{background:rgba(212,160,55,0.6)}
+.tile.fog{background:rgba(10,14,10,0.85)}
+.map-label{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);background:rgba(10,14,10,0.8);backdrop-filter:blur(10px);padding:0.6rem 1.2rem;border-radius:30px;font-size:0.85rem;color:var(--text-dim);border:1px solid rgba(212,160,55,0.1)}
+.how-it-works{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;margin-top:3rem;counter-reset:step}
+.step{position:relative;padding-top:3rem}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:40px;height:40px;border-radius:50%;background:var(--glow);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:var(--gold)}
+.step h4{font-size:1.1rem;font-weight:600;margin-bottom:0.5rem}
+.step p{color:var(--text-dim);font-size:0.9rem;line-height:1.7}
+.final-cta{text-align:center;padding:8rem 2rem;position:relative}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,var(--glow),transparent 60%);pointer-events:none}
+.final-cta h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:1rem}
+.final-cta p{color:var(--text-dim);margin-bottom:2.5rem;font-size:1.1rem}
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(212,160,55,0.06);color:var(--text-dim);font-size:0.85rem}
+@media(max-width:600px){.features{grid-template-columns:1fr}.map-demo{height:260px}}
+</style>
+</head>
+<body>
+<div class="hero">
+<div class="fog-grid"></div>
+<div class="blob-container">
+<div class="blob"></div>
+<div class="blob-ring"></div>
+<div class="blob-ring"></div>
+<div class="blob-ring"></div>
+</div>
+<h1>Roam</h1>
+<p class="tagline">A voice companion for your walks. Not a fitness app. Just a friend, a map, and a reason to go outside.</p>
+<a href="#features" class="cta-btn">Discover Roam</a>
+<div class="scroll-hint">Scroll to explore</div>
+</div>
+<section id="features">
+<div class="section-label">Meet Echo</div>
+<div class="section-title">A friend in your ear,<br>not a coach on your back.</div>
+<p class="section-text">Echo is a warm, curious voice that walks with you. It asks about your day, notices when you turn down a new street, and never once says great job. You do not need a cheerleader. You need a companion.</p>
+<div class="features">
+<div class="feature-card">
+<div class="feature-icon">&#x1F5E3;&#xFE0F;</div>
+<h3>Voice-First</h3>
+<p>Talk naturally while you walk. Echo listens, responds, and knows when to let the silence sit. Short sentences. Real conversation.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">&#x1F5FA;&#xFE0F;</div>
+<h3>Your City Unfolds</h3>
+<p>Every street you walk reveals more of your personal map. The fog lifts where you go. Walk the same route twice and watch it glow warmer.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">&#x1F319;</div>
+<h3>No Fitness. No Tracking.</h3>
+<p>Zero mentions of calories, steps, or workouts. Roam is about discovery and connection. Your walk is the point.</p>
+</div>
+</div>
+</section>
+<section>
+<div class="section-label">The Heat Map</div>
+<div class="section-title">Your city remembers<br>where you have been.</div>
+<p class="section-text">Streets you discover clear from fog. Streets you return to deepen from cool greens to warm golds. Over weeks, your map becomes a portrait of your life outside.</p>
+<div class="map-demo" id="mapDemo">
+<div class="map-grid" id="mapGrid"></div>
+<div class="map-label">Your neighborhood after 30 days of walks</div>
+</div>
+</section>
+<section>
+<div class="section-label">How It Works</div>
+<div class="section-title">Sixty seconds to your first walk.</div>
+<div class="how-it-works">
+<div class="step"><h4>Open the app</h4><p>No signup. No login. Echo is already there, breathing softly on your screen.</p></div>
+<div class="step"><h4>Tap "Let's go"</h4><p>Echo greets you and asks one small question. The map starts tracking. Fog begins to clear.</p></div>
+<div class="step"><h4>Walk and talk</h4><p>Talk to Echo or just walk. Discover new streets. Watch your map come alive with color.</p></div>
+<div class="step"><h4>Come back tomorrow</h4><p>Your map remembers. Your streak grows. Echo saved a thought for you.</p></div>
+</div>
+</section>
+<div class="final-cta">
+<h2>Put your shoes on.</h2>
+<p>Roam is for the people who would go outside more if they had a reason. This is it.</p>
+<a href="https://github.com/anshshah2111/anantadata" class="cta-btn">View on GitHub</a>
+</div>
+<footer><p>Roam &mdash; Built for the UW iStartup Launch Sprint 2026</p></footer>
+<script>
+var grid=document.getElementById('mapGrid');
+for(var i=0;i<240;i++){var t=document.createElement('div');t.className='tile fog';grid.appendChild(t)}
+var tiles=document.querySelectorAll('.tile');
+var paths=[[8,5],[9,5],[10,5],[11,5],[12,5],[10,6],[10,7],[10,8],[9,6],[8,6],[8,7],[9,7],[11,6],[12,6],[11,7],[10,4],[10,3],[9,4],[11,4],[13,5],[13,6],[7,5],[7,6],[9,8],[11,8],[12,7],[12,8],[8,8],[7,7],[6,6],[6,5],[13,7],[14,6],[14,5],[9,3],[8,4],[11,3],[12,4]];
+var hotP=[[10,5],[10,6],[9,5],[9,6],[10,7],[11,5],[11,6]];
+var warmP=[[8,5],[8,6],[12,5],[12,6],[10,4],[10,8],[9,7],[11,7]];
+function idx(x,y){return y*20+x}
+var step=0;
+function anim(){if(step<paths.length){var c=paths[step];var x=c[0];var y=c[1];var ii=idx(x,y);if(ii>=0&&ii<240){var tt=tiles[ii];if(hotP.some(function(p){return p[0]===x&&p[1]===y}))tt.className='tile hot';else if(warmP.some(function(p){return p[0]===x&&p[1]===y}))tt.className='tile warm';else tt.className='tile revealed'}step++;setTimeout(anim,80)}}
+var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){anim();obs.unobserve(en.target)}})},{threshold:0.3});
+obs.observe(document.getElementById('mapDemo'));
+</script>
+</body>
+</html><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Roam - Your Walking Companion</title></head><body><h1>test</h1></body></html>
