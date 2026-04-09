@@ -3,60 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roam - Your Walking Companion</title>
+<title>Roam - A Voice Companion for Your Walks</title>
+<meta name="description" content="Roam is a voice-first walking companion for overworked adults who feel stuck inside. Open the app, meet Echo, and rediscover your city.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0e0a;--surface:#111a11;--gold:#d4a037;--gold-light:#f0c75e;--forest:#1a3a1a;--text:#e8e4dc;--text-dim:#8a8678;--warm:#c45d3e;--glow:rgba(212,160,55,0.15)}
-body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:2rem}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,var(--glow),transparent 60%),radial-gradient(ellipse at 30% 20%,rgba(26,58,26,0.3),transparent 50%);pointer-events:none}
-.fog-grid{position:absolute;inset:0;opacity:0.08;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(212,160,55,0.3) 39px,rgba(212,160,55,0.3) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(212,160,55,0.3) 39px,rgba(212,160,55,0.3) 40px);pointer-events:none}
-.blob-container{position:relative;width:180px;height:180px;margin-bottom:2rem}
-.blob{width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 40% 40%,var(--gold-light),var(--gold),var(--warm));animation:breathe 4s ease-in-out infinite,morph 8s ease-in-out infinite;box-shadow:0 0 60px rgba(212,160,55,0.3),0 0 120px rgba(212,160,55,0.1)}
+:root{--bg:#0a0e0a;--surface:#111a11;--surface2:#1a2a1a;--gold:#d4a037;--gold-light:#f0c75e;--gold-dim:#8a7030;--forest:#1a3a1a;--forest-light:#2d5a2d;--text:#e8e4dc;--text-dim:#8a8678;--text-muted:#5a5650;--warm:#c45d3e;--glow:rgba(212,160,55,0.15);--glow2:rgba(212,160,55,0.08)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+a{color:var(--gold);text-decoration:none}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,14,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,160,55,0.06)}
+.nav-logo{font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--text),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:2rem;font-size:0.9rem;color:var(--text-dim)}
+.nav-links a{color:var(--text-dim);transition:color 0.3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--gold),var(--warm));color:var(--bg);font-size:0.85rem;font-weight:600;border-radius:40px;transition:all 0.3s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(212,160,55,0.3)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 70%,var(--glow),transparent 50%),radial-gradient(ellipse at 20% 20%,rgba(26,58,26,0.4),transparent 40%),radial-gradient(ellipse at 80% 30%,rgba(196,93,62,0.08),transparent 40%);pointer-events:none}
+.fog-grid{position:absolute;inset:0;opacity:0.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(212,160,55,0.3) 39px,rgba(212,160,55,0.3) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(212,160,55,0.3) 39px,rgba(212,160,55,0.3) 40px);pointer-events:none}
+.blob-container{position:relative;width:160px;height:160px;margin-bottom:2rem}
+.blob{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 40% 40%,var(--gold-light),var(--gold),var(--warm));animation:breathe 4s ease-in-out infinite,morph 8s ease-in-out infinite;box-shadow:0 0 60px rgba(212,160,55,0.3),0 0 120px rgba(212,160,55,0.1)}
 @keyframes breathe{0%,100%{transform:scale(1);opacity:0.9}50%{transform:scale(1.08);opacity:1}}
 @keyframes morph{0%,100%{border-radius:50% 45% 55% 50%/50% 55% 45% 50%}25%{border-radius:45% 50% 50% 55%/55% 50% 50% 45%}50%{border-radius:55% 50% 45% 50%/45% 50% 55% 50%}75%{border-radius:50% 55% 50% 45%/50% 45% 50% 55%}}
-.blob-ring{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(212,160,55,0.15);animation:ring-pulse 4s ease-in-out infinite}
-.blob-ring:nth-child(2){inset:-40px;animation-delay:0.5s;border-color:rgba(212,160,55,0.08)}
-.blob-ring:nth-child(3){inset:-60px;animation-delay:1s;border-color:rgba(212,160,55,0.04)}
+.blob-ring{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(212,160,55,0.12);animation:ring-pulse 4s ease-in-out infinite}
+.blob-ring:nth-child(2){inset:-40px;animation-delay:0.5s;border-color:rgba(212,160,55,0.06)}
+.blob-ring:nth-child(3){inset:-60px;animation-delay:1s;border-color:rgba(212,160,55,0.03)}
 @keyframes ring-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:0.5}}
-h1{font-size:clamp(3rem,8vw,5.5rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.tagline{font-size:clamp(1.1rem,3vw,1.4rem);color:var(--text-dim);max-width:500px;text-align:center;margin-bottom:2.5rem}
-.cta-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2.5rem;background:linear-gradient(135deg,var(--gold),var(--warm));color:var(--bg);font-size:1.1rem;font-weight:600;border:none;border-radius:60px;cursor:pointer;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 24px rgba(212,160,55,0.3)}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,160,55,0.4)}
-.scroll-hint{position:absolute;bottom:2rem;color:var(--text-dim);font-size:0.85rem;animation:bob 2s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;background:var(--glow2);border:1px solid rgba(212,160,55,0.15);border-radius:40px;font-size:0.8rem;color:var(--gold);margin-bottom:1.5rem;letter-spacing:0.05em}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-size:clamp(3rem,8vw,5.5rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+.tagline{font-size:clamp(1.1rem,2.5vw,1.35rem);color:var(--text-dim);max-width:560px;text-align:center;margin-bottom:1rem;line-height:1.7}
+.hero-sub{font-size:0.95rem;color:var(--text-muted);margin-bottom:2.5rem;text-align:center}
+.btn-row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.cta-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2.5rem;background:linear-gradient(135deg,var(--gold),var(--warm));color:var(--bg);font-size:1.05rem;font-weight:600;border:none;border-radius:60px;cursor:pointer;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 24px rgba(212,160,55,0.3)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,160,55,0.4);color:var(--bg)}
+.cta-btn-outline{display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2.5rem;background:transparent;color:var(--text-dim);font-size:1.05rem;font-weight:500;border:1px solid rgba(212,160,55,0.2);border-radius:60px;cursor:pointer;text-decoration:none;transition:all 0.3s}
+.cta-btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.scroll-hint{position:absolute;bottom:2rem;color:var(--text-muted);font-size:0.8rem;animation:bob 2s ease-in-out infinite;display:flex;flex-direction:column;align-items:center;gap:0.3rem}
+.scroll-arrow{width:20px;height:20px;border-right:2px solid var(--text-muted);border-bottom:2px solid var(--text-muted);transform:rotate(45deg);animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(6px) rotate(45deg)}}
 section{padding:6rem 2rem;max-width:1100px;margin:0 auto}
-.section-label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:1rem}
-.section-title{font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1.5rem}
-.section-text{font-size:1.1rem;color:var(--text-dim);max-width:600px;line-height:1.8}
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:4rem}
-.feature-card{background:var(--surface);border:1px solid rgba(212,160,55,0.08);border-radius:20px;padding:2.5rem;transition:all 0.3s}
-.feature-card:hover{border-color:rgba(212,160,55,0.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
-.feature-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem;background:var(--glow)}
-.feature-card h3{font-size:1.3rem;font-weight:600;margin-bottom:0.6rem}
-.feature-card p{color:var(--text-dim);font-size:0.95rem;line-height:1.7}
-.map-demo{position:relative;width:100%;max-width:700px;height:400px;margin:4rem auto;border-radius:24px;overflow:hidden;background:var(--surface);border:1px solid rgba(212,160,55,0.1)}
+.section-label{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);margin-bottom:1rem}
+.section-title{font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1.5rem;line-height:1.15}
+.section-text{font-size:1.05rem;color:var(--text-dim);max-width:600px;line-height:1.8}
+.full-width{max-width:100%;padding:6rem 2rem}
+.dark-section{background:var(--surface)}
+.problem-section{background:linear-gradient(180deg,var(--bg),var(--surface),var(--bg));padding:8rem 2rem}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1100px;margin:0 auto;align-items:center}
+.problem-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.stat-card{background:var(--surface2);border:1px solid rgba(212,160,55,0.06);border-radius:16px;padding:1.5rem;text-align:center}
+.stat-number{font-size:2.2rem;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:0.8rem;color:var(--text-dim);margin-top:0.3rem}
+.convo-demo{background:var(--surface);border:1px solid rgba(212,160,55,0.08);border-radius:24px;padding:2rem;max-width:500px;margin:3rem auto}
+.convo-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(212,160,55,0.06)}
+.convo-blob{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 40% 40%,var(--gold-light),var(--gold));flex-shrink:0}
+.convo-name{font-size:0.85rem;font-weight:600}
+.convo-status{font-size:0.7rem;color:var(--text-muted)}
+.msg{margin-bottom:1rem;max-width:85%}
+.msg-echo{background:var(--surface2);border:1px solid rgba(212,160,55,0.08);border-radius:16px 16px 16px 4px;padding:0.8rem 1.1rem;font-size:0.9rem;color:var(--text);line-height:1.6}
+.msg-user{background:rgba(212,160,55,0.1);border:1px solid rgba(212,160,55,0.15);border-radius:16px 16px 4px 16px;padding:0.8rem 1.1rem;font-size:0.9rem;color:var(--text);line-height:1.6;margin-left:auto}
+.msg-time{font-size:0.65rem;color:var(--text-muted);margin-top:0.3rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem}
+.feature-card{background:var(--surface);border:1px solid rgba(212,160,55,0.06);border-radius:20px;padding:2rem;transition:all 0.3s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);opacity:0;transition:opacity 0.3s}
+.feature-card:hover{border-color:rgba(212,160,55,0.15);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.feature-card:hover::before{opacity:1}
+.feature-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem;background:var(--glow2);border:1px solid rgba(212,160,55,0.08)}
+.feature-card h3{font-size:1.15rem;font-weight:600;margin-bottom:0.5rem}
+.feature-card p{color:var(--text-dim);font-size:0.9rem;line-height:1.7}
+.feature-tag{display:inline-block;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold-dim);background:var(--glow2);padding:0.2rem 0.6rem;border-radius:20px;margin-top:0.8rem}
+.map-demo{position:relative;width:100%;max-width:700px;height:400px;margin:3rem auto;border-radius:24px;overflow:hidden;background:var(--surface);border:1px solid rgba(212,160,55,0.08)}
 .map-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(20,1fr);grid-template-rows:repeat(12,1fr);gap:2px;padding:2px}
 .tile{border-radius:3px;background:rgba(26,58,26,0.6);transition:all 0.5s}
 .tile.revealed{background:rgba(45,90,45,0.5)}
 .tile.warm{background:rgba(180,130,40,0.4)}
 .tile.hot{background:rgba(212,160,55,0.6)}
 .tile.fog{background:rgba(10,14,10,0.85)}
-.map-label{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);background:rgba(10,14,10,0.8);backdrop-filter:blur(10px);padding:0.6rem 1.2rem;border-radius:30px;font-size:0.85rem;color:var(--text-dim);border:1px solid rgba(212,160,55,0.1)}
+.map-label{position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);background:rgba(10,14,10,0.85);backdrop-filter:blur(10px);padding:0.5rem 1rem;border-radius:30px;font-size:0.8rem;color:var(--text-dim);border:1px solid rgba(212,160,55,0.08)}
 .how-it-works{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;margin-top:3rem;counter-reset:step}
-.step{position:relative;padding-top:3rem}
-.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:40px;height:40px;border-radius:50%;background:var(--glow);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:var(--gold)}
-.step h4{font-size:1.1rem;font-weight:600;margin-bottom:0.5rem}
-.step p{color:var(--text-dim);font-size:0.9rem;line-height:1.7}
+.step{position:relative;padding-top:3.5rem}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:40px;height:40px;border-radius:50%;background:var(--glow2);border:1.5px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:var(--gold)}
+.step h4{font-size:1.05rem;font-weight:600;margin-bottom:0.4rem}
+.step p{color:var(--text-dim);font-size:0.88rem;line-height:1.7}
+.icp-section{background:var(--surface);border-top:1px solid rgba(212,160,55,0.06);border-bottom:1px solid rgba(212,160,55,0.06)}
+.icp-content{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.icp-quote{font-size:1.4rem;font-style:italic;color:var(--text);line-height:1.6;position:relative;padding-left:1.5rem;border-left:3px solid var(--gold-dim)}
+.icp-details{display:flex;flex-direction:column;gap:1rem}
+.icp-detail{display:flex;gap:0.8rem;align-items:flex-start}
+.icp-bullet{width:8px;height:8px;border-radius:50%;background:var(--gold-dim);margin-top:0.5rem;flex-shrink:0}
+.icp-detail p{font-size:0.9rem;color:var(--text-dim);line-height:1.6}
+.why-now{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.why-card{background:var(--surface);border:1px solid rgba(212,160,55,0.06);border-radius:16px;padding:1.8rem;text-align:center}
+.why-card h4{font-size:1rem;font-weight:600;margin-bottom:0.5rem}
+.why-card p{font-size:0.85rem;color:var(--text-dim);line-height:1.6}
+.tech-row{display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1.5rem}
+.tech-pill{padding:0.4rem 1rem;background:var(--surface2);border:1px solid rgba(212,160,55,0.08);border-radius:30px;font-size:0.8rem;color:var(--text-dim)}
+.not-list{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.not-item{display:flex;gap:0.6rem;align-items:flex-start;font-size:0.9rem;color:var(--text-dim);line-height:1.6}
+.not-x{color:var(--warm);font-weight:700;font-size:1.1rem;flex-shrink:0}
+.not-check{color:var(--gold);font-weight:700;font-size:1.1rem;flex-shrink:0}
 .final-cta{text-align:center;padding:8rem 2rem;position:relative}
-.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,var(--glow),transparent 60%);pointer-events:none}
-.final-cta h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:1rem}
-.final-cta p{color:var(--text-dim);margin-bottom:2.5rem;font-size:1.1rem}
-footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(212,160,55,0.06);color:var(--text-dim);font-size:0.85rem}
-@media(max-width:600px){.features{grid-template-columns:1fr}.map-demo{height:260px}}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,var(--glow),transparent 50%);pointer-events:none}
+.final-cta h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:0.8rem}
+.final-cta .tagline{margin-bottom:2.5rem}
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(212,160,55,0.06);color:var(--text-muted);font-size:0.8rem}
+footer a{color:var(--text-dim)}
+@media(max-width:768px){.nav-links{display:none}.problem-grid,.icp-content{grid-template-columns:1fr}.why-now{grid-template-columns:1fr}.not-list{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr}.map-demo{height:260px}}
 </style>
 </head>
 <body>
+<nav class="nav">
+<div class="nav-logo">Roam</div>
+<div class="nav-links">
+<a href="#echo">Echo</a>
+<a href="#features">Features</a>
+<a href="#map">The Map</a>
+<a href="#why">Why Now</a>
+</div>
+<a href="https://github.com/anshshah2111/anantadata" class="nav-cta">View Code</a>
+</nav>
+
 <div class="hero">
 <div class="fog-grid"></div>
 <div class="blob-container">
@@ -65,70 +131,213 @@ footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(212,160,55,
 <div class="blob-ring"></div>
 <div class="blob-ring"></div>
 </div>
+<div class="hero-badge"><span class="hero-badge-dot"></span> UW iStartup Launch Sprint 2026</div>
 <h1>Roam</h1>
-<p class="tagline">A voice companion for your walks. Not a fitness app. Just a friend, a map, and a reason to go outside.</p>
-<a href="#features" class="cta-btn">Discover Roam</a>
-<div class="scroll-hint">Scroll to explore</div>
+<p class="tagline">A voice-first walking companion for overworked adults who feel stuck inside. Open the app, meet Echo, and rediscover your city.</p>
+<p class="hero-sub">Not a fitness app. Not a meditation app. A friend on a walk.</p>
+<div class="btn-row">
+<a href="#echo" class="cta-btn">Meet Echo</a>
+<a href="https://github.com/anshshah2111/anantadata" class="cta-btn-outline">View on GitHub</a>
 </div>
-<section id="features">
+<div class="scroll-hint"><div class="scroll-arrow"></div></div>
+</div>
+
+<div class="problem-section">
+<div class="problem-grid">
+<div>
+<div class="section-label">The Problem</div>
+<div class="section-title">You know you should go outside. You just... don't.</div>
+<p class="section-text" style="margin-bottom:1.5rem">You have a job, a long to-do list, and not enough time. You have not seen friends in person in over a month. You have not had a real walk-outside-for-no-reason in longer than that. You have tried Strava, Peloton, ClassPass. Bounced off all of them because they feel like another item on the to-do list.</p>
+<p class="section-text">The dominant feeling is flatness. Not clinical, but real. The kind that comes from screens, deadlines, and delivery apps. You do not want a fitness app. You want a reason to go outside that feels like play.</p>
+</div>
+<div class="problem-stats">
+<div class="stat-card"><div class="stat-number">73%</div><div class="stat-label">of adults feel lonely regularly</div></div>
+<div class="stat-card"><div class="stat-number">8h+</div><div class="stat-label">average daily screen time</div></div>
+<div class="stat-card"><div class="stat-number">60%</div><div class="stat-label">bounce off fitness apps in 30 days</div></div>
+<div class="stat-card"><div class="stat-number">0</div><div class="stat-label">apps that put a friend in your ear on a walk</div></div>
+</div>
+</div>
+</div>
+
+<section id="echo">
 <div class="section-label">Meet Echo</div>
 <div class="section-title">A friend in your ear,<br>not a coach on your back.</div>
-<p class="section-text">Echo is a warm, curious voice that walks with you. It asks about your day, notices when you turn down a new street, and never once says great job. You do not need a cheerleader. You need a companion.</p>
-<div class="features">
+<p class="section-text">Echo is a warm, curious voice that walks with you. It asks about your day, notices when you turn down a new street, and never once says "great job." Echo is not a wellness app. Echo is a friend on a walk. The walk is the point.</p>
+
+<div class="convo-demo">
+<div class="convo-header">
+<div class="convo-blob"></div>
+<div><div class="convo-name">Echo</div><div class="convo-status">Walking with you</div></div>
+</div>
+<div class="msg"><div class="msg-echo">Hey. Glad you are out here. What are we walking toward today, or are we just walking?</div><div class="msg-time">Echo - opener</div></div>
+<div class="msg"><div class="msg-user">Just walking. Long day.</div><div class="msg-time" style="text-align:right">You</div></div>
+<div class="msg"><div class="msg-echo">Long days deserve aimless walks. What did you eat today?</div><div class="msg-time">Echo</div></div>
+<div class="msg"><div class="msg-user">Honestly? Just coffee and a granola bar.</div><div class="msg-time" style="text-align:right">You</div></div>
+<div class="msg"><div class="msg-echo">Mm. There is a taco place two blocks that way. Just saying.</div><div class="msg-time">Echo</div></div>
+</div>
+
+<div style="max-width:600px;margin:3rem auto 0">
+<div class="section-label">Echo's Rules</div>
+<div class="not-list">
+<div class="not-item"><span class="not-x">&#x2717;</span> Never mentions exercise, fitness, calories, or steps</div>
+<div class="not-item"><span class="not-check">&#x2713;</span> Asks about concrete things: what you ate, where you turned</div>
+<div class="not-item"><span class="not-x">&#x2717;</span> Never says "good for you" or "great job"</div>
+<div class="not-item"><span class="not-check">&#x2713;</span> Short sentences. 5 to 15 words. Made to be heard on a sidewalk</div>
+<div class="not-item"><span class="not-x">&#x2717;</span> Never gives unsolicited advice or sounds like therapy</div>
+<div class="not-item"><span class="not-check">&#x2713;</span> Warm, curious, low-energy in a good way. Like a real friend</div>
+<div class="not-item"><span class="not-x">&#x2717;</span> Never mentions being an AI or anything technical</div>
+<div class="not-item"><span class="not-check">&#x2713;</span> Dry humor sometimes. Observations, not jokes</div>
+</div>
+</div>
+</section>
+
+<section id="features">
+<div class="section-label">Core Features</div>
+<div class="section-title">Everything that ships.<br>Nothing that does not.</div>
+<p class="section-text">Two non-negotiables and a tight feature set. Every feature exists to make one 80-second pitch video work.</p>
+
+<div class="features-grid">
 <div class="feature-card">
 <div class="feature-icon">&#x1F5E3;&#xFE0F;</div>
-<h3>Voice-First</h3>
-<p>Talk naturally while you walk. Echo listens, responds, and knows when to let the silence sit. Short sentences. Real conversation.</p>
+<h3>Echo Voice Companion</h3>
+<p>Real conversational AI powered by Llama 3.3 70B via Groq. Echo speaks out loud through your phone speaker while you walk. Five conversation beats: opener, discovery, check-in, closer, freeform.</p>
+<div class="feature-tag">Non-negotiable</div>
 </div>
 <div class="feature-card">
-<div class="feature-icon">&#x1F5FA;&#xFE0F;</div>
-<h3>Your City Unfolds</h3>
-<p>Every street you walk reveals more of your personal map. The fog lifts where you go. Walk the same route twice and watch it glow warmer.</p>
+<div class="feature-icon">&#x1F30D;</div>
+<h3>Living Heat Map</h3>
+<p>Not just fog-of-war. Streets you discover clear from fog. Streets you walk again deepen from cool greens to warm golds. Your map is a portrait of your life outside.</p>
+<div class="feature-tag">Non-negotiable</div>
 </div>
 <div class="feature-card">
-<div class="feature-icon">&#x1F319;</div>
-<h3>No Fitness. No Tracking.</h3>
-<p>Zero mentions of calories, steps, or workouts. Roam is about discovery and connection. Your walk is the point.</p>
+<div class="feature-icon">&#x1F7E0;</div>
+<h3>Echo's Animated Body</h3>
+<p>A breathing, morphing blob on screen. When you talk, it leans in. When Echo speaks, it pulses with warmth. Voice and body are one entity, never separated.</p>
+<div class="feature-tag">Tier 1</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon">&#x1F4CD;</div>
+<h3>Live GPS Walk Tracking</h3>
+<p>Real-time position tracking with 30-second tile debounce. Watch the map come alive beneath your feet as you walk. Every step counts toward your personal map.</p>
+<div class="feature-tag">Tier 1</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon">&#x1F525;</div>
+<h3>Walk Streaks</h3>
+<p>Come back tomorrow. Your map remembers, your streak grows, Echo saved a thought for you. The gentle retention hook that keeps the city alive.</p>
+<div class="feature-tag">Tier 1</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon">&#x1F4F1;</div>
+<h3>60-Second Onboarding</h3>
+<p>Three swipeable screens. No signup, no login, no password. Anonymous ID, dark mode, and Echo is breathing on your screen within a minute.</p>
+<div class="feature-tag">Tier 1</div>
 </div>
 </div>
 </section>
-<section>
+
+<section id="map">
 <div class="section-label">The Heat Map</div>
 <div class="section-title">Your city remembers<br>where you have been.</div>
-<p class="section-text">Streets you discover clear from fog. Streets you return to deepen from cool greens to warm golds. Over weeks, your map becomes a portrait of your life outside.</p>
+<p class="section-text">This is not a step counter with a map skin. New streets reveal. Repeated streets deepen. Over 30 days, golden routes radiate from your home like veins of a leaf. This is the visual that sells the pitch.</p>
 <div class="map-demo" id="mapDemo">
 <div class="map-grid" id="mapGrid"></div>
-<div class="map-label">Your neighborhood after 30 days of walks</div>
+<div class="map-label">Simulated: 30 days of walks from UW campus</div>
 </div>
 </section>
+
 <section>
 <div class="section-label">How It Works</div>
 <div class="section-title">Sixty seconds to your first walk.</div>
 <div class="how-it-works">
-<div class="step"><h4>Open the app</h4><p>No signup. No login. Echo is already there, breathing softly on your screen.</p></div>
-<div class="step"><h4>Tap "Let's go"</h4><p>Echo greets you and asks one small question. The map starts tracking. Fog begins to clear.</p></div>
-<div class="step"><h4>Walk and talk</h4><p>Talk to Echo or just walk. Discover new streets. Watch your map come alive with color.</p></div>
-<div class="step"><h4>Come back tomorrow</h4><p>Your map remembers. Your streak grows. Echo saved a thought for you.</p></div>
+<div class="step"><h4>Open the app</h4><p>No signup. No login wall. Echo is already there, breathing softly in the lower third of a fog-covered map.</p></div>
+<div class="step"><h4>Tap "Let's go"</h4><p>Echo's blob lights up and speaks: "Hey. Glad you are out here. What are we walking toward today?" The map starts tracking.</p></div>
+<div class="step"><h4>Walk and talk</h4><p>Talk to Echo or just walk. Discover new streets. The fog clears behind you. Echo notices a turn you have never taken before.</p></div>
+<div class="step"><h4>End the walk</h4><p>Summary screen. Distance, time, before/after mini-map. Echo says: "Good walk. Same time tomorrow?" Streak ticks to 1.</p></div>
 </div>
 </section>
+
+<div class="icp-section" style="padding:6rem 2rem">
+<div class="icp-content">
+<div>
+<div class="section-label">Who This Is For</div>
+<div class="icp-quote">Jordan, 28 to 34. Working individual buried in adulting. Has not seen friends in person in over a month. Knows they "should" exercise but every app feels like another chore. The dominant feeling is flatness, not clinical, but real.</div>
+</div>
+<div class="icp-details">
+<div class="icp-detail"><div class="icp-bullet"></div><p>Full-time knowledge worker, hybrid or remote. To-do list never ends.</p></div>
+<div class="icp-detail"><div class="icp-bullet"></div><p>Lives in a city, probably alone or with a partner. Delivery apps for everything.</p></div>
+<div class="icp-detail"><div class="icp-bullet"></div><p>Tried Strava, Peloton, ClassPass. Bounced off all of them. They feel like work.</p></div>
+<div class="icp-detail"><div class="icp-bullet"></div><p>Does not want a fitness app. Wants a reason to go outside that feels like play.</p></div>
+<div class="icp-detail"><div class="icp-bullet"></div><p>Wants a friend who happens to also get them out the door.</p></div>
+</div>
+</div>
+</div>
+
+<section id="why">
+<div class="section-label">Why Now</div>
+<div class="section-title">Three things that did not exist<br>two years ago.</div>
+<div class="why-now">
+<div class="why-card">
+<h4>Voice AI Got Good</h4>
+<p>Sub-second conversational AI from Groq + Llama 3.3 70B. Real personality. Real dialogue. Not a chatbot reading a script.</p>
+</div>
+<div class="why-card">
+<h4>Loneliness Is at All-Time Highs</h4>
+<p>The Surgeon General called it an epidemic. Remote work flattened daily routines. People are inside more than ever.</p>
+</div>
+<div class="why-card">
+<h4>The Gap in the Market</h4>
+<p>Strava is for athletes. Replika is for romance. AllTrails is for hikers. Nobody put a real conversational companion in your ear while you walk your own block.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="section-label">Built With</div>
+<div class="section-title">The tech stack.</div>
+<p class="section-text">Picked for speed, free tiers, and the sprint timeline. Every choice is locked.</p>
+<div class="tech-row">
+<span class="tech-pill">Next.js 14</span>
+<span class="tech-pill">TypeScript</span>
+<span class="tech-pill">Tailwind CSS</span>
+<span class="tech-pill">Zustand</span>
+<span class="tech-pill">MapLibre GL</span>
+<span class="tech-pill">Web Speech API</span>
+<span class="tech-pill">Groq (Llama 3.3 70B)</span>
+<span class="tech-pill">Ollama (local fallback)</span>
+<span class="tech-pill">Supabase</span>
+<span class="tech-pill">Vercel</span>
+</div>
+</section>
+
 <div class="final-cta">
 <h2>Put your shoes on.</h2>
-<p>Roam is for the people who would go outside more if they had a reason. This is it.</p>
+<p class="tagline">Roam is for the people who would go outside more if they had a reason. Echo is that reason. The city is waiting.</p>
+<div class="btn-row">
 <a href="https://github.com/anshshah2111/anantadata" class="cta-btn">View on GitHub</a>
+<a href="https://github.com/anshshah2111/SearchNextDoor" class="cta-btn-outline">Full Source Code</a>
 </div>
-<footer><p>Roam &mdash; Built for the UW iStartup Launch Sprint 2026</p></footer>
+</div>
+
+<footer>
+<p>Roam &mdash; Built for the <a href="#">UW iStartup Launch Sprint 2026</a></p>
+<p style="margin-top:0.5rem">A social companion app, not a health app. The voice is the wedge. The map is the stage.</p>
+</footer>
+
 <script>
 var grid=document.getElementById('mapGrid');
 for(var i=0;i<240;i++){var t=document.createElement('div');t.className='tile fog';grid.appendChild(t)}
 var tiles=document.querySelectorAll('.tile');
-var paths=[[8,5],[9,5],[10,5],[11,5],[12,5],[10,6],[10,7],[10,8],[9,6],[8,6],[8,7],[9,7],[11,6],[12,6],[11,7],[10,4],[10,3],[9,4],[11,4],[13,5],[13,6],[7,5],[7,6],[9,8],[11,8],[12,7],[12,8],[8,8],[7,7],[6,6],[6,5],[13,7],[14,6],[14,5],[9,3],[8,4],[11,3],[12,4]];
+var paths=[[10,6],[10,5],[9,5],[9,6],[11,5],[11,6],[10,7],[8,5],[12,5],[10,4],[8,6],[12,6],[9,7],[11,7],[10,8],[10,3],[7,5],[13,5],[8,7],[12,7],[9,4],[11,4],[7,6],[13,6],[9,8],[11,8],[8,8],[12,8],[6,5],[14,5],[6,6],[14,6],[7,7],[13,7],[9,3],[11,3],[8,4],[12,4],[10,2],[10,9],[7,4],[13,4],[6,7],[14,7],[5,5],[15,5],[5,6],[15,6]];
 var hotP=[[10,5],[10,6],[9,5],[9,6],[10,7],[11,5],[11,6]];
-var warmP=[[8,5],[8,6],[12,5],[12,6],[10,4],[10,8],[9,7],[11,7]];
+var warmP=[[8,5],[8,6],[12,5],[12,6],[10,4],[10,8],[9,7],[11,7],[10,3],[8,7],[12,7]];
 function idx(x,y){return y*20+x}
 var step=0;
-function anim(){if(step<paths.length){var c=paths[step];var x=c[0];var y=c[1];var ii=idx(x,y);if(ii>=0&&ii<240){var tt=tiles[ii];if(hotP.some(function(p){return p[0]===x&&p[1]===y}))tt.className='tile hot';else if(warmP.some(function(p){return p[0]===x&&p[1]===y}))tt.className='tile warm';else tt.className='tile revealed'}step++;setTimeout(anim,80)}}
+function anim(){if(step<paths.length){var c=paths[step];var x=c[0];var y=c[1];var ii=idx(x,y);if(ii>=0&&ii<240){var tt=tiles[ii];if(hotP.some(function(p){return p[0]===x&&p[1]===y}))tt.className='tile hot';else if(warmP.some(function(p){return p[0]===x&&p[1]===y})  )tt.className='tile warm';else tt.className='tile revealed'}step++;setTimeout(anim,60)}}
 var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){anim();obs.unobserve(en.target)}})},{threshold:0.3});
 obs.observe(document.getElementById('mapDemo'));
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
 </script>
 </body>
-</html><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Roam - Your Walking Companion</title></head><body><h1>test</h1></body></html>
+</html>
