@@ -52,15 +52,15 @@ export default function LandingPage() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 30 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.8 }}
           className="relative z-10 flex flex-col items-center text-center max-w-3xl"
         >
           {/* Blob + rings */}
           <motion.div
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 0.6 }}
+            animate={{ scale: 1 }}
             transition={{ delay: 0.3, type: "spring", damping: 15 }}
             className="relative mb-8"
             style={{ width: 180, height: 180 }}
@@ -75,8 +75,8 @@ export default function LandingPage() {
 
           {/* UW badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
             transition={{ delay: 0.4 }}
             className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/5 border border-amber-500/15 text-xs text-amber-400 tracking-wider"
           >
@@ -101,8 +101,8 @@ export default function LandingPage() {
 
           {/* CTA row */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 10 }}
+            animate={{ y: 0 }}
             transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center gap-4"
           >
@@ -119,25 +119,15 @@ export default function LandingPage() {
               Meet Echo
             </a>
           </motion.div>
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="mt-4 text-sm text-gray-500"
-          >
+          <span className="mt-4 text-sm text-gray-500">
             No account needed. No download.
-          </motion.span>
+          </span>
         </motion.div>
 
         {/* Scroll hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <div className="scroll-arrow" />
-        </motion.div>
+        </div>
       </section>
 
       {/* ================= PROBLEM ================= */}
@@ -145,8 +135,8 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.015] to-transparent pointer-events-none" />
         <div className="relative max-w-5xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
           >
             <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
@@ -171,8 +161,8 @@ export default function LandingPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
             className="grid grid-cols-2 gap-4"
@@ -202,8 +192,8 @@ export default function LandingPage() {
       {/* ================= MEET ECHO ================= */}
       <section id="echo" className="px-6 py-24 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -225,8 +215,8 @@ export default function LandingPage() {
 
         {/* Conversation demo card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="max-w-xl mx-auto bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 sm:p-8"
         >
@@ -276,8 +266,8 @@ export default function LandingPage() {
 
         {/* Echo's Rules */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="max-w-2xl mx-auto mt-16"
         >
@@ -316,8 +306,8 @@ export default function LandingPage() {
       {/* ================= CORE FEATURES ================= */}
       <section id="features" className="px-6 py-24 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -376,8 +366,8 @@ export default function LandingPage() {
           ].map((f, i) => (
             <motion.div
               key={f.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
               className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 hover:border-amber-500/20 hover:bg-white/[0.04] transition-all"
@@ -400,8 +390,8 @@ export default function LandingPage() {
       {/* ================= THE HEAT MAP (inline demo) ================= */}
       <div id="map">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto px-6 pt-20"
         >
@@ -425,8 +415,8 @@ export default function LandingPage() {
       {/* ================= HOW IT WORKS ================= */}
       <section className="px-6 py-24 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-14"
         >
@@ -463,8 +453,8 @@ export default function LandingPage() {
           ].map((step, i) => (
             <motion.div
               key={step.n}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="relative"
@@ -485,8 +475,8 @@ export default function LandingPage() {
       <section className="px-6 py-24 border-y border-white/[0.04] bg-white/[0.015]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
           >
             <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
@@ -502,8 +492,8 @@ export default function LandingPage() {
           </motion.div>
 
           <motion.ul
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
             className="space-y-3"
@@ -529,8 +519,8 @@ export default function LandingPage() {
       {/* ================= WHY NOW ================= */}
       <section id="why" className="px-6 py-24 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -561,8 +551,8 @@ export default function LandingPage() {
           ].map((w, i) => (
             <motion.div
               key={w.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6 text-center"
@@ -577,8 +567,8 @@ export default function LandingPage() {
       {/* ================= BUILT WITH ================= */}
       <section className="px-6 py-20 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center"
         >
@@ -617,8 +607,8 @@ export default function LandingPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full bg-amber-500/10 blur-[120px]" />
         </div>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="relative max-w-2xl mx-auto"
         >

@@ -514,8 +514,8 @@ export default function MapDemo() {
     <section className="px-6 py-24 max-w-5xl mx-auto">
       {/* Section header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ y: 20 }}
+        whileInView={{ y: 0 }}
         viewport={{ once: true }}
         className="text-center mb-12"
       >
@@ -529,8 +529,8 @@ export default function MapDemo() {
 
       {/* Map container */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ y: 20 }}
+        whileInView={{ y: 0 }}
         viewport={{ once: true }}
         className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0a0a0a]"
         style={{ height: "clamp(400px, 60vh, 560px)" }}
