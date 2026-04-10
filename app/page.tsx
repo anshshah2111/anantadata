@@ -5,7 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import EchoBlob from "@/components/EchoBlob";
 
-const MapDemo = dynamic(() => import("./MapDemo"), { ssr: false });
+const MapDemo = dynamic(() => import("@/components/MapDemo"), { ssr: false });
 
 export default function LandingPage() {
   return (
