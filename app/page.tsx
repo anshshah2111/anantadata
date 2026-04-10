@@ -471,97 +471,105 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ================= A DAY IN THE LIFE ================= */}
-      <section className="relative px-6 py-28">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/[0.02] to-transparent pointer-events-none" />
+      {/* ================= MEET JORDAN + A DAY IN THE LIFE ================= */}
+      <section className="relative px-6 py-28 border-y border-white/[0.04] bg-white/[0.015]">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/[0.025] to-transparent pointer-events-none" />
         <div className="relative max-w-3xl mx-auto">
+          {/* Header: Meet Jordan */}
           <motion.div
             initial={{ y: 20 }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
               A Day in the Life
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
-              Morning to night,
-              <br />
-              <span className="text-gray-500">one gentle moment.</span>
+            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-5">
+              Meet Jordan.
             </h2>
-            <p className="text-gray-400 leading-relaxed max-w-xl mx-auto">
-              Roam doesn&apos;t ask for 30 minutes of your day. It asks for a{" "}
-              <span className="text-white">yes</span> when the light is getting
-              low.
+            <blockquote className="text-lg sm:text-xl text-gray-300 italic leading-snug max-w-2xl mx-auto mb-6 px-4">
+              &ldquo;Jordan, 29. Knowledge worker. Hybrid, mostly remote.
+              Lives with a partner but mostly alone in front of a laptop. Hasn&apos;t
+              seen friends in person in three weeks. Tried Strava, Peloton, ClassPass
+              &mdash; bounced off all of them. The dominant feeling is flatness.&rdquo;
+            </blockquote>
+            <p className="text-gray-500 text-sm">
+              This is Jordan&apos;s Tuesday.
             </p>
           </motion.div>
 
-          {/* Vertical timeline */}
-          <div className="relative space-y-0">
-            {/* Connecting line */}
+          {/* Vertical timeline — sequentially revealed */}
+          <div className="relative mt-12">
+            {/* Connecting gradient line */}
             <div
-              className="absolute left-6 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-amber-500/20 to-transparent"
+              className="absolute left-6 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-amber-500/30 to-transparent"
               aria-hidden
             />
 
             {[
               {
                 time: "8:00 AM",
-                icon: "\u2600\ufe0f", // ☀️
-                title: "Wake up",
-                desc: "Same four walls. Phone first, then coffee. You already know how today goes.",
+                icon: "\u2600\ufe0f",
+                title: "Wake up alone-ish",
+                desc: "Same four walls. Phone first, then coffee. Partner already in a meeting. Jordan already knows how today goes.",
+              },
+              {
+                time: "9:30 AM",
+                icon: "\ud83d\udcbb",
+                title: "Stand-up. Camera off.",
+                desc: "Hybrid. Mostly remote. The to-do list never ends. Jordan answers in Slack emojis.",
               },
               {
                 time: "12:30 PM",
-                icon: "\ud83d\udcbb", // 💻
-                title: "Meetings, Slack, lunch at the desk",
-                desc: "The window is right there. You don't look at it.",
+                icon: "\ud83c\udf5c",
+                title: "Delivery lunch at the desk",
+                desc: "Third time this week. Window's right there. Jordan doesn't look at it.",
               },
               {
                 time: "4:45 PM",
-                icon: "\ud83c\udf2b\ufe0f", // 🌫️
-                title: "Flat",
-                desc: "Not sad. Not mad. Just flat. Couldn't tell you why.",
+                icon: "\ud83c\udf2b\ufe0f",
+                title: "The flat feeling",
+                desc: "Not sad. Not mad. Just flat. Jordan couldn't tell you why if you asked.",
               },
               {
                 time: "5:30 PM",
-                icon: "\ud83d\udfe0", // 🟠
+                icon: "\ud83d\udfe0",
                 title: "Echo says hi",
-                desc: "\u201cHey. Glad you\u2019re out here. Where are we headed today, or are we just walking?\u201d",
+                desc: "\u201cHey. Glad you\u2019re out here. Where are we headed today, or are we just walking?\u201d One tap. Warm voice. Jordan puts shoes on.",
                 highlight: true,
               },
               {
                 time: "5:52 PM",
-                icon: "\ud83d\udc9b", // 💛
-                title: "A street you\u2019ve never walked",
-                desc: "Echo: \u201cOh \u2014 new street for us. What made you turn here?\u201d The fog lifts.",
+                icon: "\ud83d\udc9b",
+                title: "A street Jordan has never walked",
+                desc: "Echo: \u201cOh \u2014 new street for us. What made you turn here?\u201d The fog lifts. Jordan laughs for the first time today.",
               },
               {
                 time: "6:15 PM",
-                icon: "\ud83d\uddfa\ufe0f", // 🗺️
+                icon: "\ud83d\uddfa\ufe0f",
                 title: "Back home",
-                desc: "12 new tiles. Streak ticks to 1. Echo: \u201cGood walk. Same time tomorrow?\u201d",
+                desc: "12 new tiles on the map. Streak ticks to 1. Echo: \u201cGood walk. Same time tomorrow?\u201d",
               },
               {
                 time: "10:30 PM",
-                icon: "\ud83c\udf19", // 🌙
+                icon: "\ud83c\udf19",
                 title: "Bed",
-                desc: "You open the app, look at the little glowing line on your map. Tomorrow\u2019s already there.",
+                desc: "Jordan opens the app one more time, looks at the small glowing line on the map. Tomorrow\u2019s already there.",
               },
             ].map((step, i) => (
-              <motion.div
+              <div
                 key={step.time}
-                initial={{ y: 15 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="relative flex gap-5 pb-8 last:pb-0"
+                className="day-step relative flex gap-4 sm:gap-5 pb-8 last:pb-0"
+                style={
+                  { "--reveal-delay": `${i * 0.12}s` } as React.CSSProperties
+                }
               >
                 {/* Icon bubble */}
                 <div
                   className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 text-xl bg-[#0a0a0a] ${
                     step.highlight
-                      ? "border-2 border-amber-400/50 shadow-md shadow-amber-500/20"
+                      ? "border-2 border-amber-400/60 shadow-lg shadow-amber-500/25"
                       : "border border-white/10"
                   }`}
                 >
@@ -572,7 +580,7 @@ export default function LandingPage() {
                 <div
                   className={`flex-1 rounded-xl p-4 sm:p-5 ${
                     step.highlight
-                      ? "bg-gradient-to-br from-amber-500/[0.08] to-transparent border border-amber-500/20"
+                      ? "bg-gradient-to-br from-amber-500/[0.1] to-transparent border border-amber-500/25"
                       : "bg-white/[0.02] border border-white/[0.05]"
                   }`}
                 >
@@ -590,7 +598,7 @@ export default function LandingPage() {
                     {step.desc}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -598,56 +606,11 @@ export default function LandingPage() {
             initial={{ y: 15 }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
-            className="text-center text-gray-500 mt-10 text-sm italic"
+            className="text-center text-gray-500 mt-12 text-sm italic"
           >
             Two minutes of reason. One tap to say yes. That&apos;s the whole
             thing.
           </motion.p>
-        </div>
-      </section>
-
-      {/* ================= WHO THIS IS FOR (ICP) ================= */}
-      <section className="px-6 py-24 border-y border-white/[0.04] bg-white/[0.015]">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
-              Who This Is For
-            </div>
-            <blockquote className="text-xl sm:text-2xl text-gray-200 italic leading-snug border-l-2 border-amber-500/40 pl-5">
-              Jordan, 28 to 34. Working individual buried in adulting.
-              Hasn&apos;t seen friends in person in over a month. Knows they
-              &ldquo;should&rdquo; exercise but every app feels like another
-              chore. The dominant feeling is flatness &mdash; not clinical, but
-              real.
-            </blockquote>
-          </motion.div>
-
-          <motion.ul
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="space-y-3"
-          >
-            {[
-              "Full-time knowledge worker, hybrid or remote. To-do list never ends.",
-              "Lives in a city, alone or with a partner. Delivery apps for everything.",
-              "Tried Strava, Peloton, ClassPass. Bounced off all of them.",
-              "Doesn\u2019t want a fitness app. Wants a reason to go outside that feels like play.",
-              "Wants a friend who happens to also get them out the door.",
-            ].map((line, i) => (
-              <li key={i} className="flex gap-3 items-start">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 flex-shrink-0" />
-                <span className="text-sm text-gray-400 leading-relaxed">
-                  {line}
-                </span>
-              </li>
-            ))}
-          </motion.ul>
         </div>
       </section>
 
