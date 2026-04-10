@@ -12,12 +12,12 @@ export default function LandingPage() {
     <div className="min-h-screen bg-[#0a0a0a] text-white overflow-y-auto overflow-x-hidden">
       {/* ================= NAV ================= */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-orange-500" />
-          <span className="text-lg font-semibold tracking-wide bg-gradient-to-br from-white to-amber-200 bg-clip-text text-transparent">
-            Roam
-          </span>
-        </div>
+        <Link
+          href="/"
+          className="text-xl font-bold tracking-wide bg-gradient-to-br from-white to-amber-300 bg-clip-text text-transparent"
+        >
+          Roam
+        </Link>
         <div className="hidden md:flex items-center gap-7 text-sm text-gray-400">
           <a href="#echo" className="hover:text-amber-400 transition-colors">
             Echo
@@ -32,20 +32,12 @@ export default function LandingPage() {
             Why Now
           </a>
         </div>
-        <div className="flex items-center gap-3">
-          <Link
-            href="/demo"
-            className="hidden sm:inline px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
-          >
-            Watch demo
-          </Link>
-          <Link
-            href="/app"
-            className="px-5 py-2 bg-amber-500 text-black text-sm font-semibold rounded-full hover:bg-amber-400 transition-colors"
-          >
-            Try it free
-          </Link>
-        </div>
+        <Link
+          href="/demo"
+          className="px-5 py-2 bg-amber-500 text-black text-sm font-semibold rounded-full hover:bg-amber-400 transition-colors"
+        >
+          Watch demo
+        </Link>
       </nav>
 
       {/* ================= HERO ================= */}
@@ -115,17 +107,17 @@ export default function LandingPage() {
             className="flex flex-col sm:flex-row items-center gap-4"
           >
             <Link
-              href="/app"
+              href="/demo"
               className="px-8 py-4 bg-amber-500 text-black text-lg font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 hover:shadow-amber-400/30 transition-all"
             >
-              Start walking with Echo
+              Try the demo &rarr;
             </Link>
-            <Link
-              href="/demo"
+            <a
+              href="#echo"
               className="px-8 py-4 bg-white/5 text-white text-lg font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-amber-400/30 transition-all"
             >
-              Watch demo
-            </Link>
+              Meet Echo
+            </a>
           </motion.div>
           <motion.span
             initial={{ opacity: 0 }}
@@ -640,17 +632,19 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/app"
+              href="/demo"
               className="px-10 py-4 bg-amber-500 text-black text-lg font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 transition-all"
             >
-              Start walking with Echo
+              Try the demo &rarr;
             </Link>
-            <Link
-              href="/demo"
+            <a
+              href="https://github.com/anshshah2111/anantadata"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-10 py-4 bg-white/5 text-white text-lg font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-amber-400/30 transition-all"
             >
-              Watch the demo
-            </Link>
+              View on GitHub
+            </a>
           </div>
         </motion.div>
       </section>
@@ -658,10 +652,9 @@ export default function LandingPage() {
       {/* ================= FOOTER ================= */}
       <footer className="px-6 py-10 border-t border-white/5">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-gradient-to-br from-amber-400 to-orange-500" />
-            <span className="text-sm font-medium text-gray-400">Roam</span>
-          </div>
+          <span className="text-base font-bold tracking-wide bg-gradient-to-br from-white to-amber-300 bg-clip-text text-transparent">
+            Roam
+          </span>
           <p className="text-xs text-gray-600 text-center">
             A voice-first walking companion. Made for the UW iStartup Launch
             Sprint 2026.
