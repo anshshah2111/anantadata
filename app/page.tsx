@@ -471,6 +471,141 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ================= A DAY IN THE LIFE ================= */}
+      <section className="relative px-6 py-28">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/[0.02] to-transparent pointer-events-none" />
+        <div className="relative max-w-3xl mx-auto">
+          <motion.div
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
+              A Day in the Life
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
+              Morning to night,
+              <br />
+              <span className="text-gray-500">one gentle moment.</span>
+            </h2>
+            <p className="text-gray-400 leading-relaxed max-w-xl mx-auto">
+              Roam doesn&apos;t ask for 30 minutes of your day. It asks for a{" "}
+              <span className="text-white">yes</span> when the light is getting
+              low.
+            </p>
+          </motion.div>
+
+          {/* Vertical timeline */}
+          <div className="relative space-y-0">
+            {/* Connecting line */}
+            <div
+              className="absolute left-6 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-amber-500/20 to-transparent"
+              aria-hidden
+            />
+
+            {[
+              {
+                time: "8:00 AM",
+                icon: "\u2600\ufe0f", // ☀️
+                title: "Wake up",
+                desc: "Same four walls. Phone first, then coffee. You already know how today goes.",
+              },
+              {
+                time: "12:30 PM",
+                icon: "\ud83d\udcbb", // 💻
+                title: "Meetings, Slack, lunch at the desk",
+                desc: "The window is right there. You don't look at it.",
+              },
+              {
+                time: "4:45 PM",
+                icon: "\ud83c\udf2b\ufe0f", // 🌫️
+                title: "Flat",
+                desc: "Not sad. Not mad. Just flat. Couldn't tell you why.",
+              },
+              {
+                time: "5:30 PM",
+                icon: "\ud83d\udfe0", // 🟠
+                title: "Echo says hi",
+                desc: "\u201cHey. Glad you\u2019re out here. Where are we headed today, or are we just walking?\u201d",
+                highlight: true,
+              },
+              {
+                time: "5:52 PM",
+                icon: "\ud83d\udc9b", // 💛
+                title: "A street you\u2019ve never walked",
+                desc: "Echo: \u201cOh \u2014 new street for us. What made you turn here?\u201d The fog lifts.",
+              },
+              {
+                time: "6:15 PM",
+                icon: "\ud83d\uddfa\ufe0f", // 🗺️
+                title: "Back home",
+                desc: "12 new tiles. Streak ticks to 1. Echo: \u201cGood walk. Same time tomorrow?\u201d",
+              },
+              {
+                time: "10:30 PM",
+                icon: "\ud83c\udf19", // 🌙
+                title: "Bed",
+                desc: "You open the app, look at the little glowing line on your map. Tomorrow\u2019s already there.",
+              },
+            ].map((step, i) => (
+              <motion.div
+                key={step.time}
+                initial={{ y: 15 }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="relative flex gap-5 pb-8 last:pb-0"
+              >
+                {/* Icon bubble */}
+                <div
+                  className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 text-xl bg-[#0a0a0a] ${
+                    step.highlight
+                      ? "border-2 border-amber-400/50 shadow-md shadow-amber-500/20"
+                      : "border border-white/10"
+                  }`}
+                >
+                  {step.icon}
+                </div>
+
+                {/* Card */}
+                <div
+                  className={`flex-1 rounded-xl p-4 sm:p-5 ${
+                    step.highlight
+                      ? "bg-gradient-to-br from-amber-500/[0.08] to-transparent border border-amber-500/20"
+                      : "bg-white/[0.02] border border-white/[0.05]"
+                  }`}
+                >
+                  <div
+                    className={`text-[11px] font-mono tracking-wider mb-1.5 ${
+                      step.highlight ? "text-amber-400" : "text-amber-400/50"
+                    }`}
+                  >
+                    {step.time}
+                  </div>
+                  <div className="text-base sm:text-lg font-semibold mb-1.5">
+                    {step.title}
+                  </div>
+                  <div className="text-sm text-gray-400 leading-relaxed">
+                    {step.desc}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ y: 15 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-gray-500 mt-10 text-sm italic"
+          >
+            Two minutes of reason. One tap to say yes. That&apos;s the whole
+            thing.
+          </motion.p>
+        </div>
+      </section>
+
       {/* ================= WHO THIS IS FOR (ICP) ================= */}
       <section className="px-6 py-24 border-y border-white/[0.04] bg-white/[0.015]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
