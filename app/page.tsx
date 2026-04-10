@@ -16,12 +16,20 @@ export default function LandingPage() {
           <div className="w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-orange-500" />
           <span className="text-lg font-semibold tracking-wide">Roam</span>
         </div>
-        <Link
-          href="/app"
-          className="px-5 py-2 bg-amber-500 text-black text-sm font-semibold rounded-full hover:bg-amber-400 transition-colors"
-        >
-          Try it free
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/demo"
+            className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
+          >
+            Watch demo
+          </Link>
+          <Link
+            href="/app"
+            className="px-5 py-2 bg-amber-500 text-black text-sm font-semibold rounded-full hover:bg-amber-400 transition-colors"
+          >
+            Try it free
+          </Link>
+        </div>
       </nav>
 
       {/* Hero */}
@@ -88,10 +96,21 @@ export default function LandingPage() {
             >
               Start walking with Echo
             </Link>
-            <span className="text-sm text-gray-500">
-              No account needed. No download.
-            </span>
+            <Link
+              href="/demo"
+              className="px-8 py-4 bg-white/10 text-white text-lg font-medium rounded-full border border-white/10 hover:bg-white/15 transition-all"
+            >
+              Watch demo
+            </Link>
           </motion.div>
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="mt-4 text-sm text-gray-500"
+          >
+            No account needed. No download.
+          </motion.span>
         </motion.div>
 
         {/* Scroll indicator */}
