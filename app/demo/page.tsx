@@ -13,42 +13,52 @@ const FogMap = dynamic(() => import("@/components/FogMap"), {
   loading: () => <div className="w-full h-full bg-[#0a0a0a]" />,
 });
 
-// A real walking route through UW campus — actual coordinates
+// A real walking route through UW campus — denser coordinates for a 45–55s walk
 const UW_WALK_ROUTE: [number, number][] = [
-  [47.6553, -122.3035], // Start: Red Square
-  [47.6555, -122.3028],
-  [47.6558, -122.302],
-  [47.6561, -122.3012], // Suzzallo Library
-  [47.6564, -122.3004],
-  [47.6567, -122.2996],
-  [47.657, -122.2988], // Allen Library
-  [47.6572, -122.298],
-  [47.657, -122.2972],
-  [47.6567, -122.2965], // Drumheller Fountain
-  [47.6563, -122.2958],
-  [47.6559, -122.2952],
-  [47.6555, -122.2948], // Rainier Vista
-  [47.6551, -122.2944],
-  [47.6547, -122.294],
-  [47.6543, -122.2938], // Near IMA
-  [47.6539, -122.2942],
-  [47.6536, -122.2948],
-  [47.6533, -122.2955],
-  [47.653, -122.2962], // Heading south
-  [47.6528, -122.297],
-  [47.6526, -122.2978],
-  [47.6525, -122.2986],
-  [47.6527, -122.2994], // Turning west
-  [47.653, -122.3002],
-  [47.6533, -122.301],
-  [47.6536, -122.3018],
-  [47.654, -122.3024],
-  [47.6544, -122.3028],
-  [47.6548, -122.3032],
-  [47.6553, -122.3035], // Back to Red Square
+  [47.655, -122.304], // 0  Approaching Red Square
+  [47.6552, -122.3037], // 1
+  [47.6553, -122.3034], // 2  Red Square center
+  [47.6554, -122.3031], // 3
+  [47.6555, -122.3028], // 4  Near Suzzallo steps
+  [47.6557, -122.3024], // 5
+  [47.6559, -122.302], // 6  Suzzallo Library entrance
+  [47.6561, -122.3015], // 7
+  [47.6563, -122.301], // 8
+  [47.6565, -122.3005], // 9
+  [47.6567, -122.3], // 10 Allen Library
+  [47.6569, -122.2994], // 11
+  [47.657, -122.2988], // 12
+  [47.6571, -122.2982], // 13
+  [47.657, -122.2976], // 14
+  [47.6568, -122.297], // 15 Drumheller north edge
+  [47.6565, -122.2966], // 16 Drumheller Fountain
+  [47.6562, -122.2962], // 17
+  [47.6559, -122.2958], // 18
+  [47.6556, -122.2954], // 19 Rainier Vista upper
+  [47.6553, -122.295], // 20
+  [47.655, -122.2946], // 21 Rainier Vista middle
+  [47.6547, -122.2942], // 22
+  [47.6544, -122.2938], // 23 Near IMA
+  [47.6541, -122.294], // 24
+  [47.6538, -122.2944], // 25 Turning back west
+  [47.6535, -122.295], // 26
+  [47.6533, -122.2957], // 27
+  [47.6531, -122.2964], // 28
+  [47.653, -122.2972], // 29
+  [47.6529, -122.298], // 30 Heading back
+  [47.653, -122.2988], // 31
+  [47.6532, -122.2996], // 32
+  [47.6534, -122.3003], // 33
+  [47.6537, -122.301], // 34
+  [47.654, -122.3017], // 35
+  [47.6543, -122.3023], // 36
+  [47.6546, -122.3028], // 37
+  [47.6549, -122.3033], // 38
+  [47.6551, -122.3036], // 39
+  [47.6553, -122.3035], // 40 Back to Red Square
 ];
 
-// Echo conversation beats timed to the walk
+// Echo conversation beats timed to the walk — ~8 beats across 41 steps
 const CONVERSATION_BEATS: {
   triggerStep: number;
   echoState: EchoState;
@@ -62,31 +72,43 @@ const CONVERSATION_BEATS: {
     duration: 4000,
   },
   {
-    triggerStep: 5,
+    triggerStep: 6,
     echoState: "speaking",
     message: "The light's nice right now. You notice that?",
     duration: 3500,
   },
   {
-    triggerStep: 10,
+    triggerStep: 12,
     echoState: "speaking",
     message: "Oh — new street for us. What made you turn here?",
     duration: 3500,
   },
   {
-    triggerStep: 16,
+    triggerStep: 17,
+    echoState: "speaking",
+    message: "The fountain's got this calm to it today. I like sitting in that for a second.",
+    duration: 3800,
+  },
+  {
+    triggerStep: 22,
     echoState: "speaking",
     message: "What's the best thing you ate today?",
     duration: 3000,
   },
   {
-    triggerStep: 22,
+    triggerStep: 28,
     echoState: "speaking",
-    message: "I like this route. Feels different.",
-    duration: 3000,
+    message: "I like this route. Feels different from last time.",
+    duration: 3200,
   },
   {
-    triggerStep: 28,
+    triggerStep: 34,
+    echoState: "speaking",
+    message: "You walk here often, or is this the first time together?",
+    duration: 3500,
+  },
+  {
+    triggerStep: 39,
     echoState: "speaking",
     message: "Good walk. Same time tomorrow?",
     duration: 3500,
@@ -96,9 +118,13 @@ const CONVERSATION_BEATS: {
 // Simulated user responses (typed at module scope so effects don't need it as a dep)
 const USER_RESPONSES: Record<number, string> = {
   0: "Just... clearing my head, I think.",
-  10: "Honestly? I don't know. My feet just went this way.",
-  16: "A really good croissant from that place on the Ave.",
+  12: "Honestly? I don't know. My feet just went this way.",
+  22: "A really good croissant from that place on the Ave.",
+  34: "First time actually. Didn't expect it to feel this quiet.",
 };
+
+// Step interval in ms. 41 steps * 1300ms = ~53 seconds of walking
+const STEP_INTERVAL_MS = 1300;
 
 export default function DemoPage() {
   const [step, setStep] = useState(0);
@@ -177,7 +203,7 @@ export default function DemoPage() {
     setHeatMap({ [tileId]: 1 });
 
     // Start walking
-    intervalRef.current = setInterval(advanceStep, 1200);
+    intervalRef.current = setInterval(advanceStep, STEP_INTERVAL_MS);
   }, [advanceStep]);
 
   useEffect(() => {
