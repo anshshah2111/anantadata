@@ -532,11 +532,22 @@ export default function MapDemo() {
         initial={{ y: 20 }}
         whileInView={{ y: 0 }}
         viewport={{ once: true }}
-        className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0a0a0a]"
-        style={{ height: "clamp(400px, 60vh, 560px)" }}
+        className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0a0a0a] w-full"
+        style={{
+          // Use fixed pixel heights on mobile + svh on desktop to avoid
+          // URL-bar viewport jumps on iOS/Android
+          height: "min(480px, calc(100vw * 0.66))",
+          maxHeight: "520px",
+          minHeight: "360px",
+          // Let vertical page scroll pass through the map on mobile
+          touchAction: "pan-y",
+        }}
       >
-        {/* Map canvas */}
-        <div ref={containerRef} className="absolute inset-0" />
+        {/* Map canvas — pointer-events-none ensures taps/drags don't hijack scrolling */}
+        <div
+          ref={containerRef}
+          className="absolute inset-0 pointer-events-none"
+        />
 
         {/* Bottom fade gradient */}
         <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent pointer-events-none" />
