@@ -132,3 +132,30 @@ body {
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   animation: scroll-bob 2s ease-in-out infinite;
 }
+
+/* Landing page: Day in the Life sequential reveal */
+@keyframes day-step-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.day-step {
+  animation: day-step-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+/* Safety fallback: respect reduced-motion users by showing content
+   immediately without animation */
+@media (prefers-reduced-motion: reduce) {
+  .day-step {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
