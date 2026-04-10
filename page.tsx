@@ -2,7 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import EchoBlob from "@/components/EchoBlob";
+
+const MapDemo = dynamic(() => import("./MapDemo"), { ssr: false });
 
 export default function LandingPage() {
   return (
@@ -172,6 +175,9 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
+
+      {/* Interactive map demo */}
+      <MapDemo />
 
       {/* The emotional pitch */}
       <section className="px-6 py-24">
