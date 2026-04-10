@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { latLngToTileId, tileIdToBounds } from "./tiles";
+import { latLngToTileId, tileIdToBounds } from "@/lib/tiles";
 
 /* ------------------------------------------------------------------ */
 /*  Map style — same dark tiles as FogMap                              */
