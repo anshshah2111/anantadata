@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 :HL["/anantadata/_next/static/chunks/0220~j47sus_~.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"bY-o8gw4o7n8tPEZN8hUw"}
-=======
-:HL["/anantadata/_next/static/chunks/0.~5006icprh8.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"UeHDZDs0qFLBUjRpyC1C0"}
->>>>>>> origin/main
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"NYxi2UPWPSYdg_mn8CKb1"}
