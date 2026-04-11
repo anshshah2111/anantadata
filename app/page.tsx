@@ -485,27 +485,238 @@ export default function LandingPage() {
             <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
               A Day in the Life
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-5">
+            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-8">
               Meet Jordan.
             </h2>
+
+            {/* Jordan crayon-sketch portrait */}
+            <div className="mx-auto mb-8 w-44 h-52 sm:w-52 sm:h-60 relative">
+              <svg
+                viewBox="0 0 280 320"
+                className="w-full h-full"
+                aria-label="Sketch of Jordan slumped at a laptop"
+              >
+                <defs>
+                  {/* Sketchy wobble filter for hand-drawn feel */}
+                  <filter id="jordan-sketch" x="-20%" y="-20%" width="140%" height="140%">
+                    <feTurbulence
+                      type="fractalNoise"
+                      baseFrequency="0.025"
+                      numOctaves="3"
+                      seed="5"
+                    />
+                    <feDisplacementMap in="SourceGraphic" scale="1.4" />
+                  </filter>
+
+                  {/* Soft amber screen glow */}
+                  <radialGradient id="screen-glow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#f4a261" stopOpacity="0.45" />
+                    <stop offset="100%" stopColor="#f4a261" stopOpacity="0" />
+                  </radialGradient>
+                </defs>
+
+                {/* Behind-screen ambient glow */}
+                <ellipse
+                  cx="140"
+                  cy="265"
+                  rx="80"
+                  ry="22"
+                  fill="url(#screen-glow)"
+                />
+
+                {/* All sketchy white strokes */}
+                <g
+                  stroke="#e8e4dc"
+                  strokeWidth="1.5"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  filter="url(#jordan-sketch)"
+                  opacity="0.85"
+                >
+                  {/* Hooded head — slightly tilted down */}
+                  <path
+                    d="M105 80
+                       C 95 72, 92 55, 105 45
+                       C 122 30, 168 30, 182 50
+                       C 192 62, 188 80, 178 88
+                       L 178 130
+                       C 178 142, 105 142, 105 130 Z"
+                  />
+
+                  {/* Hood inner edge / hairline */}
+                  <path d="M115 92 Q 142 102, 168 92" />
+
+                  {/* Tired eyes — closed crescents looking down */}
+                  <path d="M120 108 q 7 4, 14 0" />
+                  <path d="M152 108 q 7 4, 14 0" />
+
+                  {/* Small neutral mouth */}
+                  <path d="M132 124 q 10 -1, 18 0" />
+
+                  {/* Neck */}
+                  <line x1="128" y1="142" x2="128" y2="158" />
+                  <line x1="158" y1="142" x2="158" y2="158" />
+
+                  {/* Slumped hoodie body */}
+                  <path
+                    d="M65 185
+                       Q 105 158, 142 158
+                       Q 178 158, 220 185
+                       L 232 280
+                       Q 142 298, 56 280 Z"
+                  />
+
+                  {/* Arms wrapping toward laptop */}
+                  <path d="M68 188 Q 80 235, 110 258" />
+                  <path d="M218 188 Q 206 235, 178 258" />
+
+                  {/* Hood drawstrings */}
+                  <line x1="130" y1="148" x2="128" y2="175" />
+                  <line x1="156" y1="148" x2="158" y2="175" />
+
+                  {/* Laptop trapezoid (perspective view from front) */}
+                  <path d="M85 258 L 200 258 L 215 295 L 70 295 Z" />
+                  <path d="M97 268 L 188 268 L 198 290 L 88 290 Z" />
+
+                  {/* Floor shadow line */}
+                  <line
+                    x1="40"
+                    y1="305"
+                    x2="245"
+                    y2="305"
+                    strokeDasharray="3 6"
+                    opacity="0.4"
+                  />
+                </g>
+
+                {/* Crisp screen fill (in front of sketchy lines for clarity) */}
+                <path
+                  d="M97 268 L 188 268 L 198 290 L 88 290 Z"
+                  fill="#f4a261"
+                  opacity="0.22"
+                />
+              </svg>
+            </div>
+
             <blockquote className="text-lg sm:text-xl text-gray-300 italic leading-snug max-w-2xl mx-auto mb-6 px-4">
-              &ldquo;Jordan, 29. Knowledge worker. Hybrid, mostly remote.
-              Lives with a partner but mostly alone in front of a laptop. Hasn&apos;t
-              seen friends in person in three weeks. Tried Strava, Peloton, ClassPass
-              &mdash; bounced off all of them. The dominant feeling is flatness.&rdquo;
+              &ldquo;Jordan, 29. Knowledge worker. Hybrid, mostly remote. Lives
+              with a partner but mostly alone in front of a laptop. Hasn&apos;t
+              seen friends in person in three weeks. Tried Strava, Peloton,
+              ClassPass &mdash; bounced off all of them. The dominant feeling
+              is flatness.&rdquo;
             </blockquote>
             <p className="text-gray-500 text-sm">
-              This is Jordan&apos;s Tuesday.
+              This is Jordan&apos;s Tuesday &mdash; growing like a tree, hour
+              by hour.
             </p>
           </motion.div>
 
-          {/* Vertical timeline — sequentially revealed */}
+          {/* Vertical timeline with organic vine connector */}
           <div className="relative mt-12">
-            {/* Connecting gradient line */}
-            <div
-              className="absolute left-6 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-amber-500/30 to-transparent"
+            {/* Organic vine SVG running down the left side */}
+            <svg
+              className="absolute left-3 top-6 w-12 pointer-events-none"
+              style={{ height: "calc(100% - 48px)" }}
+              viewBox="0 0 50 1000"
+              preserveAspectRatio="none"
               aria-hidden
-            />
+            >
+              <defs>
+                <linearGradient
+                  id="vine-gradient"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop offset="0" stopColor="rgba(251, 191, 36, 0)" />
+                  <stop offset="0.08" stopColor="rgba(251, 191, 36, 0.5)" />
+                  <stop offset="0.5" stopColor="rgba(251, 191, 36, 0.7)" />
+                  <stop offset="0.92" stopColor="rgba(251, 191, 36, 0.5)" />
+                  <stop offset="1" stopColor="rgba(251, 191, 36, 0)" />
+                </linearGradient>
+                <filter id="vine-sketch">
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.015"
+                    numOctaves="2"
+                    seed="3"
+                  />
+                  <feDisplacementMap in="SourceGraphic" scale="1.5" />
+                </filter>
+              </defs>
+
+              {/* Main organic vine — curving like a growing branch */}
+              <path
+                d="M25 0
+                   C 35 80, 15 150, 25 230
+                   C 35 310, 15 400, 25 500
+                   C 35 600, 15 700, 25 800
+                   C 35 880, 25 950, 25 1000"
+                stroke="url(#vine-gradient)"
+                strokeWidth="2.5"
+                fill="none"
+                strokeLinecap="round"
+                filter="url(#vine-sketch)"
+              />
+
+              {/* Small branching tendrils at intervals */}
+              <g
+                stroke="rgba(251, 191, 36, 0.18)"
+                strokeWidth="1"
+                fill="none"
+                strokeLinecap="round"
+                filter="url(#vine-sketch)"
+              >
+                <path d="M28 80 q 12 -8, 20 -22" />
+                <path d="M22 200 q -12 -8, -18 -22" />
+                <path d="M28 320 q 12 -8, 20 -20" />
+                <path d="M22 460 q -12 -10, -16 -24" />
+                <path d="M28 600 q 14 -8, 22 -18" />
+                <path d="M22 740 q -10 -10, -14 -24" />
+                <path d="M28 870 q 12 -8, 18 -20" />
+              </g>
+
+              {/* Small leaf shapes scattered along */}
+              <g fill="rgba(251, 191, 36, 0.25)">
+                <ellipse
+                  cx="48"
+                  cy="55"
+                  rx="3.5"
+                  ry="2"
+                  transform="rotate(-30 48 55)"
+                />
+                <ellipse
+                  cx="2"
+                  cy="180"
+                  rx="3.5"
+                  ry="2"
+                  transform="rotate(30 2 180)"
+                />
+                <ellipse
+                  cx="48"
+                  cy="305"
+                  rx="3.5"
+                  ry="2"
+                  transform="rotate(-30 48 305)"
+                />
+                <ellipse
+                  cx="2"
+                  cy="440"
+                  rx="3.5"
+                  ry="2"
+                  transform="rotate(30 2 440)"
+                />
+                <ellipse
+                  cx="48"
+                  cy="585"
+                  rx="3.5"
+                  ry="2"
+                  transform="rotate(-30 48 585)"
+                />
+              </g>
+            </svg>
 
             {[
               {
@@ -524,13 +735,13 @@ export default function LandingPage() {
                 time: "12:30 PM",
                 icon: "\ud83c\udf5c",
                 title: "Delivery lunch at the desk",
-                desc: "Third time this week. Window's right there. Jordan doesn't look at it.",
+                desc: "Third time this week. Window\u2019s right there. Jordan doesn\u2019t look at it.",
               },
               {
                 time: "4:45 PM",
                 icon: "\ud83c\udf2b\ufe0f",
                 title: "The flat feeling",
-                desc: "Not sad. Not mad. Just flat. Jordan couldn't tell you why if you asked.",
+                desc: "Not sad. Not mad. Just flat. Jordan couldn\u2019t tell you why if you asked.",
               },
               {
                 time: "5:30 PM",
