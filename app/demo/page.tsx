@@ -142,6 +142,9 @@ export default function DemoPage() {
         // Feature notification pills based on message content
         const msg = beat.message.toLowerCase();
         if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
+=======
+<<<<<<< HEAD
+        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
           setActiveFeature("Errands");
         } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
@@ -157,6 +160,32 @@ export default function DemoPage() {
           showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
           setActiveFeature("Heat map");
         }
+<<<<<<< HEAD
+=======
+=======
+        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
+>>>>>>> origin/main
+          showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
+          setActiveFeature("Errands");
+        } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
+          showNotification("\uD83D\uDCDD", "Note saved", "#7B68EE");
+          setActiveFeature("Notes");
+        } else if (msg.includes("luna") || msg.includes("dog")) {
+          showNotification("\uD83D\uDC15", "Dog walk mode", "#52B788");
+          setActiveFeature("Dog walk");
+        } else if (msg.includes("priya") || msg.includes("marcus") || msg.includes("group") || msg.includes("overlap")) {
+          showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
+          setActiveFeature("Leaderboard");
+        } else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never")) {
+          showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
+<<<<<<< HEAD
+          setActiveFeature("Heat map");
+        }
+
+=======
+>>>>>>> origin/main
+>>>>>>> origin/main
+>>>>>>> origin/main
 
         const userResp = responses[next];
         if (userResp) {
@@ -436,7 +465,15 @@ export default function DemoPage() {
         ))}
       </div>
 
+<<<<<<< HEAD
       {/* Feature showcase — cycles on top of the feature bar area */}
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
+      {/* Interactive feature bar + expandable previews */}
+>>>>>>> origin/main
       <div className="px-6 pb-3">
         {/* Progress dots showing which feature is active */}
         <div className="flex items-center gap-2 mb-2">
@@ -456,6 +493,7 @@ export default function DemoPage() {
           ))}
         </div>
 
+<<<<<<< HEAD
         {/* Auto-expanding feature card */}
         {activeFeature && (
           <motion.div
@@ -487,6 +525,23 @@ export default function DemoPage() {
 
             {/* Feature-specific visual mockup */}
             <div className="bg-[#0a0a0a]/60 rounded-lg p-3">
+=======
+        {/* Feature preview panels */}
+<<<<<<< HEAD
+        {activeFeature && (
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
+=======
+        <AnimatePresence>
+          {activeFeature && (
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: "auto" }}
+              exit={{ height: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
+>>>>>>> origin/main
+>>>>>>> origin/main
                 {activeFeature === "Group map" && (
                   <div className="flex items-start gap-4">
                     <div className="text-3xl">🗺️</div>
@@ -637,9 +692,35 @@ export default function DemoPage() {
                     </div>
                   </div>
                 )}
+<<<<<<< HEAD
             </div>
           </motion.div>
         )}
+=======
+<<<<<<< HEAD
+          </div>
+        )}
+
+=======
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+=======
+      {/* Feature bar */}
+      <div className="px-6 pb-3 flex flex-wrap items-center gap-2">
+        {persona.features.map((f) => (
+          <span
+            key={f.label}
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/[0.04] border border-white/[0.08] rounded-full text-xs text-gray-400"
+          >
+            <span>{f.icon}</span>
+            {f.label}
+          </span>
+        ))}
+>>>>>>> origin/main
+>>>>>>> origin/main
+>>>>>>> origin/main
       </div>
 
       {/* Main demo area */}
