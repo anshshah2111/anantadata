@@ -42,9 +42,9 @@ interface DemoWalk {
 
 const DEMO_WALKS: DemoWalk[] = [
   {
-    name: "The Quad",
-    subtitle: "Morning stroll through cherry trees",
-    echo: "Good morning! The cherry trees look incredible today.",
+    name: "Morning with Echo",
+    subtitle: "Jordan\u2019s solo walk through the Quad",
+    echo: "Hey. Glad you\u2019re out here. The cherry trees look incredible today.",
     durationMs: 5000,
     path: [
       [47.6563, -122.309],
@@ -66,9 +66,9 @@ const DEMO_WALKS: DemoWalk[] = [
     ],
   },
   {
-    name: "Rainier Vista",
-    subtitle: "Red Square to Drumheller Fountain",
-    echo: "This view of the fountain never gets old.",
+    name: "Dog walk with Luna",
+    subtitle: "Kobe\u2019s morning route with his dog",
+    echo: "Luna\u2019s usual route? 3 tiles left to complete this block.",
     durationMs: 5000,
     path: [
       [47.6561, -122.3094],
@@ -88,9 +88,9 @@ const DEMO_WALKS: DemoWalk[] = [
     ],
   },
   {
-    name: "The Ave",
-    subtitle: "From Burke Museum to University Way",
-    echo: "We\u2019ve covered so much ground. Your campus is really taking shape.",
+    name: "Kobe\u2019s group explore",
+    subtitle: "Priya was here yesterday \u2014 filling in her gaps",
+    echo: "Priya was here yesterday. You\u2019re filling in her gaps. The group map is growing.",
     durationMs: 5000,
     path: [
       [47.6607, -122.3105],
@@ -523,7 +523,8 @@ export default function MapDemo() {
           See it in action
         </h2>
         <p className="text-gray-400 text-lg max-w-xl mx-auto">
-          Three walks on UW campus. Watch the fog lift.
+          From solo walks to dog walks to group exploration. Watch how Roam
+          grows with you.
         </p>
       </motion.div>
 

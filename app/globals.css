@@ -159,3 +159,46 @@ body {
     transform: none;
   }
 }
+
+/* Landing page: chalk SVG "draw itself" animation */
+@keyframes chalk-draw {
+  from {
+    stroke-dashoffset: var(--path-len, 800);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes chalk-glow-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: var(--glow-opacity, 0.22);
+  }
+}
+
+.chalk-path {
+  stroke-dasharray: var(--path-len, 800);
+  stroke-dashoffset: var(--path-len, 800);
+  animation: chalk-draw 1.2s ease-out forwards;
+  animation-delay: var(--draw-delay, 0s);
+}
+
+.chalk-glow {
+  opacity: 0;
+  animation: chalk-glow-in 0.8s ease-out forwards;
+  animation-delay: var(--draw-delay, 1.8s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chalk-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .chalk-glow {
+    animation: none;
+    opacity: var(--glow-opacity, 0.22);
+  }
+}

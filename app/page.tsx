@@ -634,7 +634,7 @@ export default function LandingPage() {
                   fill="url(#screen-glow)"
                 />
 
-                {/* All sketchy white strokes */}
+                {/* Chalk-animated strokes — each path draws itself sequentially */}
                 <g
                   stroke="#e8e4dc"
                   strokeWidth="1.5"
@@ -644,68 +644,51 @@ export default function LandingPage() {
                   filter="url(#jordan-sketch)"
                   opacity="0.85"
                 >
-                  {/* Hooded head — slightly tilted down */}
-                  <path
-                    d="M105 80
-                       C 95 72, 92 55, 105 45
-                       C 122 30, 168 30, 182 50
-                       C 192 62, 188 80, 178 88
-                       L 178 130
-                       C 178 142, 105 142, 105 130 Z"
-                  />
-
-                  {/* Hood inner edge / hairline */}
-                  <path d="M115 92 Q 142 102, 168 92" />
-
-                  {/* Tired eyes — closed crescents looking down */}
-                  <path d="M120 108 q 7 4, 14 0" />
-                  <path d="M152 108 q 7 4, 14 0" />
-
-                  {/* Small neutral mouth */}
-                  <path d="M132 124 q 10 -1, 18 0" />
-
+                  {/* Head */}
+                  <path className="chalk-path" style={{ "--path-len": "600", "--draw-delay": "0s" } as React.CSSProperties}
+                    d="M105 80 C 95 72, 92 55, 105 45 C 122 30, 168 30, 182 50 C 192 62, 188 80, 178 88 L 178 130 C 178 142, 105 142, 105 130 Z" />
+                  {/* Hood inner edge */}
+                  <path className="chalk-path" style={{ "--path-len": "120", "--draw-delay": "0.2s" } as React.CSSProperties}
+                    d="M115 92 Q 142 102, 168 92" />
+                  {/* Eyes */}
+                  <path className="chalk-path" style={{ "--path-len": "30", "--draw-delay": "0.4s" } as React.CSSProperties}
+                    d="M120 108 q 7 4, 14 0" />
+                  <path className="chalk-path" style={{ "--path-len": "30", "--draw-delay": "0.45s" } as React.CSSProperties}
+                    d="M152 108 q 7 4, 14 0" />
+                  {/* Mouth */}
+                  <path className="chalk-path" style={{ "--path-len": "30", "--draw-delay": "0.55s" } as React.CSSProperties}
+                    d="M132 124 q 10 -1, 18 0" />
                   {/* Neck */}
-                  <line x1="128" y1="142" x2="128" y2="158" />
-                  <line x1="158" y1="142" x2="158" y2="158" />
-
-                  {/* Slumped hoodie body */}
-                  <path
-                    d="M65 185
-                       Q 105 158, 142 158
-                       Q 178 158, 220 185
-                       L 232 280
-                       Q 142 298, 56 280 Z"
-                  />
-
-                  {/* Arms wrapping toward laptop */}
-                  <path d="M68 188 Q 80 235, 110 258" />
-                  <path d="M218 188 Q 206 235, 178 258" />
-
-                  {/* Hood drawstrings */}
-                  <line x1="130" y1="148" x2="128" y2="175" />
-                  <line x1="156" y1="148" x2="158" y2="175" />
-
-                  {/* Laptop trapezoid (perspective view from front) */}
-                  <path d="M85 258 L 200 258 L 215 295 L 70 295 Z" />
-                  <path d="M97 268 L 188 268 L 198 290 L 88 290 Z" />
-
-                  {/* Floor shadow line */}
-                  <line
-                    x1="40"
-                    y1="305"
-                    x2="245"
-                    y2="305"
-                    strokeDasharray="3 6"
-                    opacity="0.4"
-                  />
+                  <line className="chalk-path" style={{ "--path-len": "20", "--draw-delay": "0.65s" } as React.CSSProperties}
+                    x1="128" y1="142" x2="128" y2="158" />
+                  <line className="chalk-path" style={{ "--path-len": "20", "--draw-delay": "0.7s" } as React.CSSProperties}
+                    x1="158" y1="142" x2="158" y2="158" />
+                  {/* Body */}
+                  <path className="chalk-path" style={{ "--path-len": "700", "--draw-delay": "0.8s" } as React.CSSProperties}
+                    d="M65 185 Q 105 158, 142 158 Q 178 158, 220 185 L 232 280 Q 142 298, 56 280 Z" />
+                  {/* Arms */}
+                  <path className="chalk-path" style={{ "--path-len": "150", "--draw-delay": "1.0s" } as React.CSSProperties}
+                    d="M68 188 Q 80 235, 110 258" />
+                  <path className="chalk-path" style={{ "--path-len": "150", "--draw-delay": "1.05s" } as React.CSSProperties}
+                    d="M218 188 Q 206 235, 178 258" />
+                  {/* Drawstrings */}
+                  <line className="chalk-path" style={{ "--path-len": "30", "--draw-delay": "1.15s" } as React.CSSProperties}
+                    x1="130" y1="148" x2="128" y2="175" />
+                  <line className="chalk-path" style={{ "--path-len": "30", "--draw-delay": "1.2s" } as React.CSSProperties}
+                    x1="156" y1="148" x2="158" y2="175" />
+                  {/* Laptop */}
+                  <path className="chalk-path" style={{ "--path-len": "500", "--draw-delay": "1.3s" } as React.CSSProperties}
+                    d="M85 258 L 200 258 L 215 295 L 70 295 Z" />
+                  <path className="chalk-path" style={{ "--path-len": "350", "--draw-delay": "1.4s" } as React.CSSProperties}
+                    d="M97 268 L 188 268 L 198 290 L 88 290 Z" />
+                  {/* Floor */}
+                  <line className="chalk-path" style={{ "--path-len": "210", "--draw-delay": "1.55s" } as React.CSSProperties}
+                    x1="40" y1="305" x2="245" y2="305" opacity="0.4" />
                 </g>
 
-                {/* Crisp screen fill (in front of sketchy lines for clarity) */}
-                <path
-                  d="M97 268 L 188 268 L 198 290 L 88 290 Z"
-                  fill="#f4a261"
-                  opacity="0.22"
-                />
+                {/* Screen glow fades in after drawing completes */}
+                <path className="chalk-glow" style={{ "--glow-opacity": "0.22", "--draw-delay": "1.8s" } as React.CSSProperties}
+                  d="M97 268 L 188 268 L 198 290 L 88 290 Z" fill="#f4a261" />
               </svg>
             </div>
 
@@ -982,6 +965,55 @@ export default function LandingPage() {
                   filter="url(#kobe-sketch)"
                   opacity="0.85"
                 >
+<<<<<<< HEAD
+                  {/* Head */}
+                  <circle className="chalk-path" style={{ "--path-len": "200", "--draw-delay": "0s" } as React.CSSProperties}
+                    cx="140" cy="55" r="30" />
+                  {/* Hair / cap */}
+                  <path className="chalk-path" style={{ "--path-len": "120", "--draw-delay": "0.2s" } as React.CSSProperties}
+                    d="M112 50 C 112 30, 170 30, 170 50" />
+                  {/* Eyes */}
+                  <circle className="chalk-path" style={{ "--path-len": "16", "--draw-delay": "0.4s" } as React.CSSProperties}
+                    cx="128" cy="52" r="2.5" />
+                  <circle className="chalk-path" style={{ "--path-len": "16", "--draw-delay": "0.45s" } as React.CSSProperties}
+                    cx="152" cy="52" r="2.5" />
+                  {/* Smile */}
+                  <path className="chalk-path" style={{ "--path-len": "30", "--draw-delay": "0.55s" } as React.CSSProperties}
+                    d="M133 66 q 7 5, 14 0" />
+                  {/* Neck */}
+                  <line className="chalk-path" style={{ "--path-len": "20", "--draw-delay": "0.65s" } as React.CSSProperties}
+                    x1="135" y1="85" x2="135" y2="100" />
+                  <line className="chalk-path" style={{ "--path-len": "20", "--draw-delay": "0.7s" } as React.CSSProperties}
+                    x1="148" y1="85" x2="148" y2="100" />
+                  {/* Body */}
+                  <path className="chalk-path" style={{ "--path-len": "700", "--draw-delay": "0.8s" } as React.CSSProperties}
+                    d="M90 120 Q 140 100, 190 120 L 195 260 Q 140 275, 85 260 Z" />
+                  {/* Jacket collar */}
+                  <path className="chalk-path" style={{ "--path-len": "80", "--draw-delay": "1.0s" } as React.CSSProperties}
+                    d="M115 108 L 140 120 L 165 108" />
+                  {/* Left arm */}
+                  <path className="chalk-path" style={{ "--path-len": "130", "--draw-delay": "1.1s" } as React.CSSProperties}
+                    d="M90 130 Q 75 180, 80 235" />
+                  {/* Right arm */}
+                  <path className="chalk-path" style={{ "--path-len": "100", "--draw-delay": "1.15s" } as React.CSSProperties}
+                    d="M190 130 Q 205 160, 210 180" />
+                  {/* Phone */}
+                  <rect className="chalk-path" style={{ "--path-len": "150", "--draw-delay": "1.3s" } as React.CSSProperties}
+                    x="195" y="172" width="28" height="45" rx="3" />
+                  {/* Legs */}
+                  <line className="chalk-path" style={{ "--path-len": "55", "--draw-delay": "1.4s" } as React.CSSProperties}
+                    x1="120" y1="260" x2="115" y2="310" />
+                  <line className="chalk-path" style={{ "--path-len": "55", "--draw-delay": "1.45s" } as React.CSSProperties}
+                    x1="160" y1="260" x2="165" y2="310" />
+                  {/* Ground */}
+                  <line className="chalk-path" style={{ "--path-len": "170", "--draw-delay": "1.55s" } as React.CSSProperties}
+                    x1="60" y1="312" x2="225" y2="312" opacity="0.4" />
+                </g>
+
+                {/* Phone screen glow fades in after drawing */}
+                <rect className="chalk-glow" style={{ "--glow-opacity": "0.2", "--draw-delay": "1.8s" } as React.CSSProperties}
+                  x="198" y="178" width="22" height="34" fill="#7B68EE" rx="1" />
+=======
                   {/* Head — upright, looking forward */}
                   <circle cx="140" cy="55" r="30" />
 
@@ -1024,6 +1056,7 @@ export default function LandingPage() {
 
                 {/* Phone screen — tiny map glow */}
                 <rect x="198" y="178" width="22" height="34" fill="#7B68EE" opacity="0.2" rx="1" />
+>>>>>>> origin/main
               </svg>
             </div>
 
@@ -1086,7 +1119,17 @@ export default function LandingPage() {
                 highlight: true,
               },
               {
+<<<<<<< HEAD
+                time: "Wed 7 AM",
+                icon: "\uD83D\uDC15",
+                title: "Dog walk with Luna",
+                desc: "Kobe takes Luna around the block. Echo: \u201cLuna\u2019s usual route? 2 new tiles if you go one block further.\u201d Errand reminder pops: \u201cMilk \u2014 Fred Meyer is 3 blocks east.\u201d",
+              },
+              {
+                time: "Wed PM",
+=======
                 time: "Wed",
+>>>>>>> origin/main
                 icon: "\uD83D\uDC9C",
                 title: "Priya walked Broadway",
                 desc: "Kobe opens the app \u2014 Priya\u2019s tiles overlap his at Cal Anderson. The park glows warmer. She found a coffee shop he missed.",
@@ -1098,10 +1141,23 @@ export default function LandingPage() {
                 desc: "Triple overlap at the corridor. The leaderboard updates: Kobe 18, Priya 15, Marcus 12. Kobe\u2019s winning \u2014 for now.",
               },
               {
+<<<<<<< HEAD
+                time: "Thu 10 PM",
+                icon: "\uD83D\uDCCA",
+                title: "Walk history review",
+                desc: "Kobe opens the app before bed. This week: 4 walks, 52 tiles, 3.2 miles. Echo saved 2 notes and completed 1 errand. The map looks like a neural network growing.",
+              },
+              {
+                time: "Fri 6 PM",
+                icon: "\uD83C\uDF1F",
+                title: "The group heat map glows",
+                desc: "52 tiles between three people in one week. 2 notes saved, 1 errand done, 1 dog walked. The map looks like a constellation. Kobe knows Capitol Hill now \u2014 not like a tourist.",
+=======
                 time: "Fri 6 PM",
                 icon: "\uD83C\uDF1F",
                 title: "The group heat map glows",
                 desc: "45 tiles between three people in one week. The map looks like a constellation. Kobe knows Capitol Hill now \u2014 not like a tourist.",
+>>>>>>> origin/main
               },
             ].map((step, i) => (
               <div
@@ -1145,11 +1201,39 @@ export default function LandingPage() {
             ))}
           </div>
 
+<<<<<<< HEAD
+          {/* Social feature highlights grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-12">
+            {[
+              { icon: "\uD83D\uDC15", title: "Dog Walk Mode", desc: "Luna knows the route. Echo knows the tiles." },
+              { icon: "\uD83D\uDCDD", title: "Walk Notes", desc: "Thoughts saved by voice while you walk." },
+              { icon: "\uD83D\uDCCA", title: "Walk History", desc: "4 walks, 52 tiles, 3.2 mi this week. Every step logged." },
+              { icon: "\uD83D\uDED2", title: "Errand Runner", desc: "Milk reminder at Fred Meyer, 3 blocks east." },
+              { icon: "\uD83D\uDC65", title: "Group Map", desc: "3 friends, 1 shared map, 52 tiles." },
+              { icon: "\uD83C\uDFC6", title: "Leaderboard", desc: "Kobe: 18, Priya: 15, Marcus: 12. Who\u2019s next?" },
+            ].map((f) => (
+              <div
+                key={f.title}
+                className="bg-white/[0.02] border border-violet-500/10 rounded-xl p-4 text-center hover:border-violet-400/25 transition-colors"
+              >
+                <div className="text-2xl mb-2">{f.icon}</div>
+                <div className="text-sm font-semibold mb-1">{f.title}</div>
+                <div className="text-[11px] text-gray-500 leading-snug">{f.desc}</div>
+              </div>
+            ))}
+          </div>
+
+=======
+>>>>>>> origin/main
           <motion.p
             initial={{ y: 15 }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
+<<<<<<< HEAD
+            className="text-center text-gray-500 mt-10 text-sm italic"
+=======
             className="text-center text-gray-500 mt-12 text-sm italic"
+>>>>>>> origin/main
           >
             One app. Two stories. Same city, different reasons to walk it.
           </motion.p>
