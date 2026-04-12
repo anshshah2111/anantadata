@@ -141,6 +141,7 @@ export default function DemoPage() {
 
         // Feature notification pills based on message content
         const msg = beat.message.toLowerCase();
+<<<<<<< HEAD
         if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
           setActiveFeature("Errands");
@@ -157,6 +158,18 @@ export default function DemoPage() {
           showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
           setActiveFeature("Heat map");
         }
+=======
+        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
+          showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
+        else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering"))
+          showNotification("\uD83D\uDCDD", "Note saved", "#7B68EE");
+        else if (msg.includes("luna") || msg.includes("dog"))
+          showNotification("\uD83D\uDC15", "Dog walk mode", "#52B788");
+        else if (msg.includes("priya") || msg.includes("marcus") || msg.includes("group") || msg.includes("overlap"))
+          showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
+        else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never"))
+          showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
+>>>>>>> origin/main
 
         const userResp = responses[next];
         if (userResp) {
@@ -402,6 +415,7 @@ export default function DemoPage() {
         ))}
       </div>
 
+<<<<<<< HEAD
       {/* Interactive feature bar + expandable previews */}
       <div className="px-6 pb-3">
         <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -589,6 +603,19 @@ export default function DemoPage() {
             </motion.div>
           )}
         </AnimatePresence>
+=======
+      {/* Feature bar */}
+      <div className="px-6 pb-3 flex flex-wrap items-center gap-2">
+        {persona.features.map((f) => (
+          <span
+            key={f.label}
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/[0.04] border border-white/[0.08] rounded-full text-xs text-gray-400"
+          >
+            <span>{f.icon}</span>
+            {f.label}
+          </span>
+        ))}
+>>>>>>> origin/main
       </div>
 
       {/* Main demo area */}
