@@ -52,6 +52,26 @@ export default function DemoPage() {
   const [groupMap, setGroupMap] = useState<Record<string, number>>({});
   const groupAbortRef = useRef(false);
 
+  /* ---------- Feature notification pills ---------- */
+  const [activeNotification, setActiveNotification] = useState<{
+    icon: string;
+    text: string;
+    color: string;
+  } | null>(null);
+  const notifTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showNotification = useCallback(
+    (icon: string, text: string, color = "#F4A261", durationMs = 3500) => {
+      if (notifTimeout.current) clearTimeout(notifTimeout.current);
+      setActiveNotification({ icon, text, color });
+      notifTimeout.current = setTimeout(
+        () => setActiveNotification(null),
+        durationMs
+      );
+    },
+    []
+  );
+
   /* ---------- Shared helpers ---------- */
 
   const clearInterval_ = useCallback(() => {
@@ -117,6 +137,19 @@ export default function DemoPage() {
         setEchoState(beat.echoState);
         setEchoMessage(beat.message);
         setChatHistory((h) => [...h, { sender: "echo", text: beat.message }]);
+
+        // Feature notification pills based on message content
+        const msg = beat.message.toLowerCase();
+        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
+          showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
+        else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering"))
+          showNotification("\uD83D\uDCDD", "Note saved", "#7B68EE");
+        else if (msg.includes("luna") || msg.includes("dog"))
+          showNotification("\uD83D\uDC15", "Dog walk mode", "#52B788");
+        else if (msg.includes("priya") || msg.includes("marcus") || msg.includes("group") || msg.includes("overlap"))
+          showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
+        else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never"))
+          showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
 
         const userResp = responses[next];
         if (userResp) {
@@ -221,6 +254,12 @@ export default function DemoPage() {
               ...h,
               { sender: "echo", text: beat.message },
             ]);
+            // Feature notification
+            const msg = beat.message.toLowerCase();
+            if (msg.includes("overlap") || msg.includes("triple"))
+              showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
+            else if (msg.includes("tile") || msg.includes("light"))
+              showNotification("\uD83C\uDF1F", "New tiles revealed", "#F4A261");
             setTimeout(() => {
               setEchoState("idle");
               setEchoMessage("");
@@ -356,6 +395,19 @@ export default function DemoPage() {
         ))}
       </div>
 
+      {/* Feature bar */}
+      <div className="px-6 pb-3 flex flex-wrap items-center gap-2">
+        {persona.features.map((f) => (
+          <span
+            key={f.label}
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/[0.04] border border-white/[0.08] rounded-full text-xs text-gray-400"
+          >
+            <span>{f.icon}</span>
+            {f.label}
+          </span>
+        ))}
+      </div>
+
       {/* Main demo area */}
       <div className="px-4 pb-8">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr,380px] gap-4 min-h-[500px] lg:h-[calc(100vh-140px)]">
@@ -423,6 +475,31 @@ export default function DemoPage() {
                 />
               </div>
             )}
+
+            {/* Floating feature notification pill */}
+            <AnimatePresence>
+              {activeNotification && (
+                <motion.div
+                  initial={{ y: -20, scale: 0.8 }}
+                  animate={{ y: 0, scale: 1 }}
+                  exit={{ y: -20, scale: 0.8 }}
+                  className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md border shadow-lg"
+                  style={{
+                    backgroundColor: `${activeNotification.color}15`,
+                    borderColor: `${activeNotification.color}40`,
+                    boxShadow: `0 4px 20px ${activeNotification.color}25`,
+                  }}
+                >
+                  <span className="text-lg">{activeNotification.icon}</span>
+                  <span
+                    className="text-sm font-medium"
+                    style={{ color: activeNotification.color }}
+                  >
+                    {activeNotification.text}
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Location label */}
             <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs text-gray-300 flex items-center gap-2">
