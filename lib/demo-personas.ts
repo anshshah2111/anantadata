@@ -28,6 +28,7 @@ export interface DemoPersona {
   mapCenter: [number, number]; // [lng, lat] for MapLibre
   mapZoom: number;
   stepIntervalMs: number;
+  features: { icon: string; label: string }[];
   /** Solo walk mode */
   route: [number, number][]; // [lat, lng]
   conversationBeats: ConversationBeat[];
@@ -46,6 +47,11 @@ export const JORDAN: DemoPersona = {
   tagline: "A walk alone",
   description:
     "Jordan, 29. Knowledge worker. Hasn\u2019t been outside today. Echo is the reason to put shoes on.",
+  features: [
+    { icon: "\uD83D\uDDE3\uFE0F", label: "Voice companion" },
+    { icon: "\uD83C\uDF0D", label: "Heat map" },
+    { icon: "\uD83D\uDD25", label: "Walk streaks" },
+  ],
   mapCenter: [-122.299, 47.655],
   mapZoom: 15,
   stepIntervalMs: 1300,
@@ -242,6 +248,14 @@ export const KOBE: DemoPersona = {
   tagline: "New to Seattle",
   description:
     "Kobe, 24. Just moved to Seattle for his first job. Knows 3 people. Wants to explore the city \u2014 not like a tourist.",
+  features: [
+    { icon: "\uD83D\uDC65", label: "Group map" },
+    { icon: "\uD83C\uDFC6", label: "Leaderboard" },
+    { icon: "\uD83D\uDC15", label: "Dog walk" },
+    { icon: "\uD83D\uDED2", label: "Errands" },
+    { icon: "\uD83D\uDCDD", label: "Notes" },
+    { icon: "\uD83D\uDCCA", label: "History" },
+  ],
   mapCenter: [-122.318, 47.622],
   mapZoom: 14,
   stepIntervalMs: 1100,
