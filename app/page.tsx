@@ -965,7 +965,6 @@ export default function LandingPage() {
                   filter="url(#kobe-sketch)"
                   opacity="0.85"
                 >
-<<<<<<< HEAD
                   {/* Head */}
                   <circle className="chalk-path" style={{ "--path-len": "200", "--draw-delay": "0s" } as React.CSSProperties}
                     cx="140" cy="55" r="30" />
@@ -1013,50 +1012,7 @@ export default function LandingPage() {
                 {/* Phone screen glow fades in after drawing */}
                 <rect className="chalk-glow" style={{ "--glow-opacity": "0.2", "--draw-delay": "1.8s" } as React.CSSProperties}
                   x="198" y="178" width="22" height="34" fill="#7B68EE" rx="1" />
-=======
-                  {/* Head — upright, looking forward */}
-                  <circle cx="140" cy="55" r="30" />
 
-                  {/* Hair / cap */}
-                  <path d="M112 50 C 112 30, 170 30, 170 50" />
-
-                  {/* Eyes — open, looking outward */}
-                  <circle cx="128" cy="52" r="2.5" />
-                  <circle cx="152" cy="52" r="2.5" />
-
-                  {/* Small smile */}
-                  <path d="M133 66 q 7 5, 14 0" />
-
-                  {/* Neck */}
-                  <line x1="135" y1="85" x2="135" y2="100" />
-                  <line x1="148" y1="85" x2="148" y2="100" />
-
-                  {/* Body — upright, slightly turned */}
-                  <path d="M90 120 Q 140 100, 190 120 L 195 260 Q 140 275, 85 260 Z" />
-
-                  {/* Jacket collar */}
-                  <path d="M115 108 L 140 120 L 165 108" />
-
-                  {/* Left arm — at side */}
-                  <path d="M90 130 Q 75 180, 80 235" />
-
-                  {/* Right arm — holding phone out */}
-                  <path d="M190 130 Q 205 160, 210 180" />
-
-                  {/* Phone */}
-                  <rect x="195" y="172" width="28" height="45" rx="3" />
-
-                  {/* Legs */}
-                  <line x1="120" y1="260" x2="115" y2="310" />
-                  <line x1="160" y1="260" x2="165" y2="310" />
-
-                  {/* Ground */}
-                  <line x1="60" y1="312" x2="225" y2="312" strokeDasharray="3 6" opacity="0.4" />
-                </g>
-
-                {/* Phone screen — tiny map glow */}
-                <rect x="198" y="178" width="22" height="34" fill="#7B68EE" opacity="0.2" rx="1" />
->>>>>>> origin/main
               </svg>
             </div>
 
@@ -1119,7 +1075,6 @@ export default function LandingPage() {
                 highlight: true,
               },
               {
-<<<<<<< HEAD
                 time: "Wed 7 AM",
                 icon: "\uD83D\uDC15",
                 title: "Dog walk with Luna",
@@ -1127,9 +1082,7 @@ export default function LandingPage() {
               },
               {
                 time: "Wed PM",
-=======
-                time: "Wed",
->>>>>>> origin/main
+
                 icon: "\uD83D\uDC9C",
                 title: "Priya walked Broadway",
                 desc: "Kobe opens the app \u2014 Priya\u2019s tiles overlap his at Cal Anderson. The park glows warmer. She found a coffee shop he missed.",
@@ -1141,7 +1094,6 @@ export default function LandingPage() {
                 desc: "Triple overlap at the corridor. The leaderboard updates: Kobe 18, Priya 15, Marcus 12. Kobe\u2019s winning \u2014 for now.",
               },
               {
-<<<<<<< HEAD
                 time: "Thu 10 PM",
                 icon: "\uD83D\uDCCA",
                 title: "Walk history review",
@@ -1152,12 +1104,7 @@ export default function LandingPage() {
                 icon: "\uD83C\uDF1F",
                 title: "The group heat map glows",
                 desc: "52 tiles between three people in one week. 2 notes saved, 1 errand done, 1 dog walked. The map looks like a constellation. Kobe knows Capitol Hill now \u2014 not like a tourist.",
-=======
-                time: "Fri 6 PM",
-                icon: "\uD83C\uDF1F",
-                title: "The group heat map glows",
-                desc: "45 tiles between three people in one week. The map looks like a constellation. Kobe knows Capitol Hill now \u2014 not like a tourist.",
->>>>>>> origin/main
+
               },
             ].map((step, i) => (
               <div
@@ -1201,7 +1148,6 @@ export default function LandingPage() {
             ))}
           </div>
 
-<<<<<<< HEAD
           {/* Social feature highlights grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-12">
             {[
@@ -1223,17 +1169,13 @@ export default function LandingPage() {
             ))}
           </div>
 
-=======
->>>>>>> origin/main
+
           <motion.p
             initial={{ y: 15 }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
-<<<<<<< HEAD
             className="text-center text-gray-500 mt-10 text-sm italic"
-=======
-            className="text-center text-gray-500 mt-12 text-sm italic"
->>>>>>> origin/main
+
           >
             One app. Two stories. Same city, different reasons to walk it.
           </motion.p>
