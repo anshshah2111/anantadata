@@ -25,6 +25,9 @@ export default function LandingPage() {
           <a href="#features" className="hover:text-amber-400 transition-colors">
             Features
           </a>
+          <a href="#groups" className="hover:text-amber-400 transition-colors">
+            Groups
+          </a>
           <a href="#map" className="hover:text-amber-400 transition-colors">
             The Map
           </a>
@@ -91,12 +94,13 @@ export default function LandingPage() {
 
           {/* Tagline */}
           <p className="text-lg sm:text-xl text-gray-400 max-w-xl mb-3 leading-relaxed">
-            A voice-first walking companion for overworked adults who feel
-            stuck inside. Open the app, meet Echo, and rediscover your city.
+            The social walking app. A voice companion for introverts who need a
+            friend in their ear &mdash; and a group heat map for extroverts who
+            want to explore with theirs.
           </p>
 
           <p className="text-sm text-gray-500 mb-10">
-            Not a fitness app. Not a meditation app. A friend on a walk.
+            Not a fitness app. Not a meditation app. A new way to know your city.
           </p>
 
           {/* CTA row */}
@@ -110,13 +114,13 @@ export default function LandingPage() {
               href="/demo"
               className="px-8 py-4 bg-amber-500 text-black text-lg font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 hover:shadow-amber-400/30 transition-all"
             >
-              Try the demo &rarr;
+              Watch the demo &rarr;
             </Link>
             <a
-              href="#echo"
+              href="#groups"
               className="px-8 py-4 bg-white/5 text-white text-lg font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-amber-400/30 transition-all"
             >
-              Meet Echo
+              See group mode
             </a>
           </motion.div>
           <span className="mt-4 text-sm text-gray-500">
@@ -143,20 +147,21 @@ export default function LandingPage() {
               The Problem
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-6">
-              You know you should go outside.
+              Alone indoors.
               <br />
-              <span className="text-gray-500">You just... don&apos;t.</span>
+              <span className="text-gray-500">
+                New in town, nobody to roam with.
+              </span>
             </h2>
             <p className="text-gray-400 leading-relaxed mb-4">
-              You have a job, a long to-do list, and not enough time. You
-              haven&apos;t seen friends in person in over a month. You tried
-              Strava, Peloton, ClassPass &mdash; bounced off all of them
-              because they felt like another item on the to-do list.
+              Maybe you&apos;re stuck at a desk, haven&apos;t left the apartment in
+              days. Maybe you just moved to a new city and don&apos;t know anyone
+              yet. Either way: screens won, the door stayed closed, and every
+              fitness app felt like another chore.
             </p>
             <p className="text-gray-400 leading-relaxed">
-              The dominant feeling is flatness. Not clinical, but real. You
-              don&apos;t want a fitness app. You want a reason to go outside
-              that feels like play.
+              Roam is for both. A voice in your ear when you&apos;re solo, and
+              a shared heat map when your friends want to explore together.
             </p>
           </motion.div>
 
@@ -169,9 +174,9 @@ export default function LandingPage() {
           >
             {[
               { num: "73%", label: "of adults feel lonely regularly" },
-              { num: "8h+", label: "average daily screen time" },
-              { num: "60%", label: "bounce off fitness apps in 30 days" },
-              { num: "0", label: "apps that put a friend in your ear on a walk" },
+              { num: "1 in 5", label: "Americans move cities every 5 years" },
+              { num: "4 mo.", label: "avg. time to form a social circle in a new city" },
+              { num: "0", label: "apps that put a friend in your ear AND a group on your map" },
             ].map((s) => (
               <div
                 key={s.num}
@@ -330,14 +335,26 @@ export default function LandingPage() {
             {
               emoji: "\uD83D\uDDE3\uFE0F",
               title: "Echo Voice Companion",
-              desc: "Real conversational AI via Groq + Llama 3.3 70B. Echo speaks out loud through your phone speaker while you walk.",
+              desc: "Real conversational AI. Echo speaks out loud through your phone speaker while you walk. A friend, not a coach.",
               tag: "Non-negotiable",
             },
             {
               emoji: "\uD83C\uDF0D",
               title: "Living Heat Map",
-              desc: "Streets you discover clear from fog. Streets you walk again deepen from cool greens to warm golds.",
+              desc: "Streets you discover clear from fog. Streets you walk again deepen from cool greens to warm golds. Your city, remembered.",
               tag: "Non-negotiable",
+            },
+            {
+              emoji: "\uD83D\uDC65",
+              title: "Group Heat Map",
+              desc: "Explore with friends. See who walked where. Tiles deepen as more people visit. A shared portrait of your group\u2019s city.",
+              tag: "Non-negotiable",
+            },
+            {
+              emoji: "\uD83C\uDFC6",
+              title: "Social Leaderboard",
+              desc: "Who discovered the most new tiles? Who found the hidden park? Friendly competition that makes you want to go further.",
+              tag: "Tier 1",
             },
             {
               emoji: "\uD83D\uDFE0",
@@ -348,7 +365,7 @@ export default function LandingPage() {
             {
               emoji: "\uD83D\uDCCD",
               title: "Live GPS Walk Tracking",
-              desc: "Real-time position tracking with 30-second tile debounce. Watch the map come alive beneath your feet.",
+              desc: "Real-time position tracking. Watch the map come alive beneath your feet as you walk.",
               tag: "Tier 1",
             },
             {
@@ -358,9 +375,21 @@ export default function LandingPage() {
               tag: "Tier 1",
             },
             {
+              emoji: "\uD83D\uDCDD",
+              title: "Echo Notes",
+              desc: "Say something worth remembering while you walk. Echo captures it. Review your thoughts later, organized by walk.",
+              tag: "Coming next",
+            },
+            {
+              emoji: "\uD83D\uDED2",
+              title: "Errand Assistant",
+              desc: "\u201cRemind me to grab milk.\u201d Echo knows the route. It\u2019ll remind you when you pass the store.",
+              tag: "Coming next",
+            },
+            {
               emoji: "\uD83D\uDCF1",
               title: "60-Second Onboarding",
-              desc: "Three swipeable screens. No signup, no login, no password. Anonymous ID and you\u2019re walking in a minute.",
+              desc: "No signup, no login, no password. Scan a code to join a group, or walk solo in under a minute.",
               tag: "Tier 1",
             },
           ].map((f, i) => (
@@ -384,6 +413,87 @@ export default function LandingPage() {
               </span>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* ================= GROUPS ================= */}
+      <section
+        id="groups"
+        className="px-6 py-24 border-y border-white/[0.04] bg-white/[0.015]"
+      >
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
+              Group Exploration
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-5">
+              Roam together,
+              <br />
+              <span className="text-gray-500">not alone.</span>
+            </h2>
+            <p className="text-gray-400 max-w-xl mx-auto leading-relaxed">
+              Scan a code. Join a group. Every walk you take adds to the
+              shared heat map. See where your friends have been, discover what
+              they found, and fill in the tiles they missed.
+            </p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                icon: "\uD83D\uDDFA\uFE0F",
+                title: "Shared Heat Map",
+                desc: "One map, many walkers. Tiles deepen from lavender to gold as more people visit. Hotspots glow where everyone congregates.",
+              },
+              {
+                icon: "\u2B50",
+                title: "Unique Tile Credit",
+                desc: "Discovered a street nobody else has walked? It\u2019s yours. The leaderboard tracks who found what first.",
+              },
+              {
+                icon: "\uD83D\uDD25",
+                title: "Group Streaks",
+                desc: "As long as one person in the group walks today, the streak lives. Social accountability without the guilt.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-gradient-to-br from-amber-500/[0.06] to-transparent border border-amber-500/15 rounded-2xl p-7"
+              >
+                <div className="text-3xl mb-4">{item.icon}</div>
+                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ y: 15 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-10"
+          >
+            <Link
+              href="/demo"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 text-black text-sm font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 transition-all"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Watch Kobe&apos;s group walk
+            </Link>
+          </motion.div>
         </div>
       </section>
 
@@ -825,6 +935,227 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ================= MEET KOBE ================= */}
+      <section className="relative px-6 py-28">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/[0.02] to-transparent pointer-events-none" />
+        <div className="relative max-w-3xl mx-auto">
+          <motion.div
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <div className="text-xs uppercase tracking-[0.2em] text-violet-400 mb-4">
+              The Other Side
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-8">
+              Meet Kobe.
+            </h2>
+
+            {/* Kobe sketch portrait — standing with phone + map, looking outward */}
+            <div className="mx-auto mb-8 w-44 h-52 sm:w-52 sm:h-60 relative">
+              <svg
+                viewBox="0 0 280 320"
+                className="w-full h-full"
+                aria-label="Sketch of Kobe standing with a phone, looking outward"
+              >
+                <defs>
+                  <filter id="kobe-sketch" x="-20%" y="-20%" width="140%" height="140%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="9" />
+                    <feDisplacementMap in="SourceGraphic" scale="1.4" />
+                  </filter>
+                  <radialGradient id="kobe-glow" cx="50%" cy="80%" r="50%">
+                    <stop offset="0%" stopColor="#7B68EE" stopOpacity="0.35" />
+                    <stop offset="100%" stopColor="#7B68EE" stopOpacity="0" />
+                  </radialGradient>
+                </defs>
+
+                {/* Map glow from phone */}
+                <ellipse cx="200" cy="190" rx="55" ry="20" fill="url(#kobe-glow)" />
+
+                <g
+                  stroke="#e8e4dc"
+                  strokeWidth="1.5"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  filter="url(#kobe-sketch)"
+                  opacity="0.85"
+                >
+                  {/* Head — upright, looking forward */}
+                  <circle cx="140" cy="55" r="30" />
+
+                  {/* Hair / cap */}
+                  <path d="M112 50 C 112 30, 170 30, 170 50" />
+
+                  {/* Eyes — open, looking outward */}
+                  <circle cx="128" cy="52" r="2.5" />
+                  <circle cx="152" cy="52" r="2.5" />
+
+                  {/* Small smile */}
+                  <path d="M133 66 q 7 5, 14 0" />
+
+                  {/* Neck */}
+                  <line x1="135" y1="85" x2="135" y2="100" />
+                  <line x1="148" y1="85" x2="148" y2="100" />
+
+                  {/* Body — upright, slightly turned */}
+                  <path d="M90 120 Q 140 100, 190 120 L 195 260 Q 140 275, 85 260 Z" />
+
+                  {/* Jacket collar */}
+                  <path d="M115 108 L 140 120 L 165 108" />
+
+                  {/* Left arm — at side */}
+                  <path d="M90 130 Q 75 180, 80 235" />
+
+                  {/* Right arm — holding phone out */}
+                  <path d="M190 130 Q 205 160, 210 180" />
+
+                  {/* Phone */}
+                  <rect x="195" y="172" width="28" height="45" rx="3" />
+
+                  {/* Legs */}
+                  <line x1="120" y1="260" x2="115" y2="310" />
+                  <line x1="160" y1="260" x2="165" y2="310" />
+
+                  {/* Ground */}
+                  <line x1="60" y1="312" x2="225" y2="312" strokeDasharray="3 6" opacity="0.4" />
+                </g>
+
+                {/* Phone screen — tiny map glow */}
+                <rect x="198" y="178" width="22" height="34" fill="#7B68EE" opacity="0.2" rx="1" />
+              </svg>
+            </div>
+
+            <blockquote className="text-lg sm:text-xl text-gray-300 italic leading-snug max-w-2xl mx-auto mb-6 px-4">
+              &ldquo;Kobe, 24. Just moved to Seattle for his first job. Knows 3
+              people. Wants to explore the city but doesn&apos;t want to feel
+              like a tourist. Has coworkers who&apos;d explore with him if
+              someone just picked the route.&rdquo;
+            </blockquote>
+            <p className="text-gray-500 text-sm">
+              This is Kobe&apos;s first week.
+            </p>
+          </motion.div>
+
+          {/* Kobe's day timeline */}
+          <div className="relative mt-12">
+            <svg
+              className="absolute left-3 top-6 w-12 pointer-events-none"
+              style={{ height: "calc(100% - 48px)" }}
+              viewBox="0 0 50 1000"
+              preserveAspectRatio="none"
+              aria-hidden
+            >
+              <defs>
+                <linearGradient id="vine-kobe" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="rgba(123, 104, 238, 0)" />
+                  <stop offset="0.08" stopColor="rgba(123, 104, 238, 0.5)" />
+                  <stop offset="0.5" stopColor="rgba(123, 104, 238, 0.7)" />
+                  <stop offset="0.92" stopColor="rgba(123, 104, 238, 0.5)" />
+                  <stop offset="1" stopColor="rgba(123, 104, 238, 0)" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M25 0 C 35 80, 15 150, 25 230 C 35 310, 15 400, 25 500 C 35 600, 15 700, 25 800 C 35 880, 25 950, 25 1000"
+                stroke="url(#vine-kobe)"
+                strokeWidth="2.5"
+                fill="none"
+                strokeLinecap="round"
+              />
+            </svg>
+
+            {[
+              {
+                time: "Mon 9 AM",
+                icon: "\uD83D\uDCE6",
+                title: "Lands in Seattle",
+                desc: "Apartment is empty. Suitcase and a laptop. Kobe opens Google Maps \u2014 everything looks the same.",
+              },
+              {
+                time: "Mon 6 PM",
+                icon: "\uD83D\uDCF1",
+                title: "Downloads Roam",
+                desc: "Coworker Priya sends the group code. Kobe scans it \u2014 three names appear on a shared map. Zero tiles.",
+              },
+              {
+                time: "Tue 5:30 PM",
+                icon: "\uD83D\uDFE0",
+                title: "First walk with Echo",
+                desc: "Echo: \u201cFirst week in Capitol Hill! Let\u2019s see what\u2019s out here.\u201d Kobe walks Volunteer Park to Cal Anderson. 18 tiles.",
+                highlight: true,
+              },
+              {
+                time: "Wed",
+                icon: "\uD83D\uDC9C",
+                title: "Priya walked Broadway",
+                desc: "Kobe opens the app \u2014 Priya\u2019s tiles overlap his at Cal Anderson. The park glows warmer. She found a coffee shop he missed.",
+              },
+              {
+                time: "Thu",
+                icon: "\uD83D\uDCA7",
+                title: "Marcus fills in Pike/Pine",
+                desc: "Triple overlap at the corridor. The leaderboard updates: Kobe 18, Priya 15, Marcus 12. Kobe\u2019s winning \u2014 for now.",
+              },
+              {
+                time: "Fri 6 PM",
+                icon: "\uD83C\uDF1F",
+                title: "The group heat map glows",
+                desc: "45 tiles between three people in one week. The map looks like a constellation. Kobe knows Capitol Hill now \u2014 not like a tourist.",
+              },
+            ].map((step, i) => (
+              <div
+                key={step.time}
+                className="day-step relative flex gap-4 sm:gap-5 pb-8 last:pb-0"
+                style={
+                  { "--reveal-delay": `${i * 0.12}s` } as React.CSSProperties
+                }
+              >
+                <div
+                  className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 text-xl bg-[#0a0a0a] ${
+                    step.highlight
+                      ? "border-2 border-violet-400/60 shadow-lg shadow-violet-500/25"
+                      : "border border-white/10"
+                  }`}
+                >
+                  {step.icon}
+                </div>
+                <div
+                  className={`flex-1 rounded-xl p-4 sm:p-5 ${
+                    step.highlight
+                      ? "bg-gradient-to-br from-violet-500/[0.1] to-transparent border border-violet-500/25"
+                      : "bg-white/[0.02] border border-white/[0.05]"
+                  }`}
+                >
+                  <div
+                    className={`text-[11px] font-mono tracking-wider mb-1.5 ${
+                      step.highlight ? "text-violet-400" : "text-violet-400/50"
+                    }`}
+                  >
+                    {step.time}
+                  </div>
+                  <div className="text-base sm:text-lg font-semibold mb-1.5">
+                    {step.title}
+                  </div>
+                  <div className="text-sm text-gray-400 leading-relaxed">
+                    {step.desc}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ y: 15 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            className="text-center text-gray-500 mt-12 text-sm italic"
+          >
+            One app. Two stories. Same city, different reasons to walk it.
+          </motion.p>
+        </div>
+      </section>
+
       {/* ================= WHY NOW ================= */}
       <section id="why" className="px-6 py-24 max-w-5xl mx-auto">
         <motion.div
@@ -847,15 +1178,15 @@ export default function LandingPage() {
           {[
             {
               title: "Voice AI got good",
-              desc: "Sub-second conversational AI from Groq + Llama 3.3 70B. Real personality. Real dialogue. Not a chatbot reading a script.",
+              desc: "Sub-second conversational AI. Real personality. Real dialogue. Not a chatbot reading a script \u2014 a friend who notices things.",
             },
             {
-              title: "Loneliness is at all-time highs",
-              desc: "The Surgeon General called it an epidemic. Remote work flattened daily routines. People are inside more than ever.",
+              title: "Loneliness + urban mobility",
+              desc: "The Surgeon General called loneliness an epidemic. Meanwhile, 1 in 5 Americans move cities and need 4 months just to form a social circle. Both problems, one app.",
             },
             {
-              title: "The gap in the market",
-              desc: "Strava is for athletes. Replika is for romance. AllTrails is for hikers. Nobody put a real conversational companion in your ear while you walk your own block.",
+              title: "Nothing like this exists",
+              desc: "Strava is for athletes. Replika is for romance. AllTrails is for hikers. Nobody built a social walking app with a voice friend AND a shared heat map for your crew.",
             },
           ].map((w, i) => (
             <motion.div
@@ -926,8 +1257,9 @@ export default function LandingPage() {
             Put your shoes on.
           </h2>
           <p className="text-lg text-gray-400 mb-10 leading-relaxed">
-            Roam is for the people who would go outside more if they had a
-            reason. Echo is that reason. The city is waiting.
+            Whether you&apos;re Jordan who needs a reason to leave, or Kobe
+            who just landed in a new city &mdash; Echo walks with you, and
+            the map remembers. The city is waiting.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
