@@ -158,6 +158,14 @@ export default function DemoPage() {
           showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
           setActiveFeature("Heat map");
         }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
+>>>>>>> origin/main
+>>>>>>> origin/main
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
           setActiveFeature("Errands");
         } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
@@ -174,6 +182,13 @@ export default function DemoPage() {
           setActiveFeature("Heat map");
         }
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
+>>>>>>> origin/main
+>>>>>>> origin/main
+>>>>>>> origin/main
 
         const userResp = responses[next];
         if (userResp) {
@@ -453,8 +468,19 @@ export default function DemoPage() {
         ))}
       </div>
 
+<<<<<<< HEAD
       {/* Feature showcase — cycles on top of the feature bar area */}
+=======
+<<<<<<< HEAD
+      {/* Feature showcase — cycles on top of the feature bar area */}
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
+>>>>>>> origin/main
       {/* Interactive feature bar + expandable previews */}
+>>>>>>> origin/main
       <div className="px-6 pb-3">
         {/* Progress dots showing which feature is active */}
         <div className="flex items-center gap-2 mb-2">
@@ -474,6 +500,7 @@ export default function DemoPage() {
           ))}
         </div>
 
+<<<<<<< HEAD
         {/* Auto-expanding feature card */}
         {activeFeature && (
           <motion.div
@@ -505,6 +532,57 @@ export default function DemoPage() {
 
             {/* Feature-specific visual mockup */}
             <div className="bg-[#0a0a0a]/60 rounded-lg p-3">
+=======
+<<<<<<< HEAD
+        {/* Auto-expanding feature card */}
+        {activeFeature && (
+          <motion.div
+            key={activeFeature}
+            initial={{ y: 10 }}
+            animate={{ y: 0 }}
+            className="bg-white/[0.04] border border-amber-500/20 rounded-xl p-4 mb-2 shadow-lg shadow-amber-500/5"
+          >
+            {/* Echo explaining the feature */}
+            <div className="flex items-start gap-3 mb-3">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex-shrink-0 flex items-center justify-center">
+                <span className="text-xs font-bold text-black">E</span>
+              </div>
+              <div className="flex-1">
+                <div className="text-xs text-amber-400 mb-0.5">Echo explains</div>
+                <div className="text-sm text-gray-300 italic">
+                  {activeFeature === "Group map" && "\u201cSee where your friends have been. Each person\u2019s walks add to the shared map \u2014 tiles deepen as more people visit.\u201d"}
+                  {activeFeature === "Leaderboard" && "\u201cWho discovered the most new tiles this week? Friendly competition that makes you want to go one block further.\u201d"}
+                  {activeFeature === "Dog walk" && "\u201cLuna knows the route. I know the tiles. Together we\u2019ll find 2 new ones if you go one block further.\u201d"}
+                  {activeFeature === "Errands" && "\u201cYou mentioned coffee beans. Olive Way Roasters is 2 blocks east \u2014 I\u2019ll remind you when we pass it.\u201d"}
+                  {activeFeature === "Notes" && "\u201cYou said something worth remembering. I saved it with the location. You can review your walk thoughts later.\u201d"}
+                  {activeFeature === "History" && "\u201cThis week: 4 walks, 52 tiles, 3.2 miles. Your map is growing like a neural network. Echo saved 2 notes along the way.\u201d"}
+                  {activeFeature === "Voice companion" && "\u201cI\u2019m not a coach. I\u2019m not a therapist. I\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
+                  {activeFeature === "Heat map" && "\u201cEvery step you take clears the fog. Walk the same street twice and it glows warmer. Over a month, your city looks like a constellation.\u201d"}
+                  {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought for you from yesterday \u2014 want to hear it while we walk?\u201d"}
+                </div>
+              </div>
+            </div>
+
+            {/* Feature-specific visual mockup */}
+            <div className="bg-[#0a0a0a]/60 rounded-lg p-3">
+=======
+        {/* Feature preview panels */}
+<<<<<<< HEAD
+        {activeFeature && (
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
+=======
+        <AnimatePresence>
+          {activeFeature && (
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: "auto" }}
+              exit={{ height: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
+>>>>>>> origin/main
+>>>>>>> origin/main
+>>>>>>> origin/main
                 {activeFeature === "Group map" && (
                   <div className="flex items-start gap-4">
                     <div className="text-3xl">🗺️</div>
@@ -655,9 +733,41 @@ export default function DemoPage() {
                     </div>
                   </div>
                 )}
+<<<<<<< HEAD
             </div>
           </motion.div>
         )}
+=======
+<<<<<<< HEAD
+            </div>
+          </motion.div>
+        )}
+=======
+<<<<<<< HEAD
+          </div>
+        )}
+
+=======
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+=======
+      {/* Feature bar */}
+      <div className="px-6 pb-3 flex flex-wrap items-center gap-2">
+        {persona.features.map((f) => (
+          <span
+            key={f.label}
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/[0.04] border border-white/[0.08] rounded-full text-xs text-gray-400"
+          >
+            <span>{f.icon}</span>
+            {f.label}
+          </span>
+        ))}
+>>>>>>> origin/main
+>>>>>>> origin/main
+>>>>>>> origin/main
+>>>>>>> origin/main
       </div>
 
       {/* Main demo area */}
