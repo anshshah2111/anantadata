@@ -142,8 +142,6 @@ export default function DemoPage() {
         // Feature notification pills based on message content
         const msg = beat.message.toLowerCase();
         if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
-=======
-<<<<<<< HEAD
         if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
           setActiveFeature("Errands");
@@ -160,11 +158,6 @@ export default function DemoPage() {
           showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
           setActiveFeature("Heat map");
         }
-<<<<<<< HEAD
-=======
-=======
-        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
->>>>>>> origin/main
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
           setActiveFeature("Errands");
         } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
@@ -178,14 +171,9 @@ export default function DemoPage() {
           setActiveFeature("Leaderboard");
         } else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never")) {
           showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
-<<<<<<< HEAD
           setActiveFeature("Heat map");
         }
 
-=======
->>>>>>> origin/main
->>>>>>> origin/main
->>>>>>> origin/main
 
         const userResp = responses[next];
         if (userResp) {
@@ -465,15 +453,8 @@ export default function DemoPage() {
         ))}
       </div>
 
-<<<<<<< HEAD
       {/* Feature showcase — cycles on top of the feature bar area */}
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> origin/main
       {/* Interactive feature bar + expandable previews */}
->>>>>>> origin/main
       <div className="px-6 pb-3">
         {/* Progress dots showing which feature is active */}
         <div className="flex items-center gap-2 mb-2">
@@ -493,7 +474,6 @@ export default function DemoPage() {
           ))}
         </div>
 
-<<<<<<< HEAD
         {/* Auto-expanding feature card */}
         {activeFeature && (
           <motion.div
@@ -525,23 +505,6 @@ export default function DemoPage() {
 
             {/* Feature-specific visual mockup */}
             <div className="bg-[#0a0a0a]/60 rounded-lg p-3">
-=======
-        {/* Feature preview panels */}
-<<<<<<< HEAD
-        {activeFeature && (
-          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
-=======
-        <AnimatePresence>
-          {activeFeature && (
-            <motion.div
-              initial={{ height: 0 }}
-              animate={{ height: "auto" }}
-              exit={{ height: 0 }}
-              className="overflow-hidden"
-            >
-              <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
->>>>>>> origin/main
->>>>>>> origin/main
                 {activeFeature === "Group map" && (
                   <div className="flex items-start gap-4">
                     <div className="text-3xl">🗺️</div>
@@ -692,35 +655,9 @@ export default function DemoPage() {
                     </div>
                   </div>
                 )}
-<<<<<<< HEAD
             </div>
           </motion.div>
         )}
-=======
-<<<<<<< HEAD
-          </div>
-        )}
-
-=======
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-=======
-      {/* Feature bar */}
-      <div className="px-6 pb-3 flex flex-wrap items-center gap-2">
-        {persona.features.map((f) => (
-          <span
-            key={f.label}
-            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/[0.04] border border-white/[0.08] rounded-full text-xs text-gray-400"
-          >
-            <span>{f.icon}</span>
-            {f.label}
-          </span>
-        ))}
->>>>>>> origin/main
->>>>>>> origin/main
->>>>>>> origin/main
       </div>
 
       {/* Main demo area */}
@@ -937,6 +874,154 @@ export default function DemoPage() {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* ================= PHONE SCREEN MOCKUPS ================= */}
+      <div className="px-6 py-16 max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+            What Roam looks like on your phone
+          </h2>
+          <p className="text-gray-400 text-sm">
+            Every feature, designed for the walk.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+          {/* Each "phone" is a rounded rect with a screen mockup inside */}
+          {[
+            {
+              label: "Echo talking",
+              screen: (
+                <div className="flex flex-col h-full">
+                  <div className="flex-1 flex flex-col items-center justify-center p-2">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 mb-2 shadow-lg shadow-amber-500/30" />
+                    <div className="text-[8px] text-gray-500 mb-2">Echo is talking...</div>
+                    <div className="bg-white/[0.06] rounded-lg px-2 py-1.5 text-[7px] text-gray-300 leading-tight">
+                      &ldquo;Hey. Glad you&apos;re out here. What are we walking toward today?&rdquo;
+                    </div>
+                  </div>
+                  <div className="h-6 bg-white/[0.03] rounded-b-lg flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-full bg-white/[0.06]" />
+                  </div>
+                </div>
+              ),
+            },
+            {
+              label: "Heat map",
+              screen: (
+                <div className="h-full bg-[#0d1117] relative overflow-hidden">
+                  <div className="absolute inset-0 grid grid-cols-6 grid-rows-8 gap-px p-1">
+                    {Array.from({ length: 48 }).map((_, i) => {
+                      const r = Math.floor(i / 6);
+                      const c = i % 6;
+                      const d = Math.sqrt((r - 3.5) ** 2 + (c - 2.5) ** 2);
+                      const v = Math.max(0, 1 - d / 4.5);
+                      return (
+                        <div
+                          key={i}
+                          className="rounded-[1px]"
+                          style={{
+                            background:
+                              v > 0.7 ? "rgba(244,162,97,0.7)"
+                              : v > 0.5 ? "rgba(244,162,97,0.4)"
+                              : v > 0.3 ? "rgba(123,104,238,0.3)"
+                              : v > 0.1 ? "rgba(26,58,26,0.5)"
+                              : "rgba(10,10,10,0.8)",
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                  <div className="absolute bottom-1 left-1 right-1 bg-black/70 rounded px-1.5 py-0.5 text-[6px] text-gray-400">
+                    18 tiles revealed
+                  </div>
+                </div>
+              ),
+            },
+            {
+              label: "Group leaderboard",
+              screen: (
+                <div className="flex flex-col h-full p-2 gap-1.5">
+                  <div className="text-[7px] text-amber-400 font-medium">Group: Capitol Hill Crew</div>
+                  {[
+                    { n: "Kobe", t: 18, c: "#F4A261" },
+                    { n: "Priya", t: 15, c: "#7B68EE" },
+                    { n: "Marcus", t: 12, c: "#00B4D8" },
+                  ].map((m, i) => (
+                    <div key={m.n} className="flex items-center gap-1.5 bg-white/[0.04] rounded px-1.5 py-1">
+                      <span className="text-[7px] text-gray-500">{i + 1}</span>
+                      <div className="w-3.5 h-3.5 rounded-full text-[6px] font-bold text-black flex items-center justify-center" style={{ backgroundColor: m.c }}>{m.n[0]}</div>
+                      <span className="text-[7px] flex-1">{m.n}</span>
+                      <span className="text-[7px] font-mono" style={{ color: m.c }}>{m.t}</span>
+                    </div>
+                  ))}
+                  <div className="mt-auto text-center text-[6px] text-gray-500">45 tiles total</div>
+                </div>
+              ),
+            },
+            {
+              label: "Errand reminder",
+              screen: (
+                <div className="flex flex-col h-full">
+                  <div className="flex-1 bg-[#0d1117] relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0a0a]/80" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2">
+                      <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg px-2 py-1.5">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <span className="text-[8px]">🛒</span>
+                          <span className="text-[7px] text-amber-300 font-medium">Errand nearby</span>
+                        </div>
+                        <div className="text-[7px] text-gray-300">Coffee beans</div>
+                        <div className="text-[6px] text-gray-500">Olive Way Roasters — 2 blocks east</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+            {
+              label: "Walk summary",
+              screen: (
+                <div className="flex flex-col h-full p-2">
+                  <div className="text-[7px] text-amber-400 font-medium mb-2">Walk complete</div>
+                  <div className="grid grid-cols-2 gap-1 mb-2">
+                    {[
+                      { v: "18", l: "tiles" },
+                      { v: "1.2mi", l: "distance" },
+                      { v: "23m", l: "duration" },
+                      { v: "4", l: "streak" },
+                    ].map((s) => (
+                      <div key={s.l} className="bg-white/[0.04] rounded p-1 text-center">
+                        <div className="text-[9px] font-mono text-amber-400">{s.v}</div>
+                        <div className="text-[5px] text-gray-500">{s.l}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="bg-white/[0.03] rounded p-1.5 text-[6px] text-gray-400 italic">
+                    &ldquo;Good walk. Same time tomorrow?&rdquo;
+                  </div>
+                  <div className="mt-auto text-[6px] text-gray-500 text-center">
+                    1 note saved &middot; 1 errand done
+                  </div>
+                </div>
+              ),
+            },
+          ].map((phone) => (
+            <div key={phone.label} className="flex flex-col items-center gap-2">
+              {/* Phone frame */}
+              <div className="w-full aspect-[9/19] bg-[#1a1a1a] rounded-2xl border border-white/[0.08] overflow-hidden shadow-xl shadow-black/40 relative">
+                {/* Notch */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-2.5 bg-black rounded-b-lg z-10" />
+                {/* Screen content */}
+                <div className="absolute inset-[3px] rounded-[13px] overflow-hidden bg-[#0a0a0a]">
+                  {phone.screen}
+                </div>
+              </div>
+              <span className="text-[11px] text-gray-500">{phone.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
