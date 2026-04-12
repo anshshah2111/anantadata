@@ -3,7 +3,11 @@
 3:I[37457,["/anantadata/_next/static/chunks/01xlw8hd842-c.js","/anantadata/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
 4:[]
 <<<<<<< HEAD
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"_UhdvaelB6fZbRIEnjzqe"}
+=======
+<<<<<<< HEAD
 0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"FNUZx4ZTuf5QtqVIL9Ixp"}
 =======
 0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"2zHYq1_NTXqoYt48-vwXA"}
+>>>>>>> origin/main
 >>>>>>> origin/main

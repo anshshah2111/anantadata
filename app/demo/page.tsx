@@ -164,8 +164,11 @@ export default function DemoPage() {
 =======
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 =======
         if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
+>>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
@@ -189,7 +192,10 @@ export default function DemoPage() {
 =======
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
@@ -474,6 +480,11 @@ export default function DemoPage() {
         ))}
       </div>
 
+<<<<<<< HEAD
+      {/* Feature showcase — cycles on top of the feature bar area */}
+      {/* Feature showcase — cycles on top of the feature bar area */}
+      {/* Feature showcase — cycles on top of the feature bar area */}
+=======
       {/* Feature showcase — cycles on top of the feature bar area */}
 <<<<<<< HEAD
       {/* Feature showcase — cycles on top of the feature bar area */}
@@ -485,6 +496,7 @@ export default function DemoPage() {
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+>>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
@@ -523,6 +535,17 @@ export default function DemoPage() {
               <div className="flex-1">
                 <div className="text-xs text-amber-400 mb-0.5">Echo explains</div>
                 <div className="text-sm text-gray-300 italic">
+<<<<<<< HEAD
+                  {activeFeature === "Group map" && "\u201cEach person\u2019s walks add to one shared map. Tiles deepen as more people visit.\u201d"}
+                  {activeFeature === "Leaderboard" && "\u201cWho discovered the most new tiles? Friendly competition to go one block further.\u201d"}
+                  {activeFeature === "Dog walk" && "\u201cLuna knows the route. I know the tiles. 2 new ones if you go one block further.\u201d"}
+                  {activeFeature === "Errands" && "\u201cCoffee beans. Olive Way Roasters, 2 blocks east. I\u2019ll remind you when we pass it.\u201d"}
+                  {activeFeature === "Notes" && "\u201cYou said something worth remembering. Saved with the location.\u201d"}
+                  {activeFeature === "History" && "\u201c4 walks, 52 tiles, 3.2 miles this week. Your map is growing.\u201d"}
+                  {activeFeature === "Voice companion" && "\u201cI\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
+                  {activeFeature === "Heat map" && "\u201cEvery step clears fog. Walk it twice, it glows warmer. A constellation over a month.\u201d"}
+                  {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought from yesterday.\u201d"}
+=======
                   {activeFeature === "Group map" && "\u201cSee where your friends have been. Each person\u2019s walks add to the shared map \u2014 tiles deepen as more people visit.\u201d"}
                   {activeFeature === "Leaderboard" && "\u201cWho discovered the most new tiles this week? Friendly competition that makes you want to go one block further.\u201d"}
                   {activeFeature === "Dog walk" && "\u201cLuna knows the route. I know the tiles. Together we\u2019ll find 2 new ones if you go one block further.\u201d"}
@@ -532,10 +555,25 @@ export default function DemoPage() {
                   {activeFeature === "Voice companion" && "\u201cI\u2019m not a coach. I\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
                   {activeFeature === "Heat map" && "\u201cEvery step clears the fog. Walk it twice and it glows warmer. Over a month, your city looks like a constellation.\u201d"}
                   {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought for you from yesterday.\u201d"}
+>>>>>>> origin/main
                 </div>
               </div>
             </div>
             <div className="bg-[#0a0a0a]/60 rounded-lg p-3">
+<<<<<<< HEAD
+              {activeFeature === "Group map" && (<div className="flex gap-3"><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#F4A261]" />Kobe \u2014 18</span><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#7B68EE]" />Priya \u2014 15</span><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#00B4D8]" />Marcus \u2014 12</span></div>)}
+              {activeFeature === "Leaderboard" && (<div className="text-xs text-gray-400">Kobe: 18 tiles (6 unique) \u00b7 Priya: 15 (4 unique) \u00b7 Marcus: 12 (3 unique)</div>)}
+              {activeFeature === "Dog walk" && (<div className="text-xs"><div className="text-amber-400 mb-1">Luna\u2019s route</div><div className="text-gray-400">12 tiles \u00b7 2 new if you go 1 block further</div></div>)}
+              {activeFeature === "Errands" && (<div className="text-xs space-y-1"><div className="text-amber-300">\u2610 Coffee beans \u2014 Olive Way, 2 blocks</div><div className="text-gray-500 line-through">\u2713 Milk \u2014 Fred Meyer (done)</div></div>)}
+              {activeFeature === "Notes" && (<div className="text-xs space-y-1"><div className="text-violet-300 italic">\u201cSkyline from Cal Anderson at sunset\u201d</div><div className="text-gray-500">Saved Tue 5:52 PM</div></div>)}
+              {activeFeature === "History" && (<div className="flex gap-2 text-center">{[["4","walks"],["52","tiles"],["3.2mi","dist"],["4d","streak"]].map(([v,l])=>(<div key={l} className="bg-white/[0.04] rounded px-2 py-1 flex-1"><div className="text-sm font-mono text-amber-400">{v}</div><div className="text-[9px] text-gray-500">{l}</div></div>))}</div>)}
+              {activeFeature === "Voice companion" && (<div className="text-xs italic text-amber-200/70">\u201cHey. Glad you\u2019re out here. Where are we headed today?\u201d</div>)}
+              {activeFeature === "Heat map" && (<div className="flex gap-1.5 items-center">{["#7B68EE","#00B4D8","#52B788","#F4A261","#E76F51"].map(c=>(<div key={c} className="w-4 h-4 rounded-sm" style={{backgroundColor:c}} />))}<span className="text-[10px] text-gray-500 ml-1">cold \u2192 hot</span></div>)}
+              {activeFeature === "Walk streaks" && (<div className="flex gap-1">{["M","T","W","Th"].map(d=>(<div key={d} className="w-7 h-7 rounded bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-[9px] text-amber-300">{d}</div>))}<div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[9px] text-gray-500">F</div></div>)}
+            </div>
+          </motion.div>
+        )}
+=======
 <<<<<<< HEAD
               {activeFeature === "Group map" && (
                 <div className="flex gap-3">
@@ -720,6 +758,7 @@ export default function DemoPage() {
             {f.label}
           </span>
         ))}
+>>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
 >>>>>>> origin/main
