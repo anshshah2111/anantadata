@@ -143,6 +143,9 @@ export default function DemoPage() {
         const msg = beat.message.toLowerCase();
 <<<<<<< HEAD
         if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
+=======
+<<<<<<< HEAD
+        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
           setActiveFeature("Errands");
         } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
@@ -160,15 +163,26 @@ export default function DemoPage() {
         }
 =======
         if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
+>>>>>>> origin/main
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
-        else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering"))
+          setActiveFeature("Errands");
+        } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
           showNotification("\uD83D\uDCDD", "Note saved", "#7B68EE");
-        else if (msg.includes("luna") || msg.includes("dog"))
+          setActiveFeature("Notes");
+        } else if (msg.includes("luna") || msg.includes("dog")) {
           showNotification("\uD83D\uDC15", "Dog walk mode", "#52B788");
-        else if (msg.includes("priya") || msg.includes("marcus") || msg.includes("group") || msg.includes("overlap"))
+          setActiveFeature("Dog walk");
+        } else if (msg.includes("priya") || msg.includes("marcus") || msg.includes("group") || msg.includes("overlap")) {
           showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
-        else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never"))
+          setActiveFeature("Leaderboard");
+        } else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never")) {
           showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
+<<<<<<< HEAD
+          setActiveFeature("Heat map");
+        }
+
+=======
+>>>>>>> origin/main
 >>>>>>> origin/main
 
         const userResp = responses[next];
@@ -416,6 +430,9 @@ export default function DemoPage() {
       </div>
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
       {/* Interactive feature bar + expandable previews */}
       <div className="px-6 pb-3">
         <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -440,6 +457,10 @@ export default function DemoPage() {
         </div>
 
         {/* Feature preview panels */}
+<<<<<<< HEAD
+        {activeFeature && (
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
+=======
         <AnimatePresence>
           {activeFeature && (
             <motion.div
@@ -449,6 +470,7 @@ export default function DemoPage() {
               className="overflow-hidden"
             >
               <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-3">
+>>>>>>> origin/main
                 {activeFeature === "Group map" && (
                   <div className="flex items-start gap-4">
                     <div className="text-3xl">🗺️</div>
@@ -599,6 +621,11 @@ export default function DemoPage() {
                     </div>
                   </div>
                 )}
+<<<<<<< HEAD
+          </div>
+        )}
+
+=======
               </div>
             </motion.div>
           )}
@@ -615,6 +642,7 @@ export default function DemoPage() {
             {f.label}
           </span>
         ))}
+>>>>>>> origin/main
 >>>>>>> origin/main
       </div>
 
