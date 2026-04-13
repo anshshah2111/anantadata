@@ -158,6 +158,7 @@ export default function DemoPage() {
           showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
           setActiveFeature("Heat map");
         }
+        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
           showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
           setActiveFeature("Errands");
         } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
@@ -458,6 +459,10 @@ export default function DemoPage() {
       {/* Feature showcase — cycles on top of the feature bar area */}
       {/* Feature showcase — cycles on top of the feature bar area */}
       {/* Feature showcase — cycles on top of the feature bar area */}
+      {/* Feature showcase — cycles on top of the feature bar area */}
+      {/* Feature showcase — cycles on top of the feature bar area */}
+      {/* Feature showcase — cycles on top of the feature bar area */}
+      {/* Feature showcase — cycles on top of the feature bar area */}
       {/* Interactive feature bar + expandable previews */}
       <div className="px-6 pb-3">
         {/* Progress dots showing which feature is active */}
@@ -502,6 +507,15 @@ export default function DemoPage() {
                   {activeFeature === "Voice companion" && "\u201cI\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
                   {activeFeature === "Heat map" && "\u201cEvery step clears fog. Walk it twice, it glows warmer. A constellation over a month.\u201d"}
                   {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought from yesterday.\u201d"}
+                  {activeFeature === "Group map" && "\u201cSee where your friends have been. Each person\u2019s walks add to the shared map \u2014 tiles deepen as more people visit.\u201d"}
+                  {activeFeature === "Leaderboard" && "\u201cWho discovered the most new tiles this week? Friendly competition that makes you want to go one block further.\u201d"}
+                  {activeFeature === "Dog walk" && "\u201cLuna knows the route. I know the tiles. Together we\u2019ll find 2 new ones if you go one block further.\u201d"}
+                  {activeFeature === "Errands" && "\u201cYou mentioned coffee beans. Olive Way Roasters is 2 blocks east \u2014 I\u2019ll remind you when we pass it.\u201d"}
+                  {activeFeature === "Notes" && "\u201cYou said something worth remembering. I saved it with the location.\u201d"}
+                  {activeFeature === "History" && "\u201cThis week: 4 walks, 52 tiles, 3.2 miles. Your map is growing like a neural network.\u201d"}
+                  {activeFeature === "Voice companion" && "\u201cI\u2019m not a coach. I\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
+                  {activeFeature === "Heat map" && "\u201cEvery step clears the fog. Walk it twice and it glows warmer. Over a month, your city looks like a constellation.\u201d"}
+                  {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought for you from yesterday.\u201d"}
                 </div>
               </div>
             </div>
