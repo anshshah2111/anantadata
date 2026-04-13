@@ -1267,6 +1267,135 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
+      {/* ================= EARLY ACCESS / INTEREST FORM ================= */}
+      <section className="relative px-6 py-28 border-y border-amber-500/10">
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-500/[0.03] via-amber-500/[0.06] to-amber-500/[0.03] pointer-events-none" />
+        <div className="relative max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+          >
+            {/* Cover illustration — city skyline with walking figure + glowing path */}
+            <div className="mx-auto mb-8 w-full max-w-md">
+              <svg viewBox="0 0 500 160" className="w-full" aria-label="City skyline with glowing walk path">
+                <defs>
+                  <linearGradient id="path-glow" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#F4A261" stopOpacity="0" />
+                    <stop offset="30%" stopColor="#F4A261" stopOpacity="0.8" />
+                    <stop offset="70%" stopColor="#F4A261" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#F4A261" stopOpacity="0" />
+                  </linearGradient>
+                  <filter id="city-sketch">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="7" />
+                    <feDisplacementMap in="SourceGraphic" scale="1" />
+                  </filter>
+                </defs>
+
+                {/* City skyline silhouette */}
+                <g stroke="#e8e4dc" strokeWidth="1.2" fill="none" opacity="0.3" filter="url(#city-sketch)">
+                  <path d="M30 130 L30 90 L50 90 L50 70 L65 70 L65 90 L80 90 L80 50 L95 50 L95 90 L110 90 L110 60 L125 55 L140 60 L140 90 L160 90 L160 40 L175 35 L190 40 L190 90 L210 90 L210 75 L225 75 L225 90 L250 90 L250 45 L265 40 L280 45 L280 90 L300 90 L300 65 L315 65 L315 90 L335 90 L335 55 L350 50 L365 55 L365 90 L385 90 L385 80 L400 80 L400 90 L420 90 L420 60 L435 55 L450 60 L450 90 L470 90 L470 130" />
+                  {/* Windows */}
+                  <rect x="85" y="60" width="5" height="5" opacity="0.5" />
+                  <rect x="165" y="50" width="5" height="5" opacity="0.5" />
+                  <rect x="255" y="55" width="5" height="5" opacity="0.5" />
+                  <rect x="340" y="65" width="5" height="5" opacity="0.5" />
+                  <rect x="425" y="70" width="5" height="5" opacity="0.5" />
+                </g>
+
+                {/* Ground line */}
+                <line x1="0" y1="130" x2="500" y2="130" stroke="#e8e4dc" strokeWidth="0.5" opacity="0.15" />
+
+                {/* Glowing walking path */}
+                <path
+                  d="M50 128 Q 120 125, 180 128 Q 240 131, 300 128 Q 360 125, 420 128"
+                  stroke="url(#path-glow)"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeLinecap="round"
+                  className="chalk-path"
+                  style={{ "--path-len": "400", "--draw-delay": "0.3s" } as React.CSSProperties}
+                />
+
+                {/* Walking figure (small, simple) */}
+                <g transform="translate(250, 115)" stroke="#F4A261" strokeWidth="1.5" fill="none" strokeLinecap="round">
+                  <circle cx="0" cy="-10" r="3" />
+                  <line x1="0" y1="-7" x2="0" y2="0" />
+                  <line x1="0" y1="0" x2="-3" y2="7" />
+                  <line x1="0" y1="0" x2="3" y2="7" />
+                  <line x1="0" y1="-4" x2="-4" y2="1" />
+                  <line x1="0" y1="-4" x2="4" y2="-1" />
+                </g>
+
+                {/* Ambient glow behind the figure */}
+                <circle cx="250" cy="125" r="25" fill="#F4A261" opacity="0.08" />
+              </svg>
+            </div>
+
+            <div className="text-xs uppercase tracking-[0.2em] text-amber-400 mb-4">
+              Early Access
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Be the first to walk.
+            </h2>
+            <p className="text-gray-400 leading-relaxed mb-8 max-w-lg mx-auto">
+              Roam is launching soon. Drop your email and we&apos;ll let you
+              know when Echo is ready to walk with you. No spam &mdash; just
+              one message when it&apos;s time to put your shoes on.
+            </p>
+
+            {/* Email form — posts to Formspree (free) */}
+            <form
+              action="https://formspree.io/f/xpwzgvvb"
+              method="POST"
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6"
+            >
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="your@email.com"
+                className="flex-1 px-5 py-3.5 bg-white/[0.06] border border-white/[0.12] rounded-full text-white placeholder:text-gray-500 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/30 transition-all"
+              />
+              <button
+                type="submit"
+                className="px-8 py-3.5 bg-amber-500 text-black text-sm font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 hover:shadow-amber-400/30 transition-all whitespace-nowrap"
+              >
+                Get early access
+              </button>
+            </form>
+
+            <p className="text-xs text-gray-600">
+              Join the waitlist &middot; No account needed &middot; We&apos;ll
+              only email once
+            </p>
+
+            {/* Optional: quick interest checkboxes */}
+            <div className="flex flex-wrap justify-center gap-2 mt-6">
+              {[
+                "Solo walks",
+                "Group exploration",
+                "Dog walks",
+                "New to a city",
+              ].map((tag) => (
+                <label
+                  key={tag}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.03] border border-white/[0.08] rounded-full text-xs text-gray-400 cursor-pointer hover:border-amber-500/30 hover:text-gray-300 transition-all has-[:checked]:bg-amber-500/10 has-[:checked]:border-amber-500/30 has-[:checked]:text-amber-300"
+                >
+                  <input
+                    type="checkbox"
+                    name="interest"
+                    value={tag}
+                    className="sr-only"
+                  />
+                  {tag}
+                </label>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ================= FINAL CTA ================= */}
       <section className="relative px-6 py-32 text-center overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
