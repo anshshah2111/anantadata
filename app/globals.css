@@ -202,3 +202,51 @@ body {
     opacity: var(--glow-opacity, 0.22);
   }
 }
+
+/* Heat map preview — tile reveal animations */
+@keyframes tile-reveal {
+  from {
+    background-color: #0d1117;
+    box-shadow: none;
+  }
+  to {
+    background-color: var(--tile-color, #F4A261);
+    box-shadow: 0 0 8px var(--tile-glow, rgba(244, 162, 97, 0.3));
+  }
+}
+
+.heat-tile {
+  animation: tile-reveal 0.5s ease-out forwards;
+  animation-delay: var(--tile-delay, 0s);
+  background-color: #0d1117;
+}
+
+.heat-tile-warm {
+  --tile-color: rgba(244, 162, 97, 0.6);
+  --tile-glow: rgba(244, 162, 97, 0.25);
+}
+
+.heat-tile-cool {
+  --tile-color: rgba(82, 183, 136, 0.5);
+  --tile-glow: rgba(82, 183, 136, 0.2);
+}
+
+.heat-tile-hot {
+  --tile-color: rgba(231, 111, 81, 0.7);
+  --tile-glow: rgba(231, 111, 81, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heat-tile {
+    animation: none;
+  }
+  .heat-tile-warm {
+    background-color: rgba(244, 162, 97, 0.6);
+  }
+  .heat-tile-cool {
+    background-color: rgba(82, 183, 136, 0.5);
+  }
+  .heat-tile-hot {
+    background-color: rgba(231, 111, 81, 0.7);
+  }
+}

@@ -1,12 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { useForm, ValidationError } from "@formspree/react";
 import EchoBlob from "@/components/EchoBlob";
-
-const MapDemo = dynamic(() => import("@/components/MapDemo"), { ssr: false });
 
 export default function LandingPage() {
   return (
@@ -520,7 +518,7 @@ export default function LandingPage() {
             your home like veins of a leaf.
           </p>
         </motion.div>
-        <MapDemo />
+        <HeatMapPreview />
       </div>
 
       {/* ================= HOW IT WORKS ================= */}
@@ -1451,6 +1449,163 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Early Access Form (Formspree React)                                */
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+/*  Heat Map Preview — pure CSS, no WebGL                              */
+/* ------------------------------------------------------------------ */
+
+// Pre-compute which tiles light up in each "walk phase"
+const GRID_COLS = 14;
+const GRID_ROWS = 9;
+const TOTAL_TILES = GRID_COLS * GRID_ROWS;
+
+// Walk 1: solo path (center-ish, going right)
+const WALK1_TILES = [44, 45, 46, 47, 48, 49, 50, 51, 37, 38, 39, 63, 64, 65];
+// Walk 2: dog walk (upper area)
+const WALK2_TILES = [16, 17, 18, 19, 30, 31, 32, 33, 20, 21, 34, 35];
+// Walk 3: group explore (lower + overlap with walk 1)
+const WALK3_TILES = [72, 73, 74, 75, 76, 58, 59, 60, 61, 86, 87, 88, 89, 46, 47, 48, 63, 64];
+
+const ECHO_MESSAGES = [
+  { delay: 1, text: "Hey. Glad you\u2019re out here.", walk: "Solo walk" },
+  { delay: 4, text: "Luna\u2019s usual route? 2 new tiles if you go further.", walk: "Dog walk" },
+  { delay: 7, text: "Priya was here yesterday. You\u2019re filling in her gaps.", walk: "Group explore" },
+];
+
+function HeatMapPreview() {
+  const [playing, setPlaying] = useState(false);
+  const [currentMsg, setCurrentMsg] = useState<number | null>(null);
+
+  const startAnimation = () => {
+    setPlaying(true);
+    setCurrentMsg(null);
+    // Cycle through Echo messages
+    ECHO_MESSAGES.forEach((msg, i) => {
+      setTimeout(() => setCurrentMsg(i), msg.delay * 1000);
+    });
+    // Reset after animation
+    setTimeout(() => {
+      setCurrentMsg(null);
+    }, 11000);
+  };
+
+  // Determine tile state based on animation
+  const getTileClass = (idx: number) => {
+    if (!playing) return "bg-[#0d1117]"; // fog
+    const inW1 = WALK1_TILES.includes(idx);
+    const inW2 = WALK2_TILES.includes(idx);
+    const inW3 = WALK3_TILES.includes(idx);
+    const overlap = (inW1 && inW3) || (inW2 && inW3);
+
+    if (overlap) return "heat-tile heat-tile-hot";
+    if (inW1) return "heat-tile heat-tile-warm";
+    if (inW2) return "heat-tile heat-tile-cool";
+    if (inW3) return "heat-tile heat-tile-warm";
+    return "bg-[#0d1117]"; // fog remains
+  };
+
+  // Stagger delay per tile
+  const getTileDelay = (idx: number): string => {
+    if (WALK1_TILES.includes(idx)) return `${0.5 + WALK1_TILES.indexOf(idx) * 0.15}s`;
+    if (WALK2_TILES.includes(idx)) return `${3 + WALK2_TILES.indexOf(idx) * 0.15}s`;
+    if (WALK3_TILES.includes(idx)) return `${6 + WALK3_TILES.indexOf(idx) * 0.12}s`;
+    return "0s";
+  };
+
+  return (
+    <section className="px-6 py-16 max-w-4xl mx-auto">
+      {/* Map container */}
+      <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#080c08]" style={{ aspectRatio: "16/9" }}>
+        {/* Tile grid */}
+        <div
+          className="absolute inset-2 grid gap-[3px]"
+          style={{ gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`, gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)` }}
+        >
+          {Array.from({ length: TOTAL_TILES }).map((_, i) => (
+            <div
+              key={i}
+              className={`rounded-[3px] transition-all ${getTileClass(i)}`}
+              style={
+                playing
+                  ? ({ "--tile-delay": getTileDelay(i) } as React.CSSProperties)
+                  : undefined
+              }
+            />
+          ))}
+        </div>
+
+        {/* Echo speech bubble */}
+        {playing && currentMsg !== null && (
+          <div className="absolute bottom-4 left-4 right-4 z-10">
+            <div className="flex items-start gap-2.5 max-w-sm">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex-shrink-0 shadow-md shadow-amber-500/20 mt-0.5 flex items-center justify-center">
+                <span className="text-[9px] font-bold text-black">E</span>
+              </div>
+              <div>
+                <div className="bg-white/[0.08] backdrop-blur-md rounded-xl rounded-tl-sm px-3.5 py-2 text-sm text-gray-300 leading-relaxed">
+                  &ldquo;{ECHO_MESSAGES[currentMsg].text}&rdquo;
+                </div>
+                <div className="text-[10px] text-gray-600 mt-1 ml-1">
+                  {ECHO_MESSAGES[currentMsg].walk}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Play button overlay */}
+        {!playing && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-black/30">
+            <button
+              onClick={startAnimation}
+              className="w-20 h-20 rounded-full bg-amber-500 flex items-center justify-center shadow-2xl shadow-amber-500/40 hover:scale-110 hover:bg-amber-400 transition-all mb-4"
+            >
+              <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+            <span className="text-white text-lg font-semibold">See it in action</span>
+            <span className="text-gray-400 text-sm">3 walks &middot; fog lifts &middot; ~10 seconds</span>
+          </div>
+        )}
+
+        {/* Completion overlay */}
+        {playing && currentMsg === null && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+            <div className="text-center">
+              <p className="text-xl font-semibold text-white mb-2">Your city, revealed.</p>
+              <p className="text-sm text-gray-400 mb-6">3 walks. 44 tiles. The map remembers.</p>
+              <div className="flex gap-3 justify-center">
+                <button onClick={startAnimation} className="px-5 py-2.5 border border-white/10 text-sm text-gray-300 rounded-full hover:border-white/20 transition-colors">
+                  Replay
+                </button>
+                <Link href="/demo" className="px-6 py-2.5 bg-amber-500 text-black text-sm font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 transition-all">
+                  Full demo &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Location label */}
+        <div className="absolute top-3 left-3 z-10 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-[10px] text-gray-400">
+          UW Seattle Campus
+        </div>
+
+        {/* Tile counter */}
+        {playing && (
+          <div className="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-[10px] text-amber-400 font-mono">
+            {currentMsg !== null ? `${[14, 26, 44][Math.min(currentMsg, 2)]} tiles` : "44 tiles"}
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 

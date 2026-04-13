@@ -1,2 +1,7 @@
+<<<<<<< HEAD
+:HL["/anantadata/_next/static/chunks/07vks.lhyjlt3.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"demo","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"hhl1kNKzT0Ek3lu_UX2A0"}
+=======
 :HL["/anantadata/_next/static/chunks/1463egi8cw~yb.css","style"]
 0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"demo","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"f4XjOPm9I76bKRosQ5i48"}
+>>>>>>> origin/main
