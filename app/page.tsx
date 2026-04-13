@@ -1346,7 +1346,7 @@ export default function LandingPage() {
 
             {/* Email form — posts to Formspree (free) */}
             <form
-              action="https://formspree.io/f/xpwzgvvb"
+              action="https://formspree.io/f/mzdypoyr"
               method="POST"
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6"
             >
