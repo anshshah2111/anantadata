@@ -1347,6 +1347,54 @@ export default function LandingPage() {
 
             {/* Email form — @formspree/react with validation + success state */}
             <EarlyAccessForm />
+            {/* Email form — posts to Formspree (free) */}
+            <form
+              action="https://formspree.io/f/mzdypoyr"
+              method="POST"
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-6"
+            >
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="your@email.com"
+                className="flex-1 px-5 py-3.5 bg-white/[0.06] border border-white/[0.12] rounded-full text-white placeholder:text-gray-500 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/30 transition-all"
+              />
+              <button
+                type="submit"
+                className="px-8 py-3.5 bg-amber-500 text-black text-sm font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 hover:shadow-amber-400/30 transition-all whitespace-nowrap"
+              >
+                Get early access
+              </button>
+            </form>
+
+            <p className="text-xs text-gray-600">
+              Join the waitlist &middot; No account needed &middot; We&apos;ll
+              only email once
+            </p>
+
+            {/* Optional: quick interest checkboxes */}
+            <div className="flex flex-wrap justify-center gap-2 mt-6">
+              {[
+                "Solo walks",
+                "Group exploration",
+                "Dog walks",
+                "New to a city",
+              ].map((tag) => (
+                <label
+                  key={tag}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.03] border border-white/[0.08] rounded-full text-xs text-gray-400 cursor-pointer hover:border-amber-500/30 hover:text-gray-300 transition-all has-[:checked]:bg-amber-500/10 has-[:checked]:border-amber-500/30 has-[:checked]:text-amber-300"
+                >
+                  <input
+                    type="checkbox"
+                    name="interest"
+                    value={tag}
+                    className="sr-only"
+                  />
+                  {tag}
+                </label>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
