@@ -361,7 +361,7 @@ export default function DemoPage() {
   }, [clearInterval_]);
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [chatHistory]);
 
   /* ---------- Auto-traverse features during walk ---------- */

@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-:HL["/anantadata/_next/static/chunks/0oiw75~0fohph.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"nFDNe4vBUOBJR5xfqhSq4"}
-=======
-:HL["/anantadata/_next/static/chunks/0o9.n.1pd98mn.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"yX7rBqzMRrBxk1xyABLzN"}
->>>>>>> origin/main
+:HL["/anantadata/_next/static/chunks/1463egi8cw~yb.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"f4XjOPm9I76bKRosQ5i48"}
