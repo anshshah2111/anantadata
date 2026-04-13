@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useForm, ValidationError } from "@formspree/react";
 import EchoBlob from "@/components/EchoBlob";
 
 const MapDemo = dynamic(() => import("@/components/MapDemo"), { ssr: false });
@@ -1344,6 +1345,8 @@ export default function LandingPage() {
               one message when it&apos;s time to put your shoes on.
             </p>
 
+            {/* Email form — @formspree/react with validation + success state */}
+            <EarlyAccessForm />
             {/* Email form — posts to Formspree (free) */}
             <form
               action="https://formspree.io/f/mzdypoyr"
@@ -1448,5 +1451,86 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Early Access Form (Formspree React)                                */
+/* ------------------------------------------------------------------ */
+
+function EarlyAccessForm() {
+  const [state, handleSubmit] = useForm("mzdypoyr");
+
+  if (state.succeeded) {
+    return (
+      <div className="max-w-md mx-auto text-center py-6">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/20 flex items-center justify-center text-3xl">
+          &#10003;
+        </div>
+        <p className="text-xl font-semibold text-amber-300 mb-2">
+          You&apos;re on the list.
+        </p>
+        <p className="text-sm text-gray-400">
+          We&apos;ll email you when Echo is ready to walk. Just one message
+          &mdash; no spam.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4"
+      >
+        <div className="flex-1 relative">
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="your@email.com"
+            className="w-full px-5 py-3.5 bg-white/[0.06] border border-white/[0.12] rounded-full text-white placeholder:text-gray-500 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/30 transition-all"
+          />
+          <ValidationError
+            field="email"
+            errors={state.errors}
+            className="absolute -bottom-5 left-5 text-[10px] text-red-400"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={state.submitting}
+          className="px-8 py-3.5 bg-amber-500 text-black text-sm font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 hover:shadow-amber-400/30 transition-all whitespace-nowrap disabled:opacity-50 disabled:cursor-wait"
+        >
+          {state.submitting ? "Sending\u2026" : "Get early access"}
+        </button>
+      </form>
+
+      <p className="text-xs text-gray-600 mb-6">
+        Join the waitlist &middot; No account needed &middot; We&apos;ll only
+        email once
+      </p>
+
+      {/* Interest tags — submitted as hidden fields with the email */}
+      <div className="flex flex-wrap justify-center gap-2">
+        {["Solo walks", "Group exploration", "Dog walks", "New to a city"].map(
+          (tag) => (
+            <label
+              key={tag}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.03] border border-white/[0.08] rounded-full text-xs text-gray-400 cursor-pointer hover:border-amber-500/30 hover:text-gray-300 transition-all has-[:checked]:bg-amber-500/10 has-[:checked]:border-amber-500/30 has-[:checked]:text-amber-300"
+            >
+              <input
+                type="checkbox"
+                name="interest"
+                value={tag}
+                className="sr-only"
+              />
+              {tag}
+            </label>
+          )
+        )}
+      </div>
+    </>
   );
 }
