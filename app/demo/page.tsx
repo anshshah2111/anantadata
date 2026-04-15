@@ -211,6 +211,27 @@ export default function DemoPage() {
     }, 60);
   }, [persona, advanceSoloStep, resetAll]);
 
+  /* ---------- Autoplay via URL params (for /pitch embed) ---------- */
+  const autoplayRef = useRef(false);
+  useEffect(() => {
+    if (autoplayRef.current) return;
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("autoplay") !== "1") return;
+
+    const p = params.get("persona");
+    if (p === "kobe" && KOBE) setPersona(KOBE);
+    else if (p === "jordan") setPersona(JORDAN);
+
+    // Give persona state a tick to settle, then start
+    autoplayRef.current = true;
+    const t = setTimeout(() => {
+      startSoloDemo();
+    }, 300);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startSoloDemo]);
+
   /* ---------- Group walk logic (Kobe) ---------- */
 
   const runMemberWalk = useCallback(
