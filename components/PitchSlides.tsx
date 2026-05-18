@@ -50,22 +50,23 @@ export function CoverSlide() {
           className="mt-8 text-amber-300 font-bold text-[clamp(1rem,2vw,1.5rem)] tracking-wide"
           style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
         >
-          A Social Walking Trend
+          A Well-being Walking Experience
         </div>
 
         <p
           className="mt-4 text-amber-200/70 text-[clamp(0.9rem,1.3vw,1.125rem)] max-w-2xl leading-relaxed"
           style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
         >
-          voice companion for those who need a friend in their ear and a group
-          heat map for those who want to explore with theirs.
+          An AI voice companion that walks with you, and a living map that
+          fills in beneath your feet. Designed to get you back outside &mdash;
+          not to keep you on your phone.
         </p>
 
         <div
           className="mt-20 text-amber-400/90 text-sm tracking-[0.2em] uppercase"
           style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
         >
-          Ansh &amp; Vinod
+          Ansh &amp; Vinod &nbsp;&middot;&nbsp; Ananta Data
         </div>
       </div>
     </Slide>
@@ -92,7 +93,7 @@ export function ProblemSlide() {
             className="mt-10 text-xs md:text-sm text-gray-500 tracking-wide"
             style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
           >
-            73% lonely · 60% quit fitness apps · 4 months to make a friend
+            73% feel regularly lonely · 60% quit fitness apps in 30 days · the door simply stops opening
           </div>
         </div>
 
@@ -163,7 +164,7 @@ export function InsightSlide() {
           className="text-xs tracking-[0.3em] uppercase text-amber-400/80 mb-10"
           style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
         >
-          Then we talked to people.
+          Then we listened.
         </div>
 
         <div className="flex flex-col gap-8">
@@ -181,6 +182,13 @@ export function InsightSlide() {
               <span className="text-amber-400 ml-1">&rdquo;</span>
             </blockquote>
           ))}
+        </div>
+
+        <div
+          className="mt-12 text-[0.7rem] tracking-[0.25em] uppercase text-white/30"
+          style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
+        >
+          Post-sprint &nbsp;&middot;&nbsp; pressure-testing what gets people outside
         </div>
       </div>
     </Slide>
@@ -202,14 +210,20 @@ export function SolutionSlide() {
             Roam.
           </h2>
           <p className="mt-8 text-[clamp(1.25rem,2.5vw,2rem)] font-light text-white/90 leading-snug">
-            A friend in your ear. A map that glows where you've been.
+            An AI companion in your ear. A city that fills in beneath your feet.
           </p>
           <div
             className="mt-10 text-sm text-amber-300/80 tracking-wide"
             style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
           >
-            Echo. Heat map. Together.
+            Echo &nbsp;&middot;&nbsp; Living map &nbsp;&middot;&nbsp; A purposeful walk
           </div>
+          <p
+            className="mt-6 text-xs text-white/40 tracking-wide max-w-sm"
+            style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
+          >
+            Not another social feed. A reason to step outside.
+          </p>
         </div>
 
         {/* Phone-frame embedded demo */}
@@ -251,13 +265,27 @@ export function VisionSlide() {
           Shaped by the people who actually walk it.
         </p>
 
+        <p
+          className="mt-6 text-[clamp(0.85rem,1.4vw,1.05rem)] text-amber-200/70 tracking-wide max-w-2xl mx-auto"
+          style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
+        >
+          Well-being, one walk at a time.
+        </p>
+
         <div
-          className="mt-24 flex items-center justify-center gap-4 text-amber-300/70 text-sm tracking-[0.2em] uppercase"
+          className="mt-20 flex items-center justify-center gap-4 text-amber-300/70 text-sm tracking-[0.2em] uppercase"
           style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
         >
           <span>roam</span>
           <span className="w-12 h-px bg-amber-300/40" />
           <span>put your shoes on</span>
+        </div>
+
+        <div
+          className="mt-6 text-[0.65rem] tracking-[0.3em] uppercase text-white/30"
+          style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
+        >
+          An Ananta Data experience
         </div>
       </div>
     </Slide>
