@@ -58,7 +58,7 @@ export function CoverSlide() {
           style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
         >
           An AI voice companion that walks with you, and a living map that
-          fills in beneath your feet. Designed to get you back outside &mdash;
+          fills in beneath your feet. Designed to get you back outside,
           not to keep you on your phone.
         </p>
 

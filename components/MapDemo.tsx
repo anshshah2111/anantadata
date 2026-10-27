@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import maplibregl from "maplibre-gl";
+import { maplibregl, configureMapWorker } from "@/lib/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { latLngToTileId, tileIdToBounds } from "@/lib/tiles";
 
@@ -174,6 +174,7 @@ export default function MapDemo() {
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
+    configureMapWorker();
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: DARK_STYLE,
