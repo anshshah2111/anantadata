@@ -1,4 +1,4 @@
-:HL["/anantadata/_next/static/chunks/1w8ru7ltksmcd.css","style"]
+:HL["/anantadata/_next/static/chunks/37hzh5k22nagp.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"pitch","h":96,"c":"$Q2"}]]
-0:{"b":"RZ9nsuYJW1D9YhfJEbqBz","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"ZB1MY65J9uSlSGygJGrhO","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
