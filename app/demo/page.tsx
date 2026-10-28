@@ -40,6 +40,17 @@ export default function DemoPage() {
     { sender: "echo" | "user"; text: string }[]
   >([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const stepRef = useRef(0);
+  // Every delayed Echo/user beat goes through later() so a reset can cancel
+  // them; otherwise replies from an old walk land in the new one.
+  const timersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
+  const later = useCallback((fn: () => void, ms: number) => {
+    const t = setTimeout(() => {
+      timersRef.current.delete(t);
+      fn();
+    }, ms);
+    timersRef.current.add(t);
+  }, []);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   /* ---------- Group walk state (Kobe) ---------- */
@@ -85,6 +96,9 @@ export default function DemoPage() {
   const resetAll = useCallback(() => {
     clearInterval_();
     groupAbortRef.current = true;
+    timersRef.current.forEach((t) => clearTimeout(t));
+    timersRef.current.clear();
+    stepRef.current = 0;
     setStep(0);
     setIsPlaying(false);
     setEchoState("idle");
@@ -113,87 +127,75 @@ export default function DemoPage() {
 
   /* ---------- Solo walk logic (Jordan) ---------- */
 
+  // Echo's message decides which feature pill lights up. One rule per
+  // feature, checked in order; the first match wins.
+  const featureForMessage = useCallback((message: string) => {
+    const msg = message.toLowerCase();
+    const has = (...words: string[]) => words.some((w) => msg.includes(w));
+    if (has("remind", "errand", "milk", "coffee beans"))
+      return { icon: "\uD83D\uDED2", text: "Errand queued", color: "#F4A261", feature: "Errands" };
+    if (has("note", "saved", "remembering"))
+      return { icon: "\uD83D\uDCDD", text: "Note saved", color: "#7B68EE", feature: "Notes" };
+    if (has("luna", "dog"))
+      return { icon: "\uD83D\uDC15", text: "Dog walk mode", color: "#52B788", feature: "Dog walk" };
+    if (has("priya", "marcus", "group", "overlap"))
+      return { icon: "\uD83C\uDFC6", text: "Leaderboard updated", color: "#00B4D8", feature: "Leaderboard" };
+    if (has("new street", "new tile", "never"))
+      return { icon: "\uD83C\uDF1F", text: "New area discovered", color: "#F4A261", feature: "Heat map" };
+    return null;
+  }, []);
+
+  // Echo's line for a given step of the solo walk (step 0 is the greeting).
+  const runSoloBeat = useCallback((stepIdx: number) => {
+    const next = stepIdx;
+    const beat = persona.conversationBeats.find((b) => b.triggerStep === next);
+    if (!beat) return;
+
+    setEchoState(beat.echoState);
+    setEchoMessage(beat.message);
+    setChatHistory((h) => [...h, { sender: "echo", text: beat.message }]);
+
+    const f = featureForMessage(beat.message);
+    if (f) {
+      showNotification(f.icon, f.text, f.color);
+      setActiveFeature(f.feature);
+    }
+
+    const userResp = persona.userResponses[next];
+    if (userResp) {
+      later(() => {
+        setChatHistory((h) => [...h, { sender: "user", text: userResp }]);
+        setEchoState("listening");
+        later(() => setEchoState("idle"), 1500);
+      }, beat.duration - 500);
+    } else {
+      later(() => {
+        setEchoState("idle");
+        setEchoMessage("");
+      }, beat.duration);
+    }
+  }, [persona, featureForMessage, showNotification, later]);
+
   const advanceSoloStep = useCallback(() => {
     const route = persona.route;
-    const beats = persona.conversationBeats;
-    const responses = persona.userResponses;
+    const next = stepRef.current + 1;
+    if (next >= route.length) {
+      setIsPlaying(false);
+      clearInterval_();
+      return;
+    }
+    stepRef.current = next;
+    setStep(next);
 
-    setStep((prev) => {
-      const next = prev + 1;
-      if (next >= route.length) {
-        setIsPlaying(false);
-        clearInterval_();
-        return prev;
-      }
+    const pos = route[next];
+    setCurrentPos(pos);
+    setWalkPath((p) => [...p, pos]);
+    const tileId = latLngToTileId(pos[0], pos[1]);
+    setHeatMap((h) => ({ ...h, [tileId]: (h[tileId] || 0) + 1 }));
 
-      const pos = route[next];
-      setCurrentPos(pos);
-      setWalkPath((p) => [...p, pos]);
+    runSoloBeat(next);
+  }, [persona, clearInterval_, runSoloBeat]);
 
-      const tileId = latLngToTileId(pos[0], pos[1]);
-      setHeatMap((h) => ({ ...h, [tileId]: (h[tileId] || 0) + 1 }));
-
-      const beat = beats.find((b) => b.triggerStep === next);
-      if (beat) {
-        setEchoState(beat.echoState);
-        setEchoMessage(beat.message);
-        setChatHistory((h) => [...h, { sender: "echo", text: beat.message }]);
-
-        // Feature notification pills based on message content
-        const msg = beat.message.toLowerCase();
-        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
-        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans")) {
-          showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
-          setActiveFeature("Errands");
-        } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
-          showNotification("\uD83D\uDCDD", "Note saved", "#7B68EE");
-          setActiveFeature("Notes");
-        } else if (msg.includes("luna") || msg.includes("dog")) {
-          showNotification("\uD83D\uDC15", "Dog walk mode", "#52B788");
-          setActiveFeature("Dog walk");
-        } else if (msg.includes("priya") || msg.includes("marcus") || msg.includes("group") || msg.includes("overlap")) {
-          showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
-          setActiveFeature("Leaderboard");
-        } else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never")) {
-          showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
-          setActiveFeature("Heat map");
-        }
-        if (msg.includes("remind") || msg.includes("errand") || msg.includes("milk") || msg.includes("coffee beans"))
-          showNotification("\uD83D\uDED2", "Errand queued", "#F4A261");
-          setActiveFeature("Errands");
-        } else if (msg.includes("note") || msg.includes("saved") || msg.includes("remembering")) {
-          showNotification("\uD83D\uDCDD", "Note saved", "#7B68EE");
-          setActiveFeature("Notes");
-        } else if (msg.includes("luna") || msg.includes("dog")) {
-          showNotification("\uD83D\uDC15", "Dog walk mode", "#52B788");
-          setActiveFeature("Dog walk");
-        } else if (msg.includes("priya") || msg.includes("marcus") || msg.includes("group") || msg.includes("overlap")) {
-          showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
-          setActiveFeature("Leaderboard");
-        } else if (msg.includes("new street") || msg.includes("new tile") || msg.includes("never")) {
-          showNotification("\uD83C\uDF1F", "New area discovered", "#F4A261");
-          setActiveFeature("Heat map");
-        }
-
-
-        const userResp = responses[next];
-        if (userResp) {
-          setTimeout(() => {
-            setChatHistory((h) => [...h, { sender: "user", text: userResp }]);
-            setEchoState("listening");
-            setTimeout(() => setEchoState("idle"), 1500);
-          }, beat.duration - 500);
-        } else {
-          setTimeout(() => {
-            setEchoState("idle");
-            setEchoMessage("");
-          }, beat.duration);
-        }
-      }
-
-      return next;
-    });
-  }, [persona, clearInterval_]);
 
   const startSoloDemo = useCallback(() => {
     resetAll();
@@ -204,33 +206,13 @@ export default function DemoPage() {
       setIsPlaying(true);
       const tileId = latLngToTileId(route[0][0], route[0][1]);
       setHeatMap({ [tileId]: 1 });
+      runSoloBeat(0);
       intervalRef.current = setInterval(
         advanceSoloStep,
         persona.stepIntervalMs
       );
     }, 60);
-  }, [persona, advanceSoloStep, resetAll]);
-
-  /* ---------- Autoplay via URL params (for /pitch embed) ---------- */
-  const autoplayRef = useRef(false);
-  useEffect(() => {
-    if (autoplayRef.current) return;
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("autoplay") !== "1") return;
-
-    const p = params.get("persona");
-    if (p === "kobe" && KOBE) setPersona(KOBE);
-    else if (p === "jordan") setPersona(JORDAN);
-
-    // Give persona state a tick to settle, then start
-    autoplayRef.current = true;
-    const t = setTimeout(() => {
-      startSoloDemo();
-    }, 300);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startSoloDemo]);
+  }, [persona, advanceSoloStep, resetAll, runSoloBeat]);
 
   /* ---------- Group walk logic (Kobe) ---------- */
 
@@ -254,6 +236,25 @@ export default function DemoPage() {
           member.route[0][1]
         );
         memberMap[firstTile] = 1;
+
+        // Echo's line for this member at a given step (step 0 = their intro)
+        const playBeat = (stepIdx: number) => {
+          const beat = member.beats.find((b) => b.triggerStep === stepIdx);
+          if (!beat) return;
+          setEchoState(beat.echoState);
+          setEchoMessage(beat.message);
+          setChatHistory((h) => [...h, { sender: "echo", text: beat.message }]);
+          const msg = beat.message.toLowerCase();
+          if (msg.includes("overlap") || msg.includes("triple"))
+            showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
+          else if (msg.includes("tile") || msg.includes("light"))
+            showNotification("\uD83C\uDF1F", "New tiles revealed", "#F4A261");
+          later(() => {
+            setEchoState("idle");
+            setEchoMessage("");
+          }, beat.duration);
+        };
+        playBeat(0);
 
         const iv = setInterval(() => {
           if (groupAbortRef.current) {
@@ -291,30 +292,11 @@ export default function DemoPage() {
           setGroupMap(merged);
           setIndividualMaps(running);
 
-          // Check beats
-          const beat = member.beats.find((b) => b.triggerStep === memberStep);
-          if (beat) {
-            setEchoState(beat.echoState);
-            setEchoMessage(beat.message);
-            setChatHistory((h) => [
-              ...h,
-              { sender: "echo", text: beat.message },
-            ]);
-            // Feature notification
-            const msg = beat.message.toLowerCase();
-            if (msg.includes("overlap") || msg.includes("triple"))
-              showNotification("\uD83C\uDFC6", "Leaderboard updated", "#00B4D8");
-            else if (msg.includes("tile") || msg.includes("light"))
-              showNotification("\uD83C\uDF1F", "New tiles revealed", "#F4A261");
-            setTimeout(() => {
-              setEchoState("idle");
-              setEchoMessage("");
-            }, beat.duration);
-          }
+          playBeat(memberStep);
         }, persona.stepIntervalMs);
       });
     },
-    [persona.stepIntervalMs]
+    [persona.stepIntervalMs, later, showNotification]
   );
 
   const startGroupDemo = useCallback(async () => {
@@ -367,11 +349,34 @@ export default function DemoPage() {
           text: "The group covered it. Look at that heat map glow.",
         },
       ]);
-      setTimeout(() => {
+      later(() => {
         setEchoState("idle");
       }, 4000);
     }
-  }, [persona, resetAll, runMemberWalk]);
+  }, [persona, resetAll, runMemberWalk, later]);
+
+  /* ---------- Autoplay via URL params (for /pitch embed) ---------- */
+  const autoplayRef = useRef(false);
+  useEffect(() => {
+    if (autoplayRef.current) return;
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("autoplay") !== "1") return;
+
+    const wanted = params.get("persona") === "kobe" ? KOBE : JORDAN;
+    if (persona.id !== wanted.id) {
+      // Switch first; this effect runs again with the new persona's callbacks.
+      setPersona(wanted);
+      return;
+    }
+
+    autoplayRef.current = true;
+    const t = setTimeout(() => {
+      if (wanted.groupMembers) startGroupDemo();
+      else startSoloDemo();
+    }, 300);
+    return () => clearTimeout(t);
+  }, [persona.id, startSoloDemo, startGroupDemo]);
 
   /* ---------- Cleanup ---------- */
   useEffect(() => {
@@ -475,15 +480,6 @@ export default function DemoPage() {
         ))}
       </div>
 
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
-      {/* Feature showcase — cycles on top of the feature bar area */}
       {/* Interactive feature bar + expandable previews */}
       <div className="px-6 pb-3">
         {/* Progress dots showing which feature is active */}
@@ -504,62 +500,13 @@ export default function DemoPage() {
           ))}
         </div>
 
-        {/* Feature card — Echo explanation + visual mockup */}
-        {activeFeature && (
-          <motion.div
-            key={activeFeature}
-            initial={{ y: 10 }}
-            animate={{ y: 0 }}
-            className="bg-white/[0.04] border border-amber-500/20 rounded-xl p-4 mb-2 shadow-lg shadow-amber-500/5"
-          >
-            <div className="flex items-start gap-3 mb-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex-shrink-0 flex items-center justify-center">
-                <span className="text-xs font-bold text-black">E</span>
-              </div>
-              <div className="flex-1">
-                <div className="text-xs text-amber-400 mb-0.5">Echo explains</div>
-                <div className="text-sm text-gray-300 italic">
-                  {activeFeature === "Group map" && "\u201cEach person\u2019s walks add to one shared map. Tiles deepen as more people visit.\u201d"}
-                  {activeFeature === "Leaderboard" && "\u201cWho discovered the most new tiles? Friendly competition to go one block further.\u201d"}
-                  {activeFeature === "Dog walk" && "\u201cLuna knows the route. I know the tiles. 2 new ones if you go one block further.\u201d"}
-                  {activeFeature === "Errands" && "\u201cCoffee beans. Olive Way Roasters, 2 blocks east. I\u2019ll remind you when we pass it.\u201d"}
-                  {activeFeature === "Notes" && "\u201cYou said something worth remembering. Saved with the location.\u201d"}
-                  {activeFeature === "History" && "\u201c4 walks, 52 tiles, 3.2 miles this week. Your map is growing.\u201d"}
-                  {activeFeature === "Voice companion" && "\u201cI\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
-                  {activeFeature === "Heat map" && "\u201cEvery step clears fog. Walk it twice, it glows warmer. A constellation over a month.\u201d"}
-                  {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought from yesterday.\u201d"}
-                  {activeFeature === "Group map" && "\u201cSee where your friends have been. Each person\u2019s walks add to the shared map \u2014 tiles deepen as more people visit.\u201d"}
-                  {activeFeature === "Leaderboard" && "\u201cWho discovered the most new tiles this week? Friendly competition that makes you want to go one block further.\u201d"}
-                  {activeFeature === "Dog walk" && "\u201cLuna knows the route. I know the tiles. Together we\u2019ll find 2 new ones if you go one block further.\u201d"}
-                  {activeFeature === "Errands" && "\u201cYou mentioned coffee beans. Olive Way Roasters is 2 blocks east \u2014 I\u2019ll remind you when we pass it.\u201d"}
-                  {activeFeature === "Notes" && "\u201cYou said something worth remembering. I saved it with the location.\u201d"}
-                  {activeFeature === "History" && "\u201cThis week: 4 walks, 52 tiles, 3.2 miles. Your map is growing like a neural network.\u201d"}
-                  {activeFeature === "Voice companion" && "\u201cI\u2019m not a coach. I\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
-                  {activeFeature === "Heat map" && "\u201cEvery step clears the fog. Walk it twice and it glows warmer. Over a month, your city looks like a constellation.\u201d"}
-                  {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought for you from yesterday.\u201d"}
-                </div>
-              </div>
-            </div>
-            <div className="bg-[#0a0a0a]/60 rounded-lg p-3">
-              {activeFeature === "Group map" && (<div className="flex gap-3"><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#F4A261]" />Kobe \u2014 18</span><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#7B68EE]" />Priya \u2014 15</span><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#00B4D8]" />Marcus \u2014 12</span></div>)}
-              {activeFeature === "Leaderboard" && (<div className="text-xs text-gray-400">Kobe: 18 tiles (6 unique) \u00b7 Priya: 15 (4 unique) \u00b7 Marcus: 12 (3 unique)</div>)}
-              {activeFeature === "Dog walk" && (<div className="text-xs"><div className="text-amber-400 mb-1">Luna\u2019s route</div><div className="text-gray-400">12 tiles \u00b7 2 new if you go 1 block further</div></div>)}
-              {activeFeature === "Errands" && (<div className="text-xs space-y-1"><div className="text-amber-300">\u2610 Coffee beans \u2014 Olive Way, 2 blocks</div><div className="text-gray-500 line-through">\u2713 Milk \u2014 Fred Meyer (done)</div></div>)}
-              {activeFeature === "Notes" && (<div className="text-xs space-y-1"><div className="text-violet-300 italic">\u201cSkyline from Cal Anderson at sunset\u201d</div><div className="text-gray-500">Saved Tue 5:52 PM</div></div>)}
-              {activeFeature === "History" && (<div className="flex gap-2 text-center">{[["4","walks"],["52","tiles"],["3.2mi","dist"],["4d","streak"]].map(([v,l])=>(<div key={l} className="bg-white/[0.04] rounded px-2 py-1 flex-1"><div className="text-sm font-mono text-amber-400">{v}</div><div className="text-[9px] text-gray-500">{l}</div></div>))}</div>)}
-              {activeFeature === "Voice companion" && (<div className="text-xs italic text-amber-200/70">\u201cHey. Glad you\u2019re out here. Where are we headed today?\u201d</div>)}
-              {activeFeature === "Heat map" && (<div className="flex gap-1.5 items-center">{["#7B68EE","#00B4D8","#52B788","#F4A261","#E76F51"].map(c=>(<div key={c} className="w-4 h-4 rounded-sm" style={{backgroundColor:c}} />))}<span className="text-[10px] text-gray-500 ml-1">cold \u2192 hot</span></div>)}
-              {activeFeature === "Walk streaks" && (<div className="flex gap-1">{["M","T","W","Th"].map(d=>(<div key={d} className="w-7 h-7 rounded bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-[9px] text-amber-300">{d}</div>))}<div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[9px] text-gray-500">F</div></div>)}
-            </div>
-          </motion.div>
-        )}
       </div>
 
       {/* Main demo area */}
       <div className="px-4 pb-8">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr,380px] gap-4 min-h-[500px] lg:h-[calc(100vh-140px)]">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_380px] gap-4 min-h-[500px] lg:h-[calc(100vh-140px)]">
           {/* Map */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] min-h-[400px]">
+          <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] min-h-[480px] sm:min-h-[400px]">
             <FogMap
               key={persona.id}
               heatMap={heatMap}
@@ -569,6 +516,47 @@ export default function DemoPage() {
               zoom={persona.mapZoom}
               interactive={true}
             />
+
+                {/* Feature card: overlays the bottom of the map so the layout never jumps */}
+                {activeFeature && !isReady && (
+              <motion.div
+                key={activeFeature}
+                initial={{ y: 10 }}
+                animate={{ y: 0 }}
+                className="absolute left-3 right-3 bottom-4 z-10 max-w-md bg-[#0d0d0d]/90 backdrop-blur-md border border-amber-500/20 rounded-xl p-3 sm:p-4 shadow-lg shadow-black/40"
+              >
+                <div className="flex items-start gap-3 sm:mb-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex-shrink-0 flex items-center justify-center">
+                    <span className="text-xs font-bold text-black">E</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-xs text-amber-400 mb-0.5">Echo explains</div>
+                    <div className="text-xs sm:text-sm text-gray-300 italic line-clamp-3 sm:line-clamp-none">
+                      {activeFeature === "Group map" && "\u201cSee where your friends have been. Each person\u2019s walks add to the shared map \u2014 tiles deepen as more people visit.\u201d"}
+                      {activeFeature === "Leaderboard" && "\u201cWho discovered the most new tiles this week? Friendly competition that makes you want to go one block further.\u201d"}
+                      {activeFeature === "Dog walk" && "\u201cLuna knows the route. I know the tiles. Together we\u2019ll find 2 new ones if you go one block further.\u201d"}
+                      {activeFeature === "Errands" && "\u201cYou mentioned coffee beans. Olive Way Roasters is 2 blocks east \u2014 I\u2019ll remind you when we pass it.\u201d"}
+                      {activeFeature === "Notes" && "\u201cYou said something worth remembering. I saved it with the location.\u201d"}
+                      {activeFeature === "History" && "\u201cThis week: 4 walks, 52 tiles, 3.2 miles. Your map is growing like a neural network.\u201d"}
+                      {activeFeature === "Voice companion" && "\u201cI\u2019m not a coach. I\u2019m the friend who says \u2018hey, let\u2019s go\u2019 and asks what you ate today.\u201d"}
+                      {activeFeature === "Heat map" && "\u201cEvery step clears the fog. Walk it twice and it glows warmer. Over a month, your city looks like a constellation.\u201d"}
+                      {activeFeature === "Walk streaks" && "\u201cDay 4. You showed up again. I saved a thought for you from yesterday.\u201d"}
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden sm:block bg-[#0a0a0a]/60 rounded-lg p-3">
+                  {activeFeature === "Group map" && (<div className="flex gap-3"><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#F4A261]" />Kobe — 18</span><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#7B68EE]" />Priya — 15</span><span className="flex items-center gap-1.5 text-[11px]"><span className="w-2 h-2 rounded-full bg-[#00B4D8]" />Marcus — 12</span></div>)}
+                  {activeFeature === "Leaderboard" && (<div className="text-xs text-gray-400">Kobe: 18 tiles (6 unique) · Priya: 15 (4 unique) · Marcus: 12 (3 unique)</div>)}
+                  {activeFeature === "Dog walk" && (<div className="text-xs"><div className="text-amber-400 mb-1">Luna’s route</div><div className="text-gray-400">12 tiles · 2 new if you go 1 block further</div></div>)}
+                  {activeFeature === "Errands" && (<div className="text-xs space-y-1"><div className="text-amber-300">☐ Coffee beans — Olive Way, 2 blocks</div><div className="text-gray-500 line-through">✓ Milk — Fred Meyer (done)</div></div>)}
+                  {activeFeature === "Notes" && (<div className="text-xs space-y-1"><div className="text-violet-300 italic">“Skyline from Cal Anderson at sunset”</div><div className="text-gray-500">Saved Tue 5:52 PM</div></div>)}
+                  {activeFeature === "History" && (<div className="flex gap-2 text-center">{[["4","walks"],["52","tiles"],["3.2mi","dist"],["4d","streak"]].map(([v,l])=>(<div key={l} className="bg-white/[0.04] rounded px-2 py-1 flex-1"><div className="text-sm font-mono text-amber-400">{v}</div><div className="text-[9px] text-gray-500">{l}</div></div>))}</div>)}
+                  {activeFeature === "Voice companion" && (<div className="text-xs italic text-amber-200/70">“Hey. Glad you’re out here. Where are we headed today?”</div>)}
+                  {activeFeature === "Heat map" && (<div className="flex gap-1.5 items-center">{["#7B68EE","#00B4D8","#52B788","#F4A261","#E76F51"].map(c=>(<div key={c} className="w-4 h-4 rounded-sm" style={{backgroundColor:c}} />))}<span className="text-[10px] text-gray-500 ml-1">cold → hot</span></div>)}
+                  {activeFeature === "Walk streaks" && (<div className="flex gap-1">{["M","T","W","Th"].map(d=>(<div key={d} className="w-7 h-7 rounded bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-[9px] text-amber-300">{d}</div>))}<div className="w-7 h-7 rounded bg-white/[0.04] border border-white/10 flex items-center justify-center text-[9px] text-gray-500">F</div></div>)}
+                </div>
+              </motion.div>
+            )}
 
             {/* Play button overlay */}
             {isReady && (

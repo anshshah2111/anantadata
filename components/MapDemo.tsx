@@ -4,29 +4,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { maplibregl, configureMapWorker } from "@/lib/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { BASEMAP_STYLE } from "@/lib/basemap";
 import { latLngToTileId, tileIdToBounds } from "@/lib/tiles";
 
-/* ------------------------------------------------------------------ */
-/*  Map style — same dark tiles as FogMap                              */
-/* ------------------------------------------------------------------ */
-
-const DARK_STYLE: maplibregl.StyleSpecification = {
-  version: 8,
-  sources: {
-    carto: {
-      type: "raster",
-      tiles: [
-        "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-        "https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-        "https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-      ],
-      tileSize: 256,
-    },
-  },
-  layers: [
-    { id: "carto", type: "raster", source: "carto", minzoom: 0, maxzoom: 20 },
-  ],
-};
 
 /* ------------------------------------------------------------------ */
 /*  Demo walk data — UW Seattle campus                                 */
@@ -177,13 +157,18 @@ export default function MapDemo() {
     configureMapWorker();
     const map = new maplibregl.Map({
       container: containerRef.current,
-      style: DARK_STYLE,
+      style: BASEMAP_STYLE,
       center: UW_CENTER,
       zoom: 13.5,
       minZoom: 12,
       maxZoom: 17,
       interactive: false,
       attributionControl: false,
+    });
+    // The OpenFreeMap dark style references a few sprite patterns it does not
+    // ship; give MapLibre a transparent pixel instead of a console warning.
+    map.on("styleimagemissing", (e) => {
+      if (!map.hasImage(e.id)) map.addImage(e.id, { width: 1, height: 1, data: new Uint8Array(4) });
     });
 
     map.on("load", () => {

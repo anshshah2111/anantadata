@@ -3,35 +3,9 @@
 import { useEffect, useRef, useCallback } from "react";
 import { maplibregl, configureMapWorker } from "@/lib/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { BASEMAP_STYLE } from "@/lib/basemap";
 import { tileIdToBounds } from "@/lib/tiles";
 
-// CartoDB dark matter tiles — free, no token needed
-const DARK_STYLE: maplibregl.StyleSpecification = {
-  version: 8,
-  name: "Dark Matter",
-  sources: {
-    carto: {
-      type: "raster",
-      tiles: [
-        "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-        "https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-        "https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-      ],
-      tileSize: 256,
-      attribution:
-        '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
-    },
-  },
-  layers: [
-    {
-      id: "carto-tiles",
-      type: "raster",
-      source: "carto",
-      minzoom: 0,
-      maxzoom: 20,
-    },
-  ],
-};
 
 // Heat map color gradient based on visit count
 const HEAT_COLORS: [number, string, number][] = [
@@ -66,6 +40,12 @@ export default function FogMap({
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markerRef = useRef<maplibregl.Marker | null>(null);
+  // Latest props, so the load handler can apply whatever arrived while the
+  // basemap was still loading instead of the values from the first render.
+  const heatRef = useRef(heatMap);
+  heatRef.current = heatMap;
+  const pathRef = useRef(walkPath);
+  pathRef.current = walkPath;
 
   // Build GeoJSON features for fog and heat layers
   const buildFeatures = useCallback(
@@ -99,13 +79,18 @@ export default function FogMap({
     configureMapWorker();
     const map = new maplibregl.Map({
       container: containerRef.current,
-      style: DARK_STYLE,
+      style: BASEMAP_STYLE,
       center,
       zoom,
       minZoom: 10,
       maxZoom: 18,
       interactive,
       attributionControl: false,
+    });
+    // The OpenFreeMap dark style references a few sprite patterns it does not
+    // ship; give MapLibre a transparent pixel instead of a console warning.
+    map.on("styleimagemissing", (e) => {
+      if (!map.hasImage(e.id)) map.addImage(e.id, { width: 1, height: 1, data: new Uint8Array(4) });
     });
 
     map.addControl(
@@ -237,8 +222,16 @@ export default function FogMap({
 
       mapRef.current = map;
 
-      // Initial update
-      updateLayers(map, heatMap);
+      // Catch up on anything that changed while the style was loading
+      updateLayers(map, heatRef.current);
+      const path = pathRef.current;
+      if (path && path.length) {
+        (map.getSource("walk-path") as maplibregl.GeoJSONSource).setData({
+          type: "Feature",
+          properties: {},
+          geometry: { type: "LineString", coordinates: path.map(([lat, lng]) => [lng, lat]) },
+        });
+      }
     });
 
     return () => {
@@ -251,7 +244,7 @@ export default function FogMap({
   // Update layers when heatMap changes
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !map.isStyleLoaded()) return;
+    if (!map) return; // not loaded yet; the load handler applies heatRef
     updateLayers(map, heatMap);
   }, [heatMap]);
 
