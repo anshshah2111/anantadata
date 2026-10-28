@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useForm, ValidationError } from "@formspree/react";
 import EchoBlob from "@/components/EchoBlob";
+import WatchSection from "@/components/WatchSection";
 
 export default function LandingPage() {
   return (
@@ -34,12 +35,12 @@ export default function LandingPage() {
             Why Now
           </a>
         </div>
-        <Link
-          href="/demo"
+        <a
+          href="#watch"
           className="px-5 py-2 bg-amber-500 text-black text-sm font-semibold rounded-full hover:bg-amber-400 transition-colors"
         >
-          Watch demo
-        </Link>
+          Watch video
+        </a>
       </nav>
 
       {/* ================= HERO ================= */}
@@ -122,18 +123,18 @@ export default function LandingPage() {
             transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center gap-4"
           >
-            <Link
-              href="/demo"
+            <a
+              href="#watch"
               className="px-8 py-4 bg-amber-500 text-black text-lg font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 hover:shadow-amber-400/30 transition-all"
             >
-              Watch the demo &rarr;
-            </Link>
-            <a
-              href="#groups"
+              Watch the 2-minute video
+            </a>
+            <Link
+              href="/demo"
               className="px-8 py-4 bg-white/5 text-white text-lg font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-amber-400/30 transition-all"
             >
-              See group mode
-            </a>
+              Try the live demo &rarr;
+            </Link>
           </motion.div>
           <span className="mt-4 text-sm text-gray-500">
             No account needed. No download.
@@ -145,6 +146,9 @@ export default function LandingPage() {
           <div className="scroll-arrow" />
         </div>
       </section>
+
+      {/* ================= WATCH (founder video) ================= */}
+      <WatchSection />
 
       {/* ================= PROBLEM ================= */}
       <section className="relative px-6 py-32">
