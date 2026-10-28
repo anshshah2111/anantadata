@@ -271,7 +271,7 @@ const Frame10 = () => (
 
 // ---------- Frame 11: Slump — head down ----------
 const Frame11 = () => (
-  <Frame caption="5:34 pm — flat">
+  <Frame caption="5:34 pm: flat">
     <path d="M30 330 L370 330" />
     <path d="M90 280 L310 280 L310 290 L90 290 Z" />
     <path d="M150 330 L150 260 L220 260 L220 330" strokeWidth="1.8" />

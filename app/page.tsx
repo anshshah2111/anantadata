@@ -86,6 +86,19 @@ export default function LandingPage() {
             UW iStartup Launch Sprint 2026
           </motion.div>
 
+          {/* Grant badge */}
+          <motion.a
+            href="https://startup.ischool.uw.edu/grants/"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.5 }}
+            className="-mt-3 mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/5 border border-amber-500/15 text-xs text-amber-300 tracking-wider hover:border-amber-400/40 transition-colors"
+          >
+            UW iStartup Lab Micro Grant, Spring 2026
+          </motion.a>
+
           {/* Headline */}
           <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-tight mb-4 bg-gradient-to-br from-white via-amber-100 to-amber-400 bg-clip-text text-transparent">
             Roam
@@ -94,7 +107,7 @@ export default function LandingPage() {
           {/* Tagline */}
           <p className="text-lg sm:text-xl text-gray-400 max-w-xl mb-3 leading-relaxed">
             The social walking app. A voice companion for introverts who need a
-            friend in their ear &mdash; and a group heat map for extroverts who
+            friend in their ear, and a group heat map for extroverts who
             want to explore with theirs.
           </p>
 
@@ -281,7 +294,7 @@ export default function LandingPage() {
           <div className="grid sm:grid-cols-2 gap-3">
             {[
               { ok: false, text: "Never mentions exercise, fitness, or steps" },
-              { ok: true, text: "Asks about concrete things — what you ate, where you turned" },
+              { ok: true, text: "Asks about concrete things: what you ate, where you turned" },
               { ok: false, text: "Never says \u201cgood for you\u201d or \u201cgreat job\u201d" },
               { ok: true, text: "Short sentences. 5 to 15 words. Made for sidewalks" },
               { ok: false, text: "Never gives unsolicited advice or sounds like therapy" },
@@ -695,11 +708,11 @@ export default function LandingPage() {
               &ldquo;Jordan, 29. Knowledge worker. Hybrid, mostly remote. Lives
               with a partner but mostly alone in front of a laptop. Hasn&apos;t
               seen friends in person in three weeks. Tried Strava, Peloton,
-              ClassPass &mdash; bounced off all of them. The dominant feeling
+              ClassPass, and bounced off all of them. The dominant feeling
               is flatness.&rdquo;
             </blockquote>
             <p className="text-gray-500 text-sm">
-              This is Jordan&apos;s Tuesday &mdash; growing like a tree, hour
+              This is Jordan&apos;s Tuesday, growing like a tree, hour
               by hour.
             </p>
           </motion.div>
@@ -1339,7 +1352,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-gray-400 leading-relaxed mb-8 max-w-lg mx-auto">
               Roam is launching soon. Drop your email and we&apos;ll let you
-              know when Echo is ready to walk with you. No spam &mdash; just
+              know when Echo is ready to walk with you. No spam, just
               one message when it&apos;s time to put your shoes on.
             </p>
 
@@ -1414,7 +1427,7 @@ export default function LandingPage() {
           </h2>
           <p className="text-lg text-gray-400 mb-10 leading-relaxed">
             Whether you&apos;re Jordan who needs a reason to leave, or Kobe
-            who just landed in a new city &mdash; Echo walks with you, and
+            who just landed in a new city, Echo walks with you, and
             the map remembers. The city is waiting.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -1444,7 +1457,15 @@ export default function LandingPage() {
           </span>
           <p className="text-xs text-gray-600 text-center">
             A voice-first walking companion. Made for the UW iStartup Launch
-            Sprint 2026.
+            Sprint 2026.{" "}
+            <a
+              href="https://startup.ischool.uw.edu/grants/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-gray-700 hover:text-gray-400"
+            >
+              iStartup Lab Micro Grant recipient, Spring 2026.
+            </a>
           </p>
         </div>
       </footer>
@@ -1626,8 +1647,8 @@ function EarlyAccessForm() {
           You&apos;re on the list.
         </p>
         <p className="text-sm text-gray-400">
-          We&apos;ll email you when Echo is ready to walk. Just one message
-          &mdash; no spam.
+          We&apos;ll email you when Echo is ready to walk. Just one message,
+          no spam.
         </p>
       </div>
     );

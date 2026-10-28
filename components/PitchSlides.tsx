@@ -123,7 +123,7 @@ const EVIDENCE_PHOTOS: { src: string; tilt: number; top: string; left: string; s
 const QUOTES = [
   "Haven't been outside for a non-errand reason in two weeks.",
   "Downloaded Strava three times. Deleted it three times.",
-  "If someone just said hey, let's go — I'd go.",
+  "If someone just said hey, let's go, I'd go.",
 ];
 
 export function InsightSlide() {
@@ -287,6 +287,16 @@ export function VisionSlide() {
         >
           An Ananta Data experience
         </div>
+
+        <a
+          href="https://startup.ischool.uw.edu/grants/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-block text-[0.65rem] tracking-[0.3em] uppercase text-amber-300/50 hover:text-amber-300/80"
+          style={{ fontFamily: "var(--font-geist-mono), ui-monospace, monospace" }}
+        >
+          UW iStartup Lab Micro Grant &nbsp;&middot;&nbsp; Spring 2026
+        </a>
       </div>
     </Slide>
   );
