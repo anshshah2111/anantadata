@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 const BASE_PATH = "/anantadata";
 
 /**
- * The founders' 2-minute demo, recorded during the UW iStartup Launch
+ * The founders' 3-minute demo, recorded during the UW iStartup Launch
  * Sprint (April 2026) and re-edited in October 2026. Captions are on by
  * default because most people start a video with the sound off.
  */
@@ -27,7 +27,7 @@ export default function WatchSection() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
           <div className="text-xs tracking-[0.3em] uppercase text-amber-400/80 mb-4">
-            Watch &middot; 2 minutes
+            Watch &middot; 3 minutes
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
             Meet the people building Roam
@@ -62,7 +62,7 @@ export default function WatchSection() {
             <button
               type="button"
               onClick={play}
-              aria-label="Play the 2-minute Roam video"
+              aria-label="Play the 3-minute Roam video"
               className="group absolute inset-0 flex items-end justify-center pb-5 sm:pb-8 bg-gradient-to-t from-black/60 via-transparent to-transparent"
             >
               <span className="flex items-center gap-2 sm:gap-3 pl-4 pr-5 py-2.5 sm:pl-5 sm:pr-7 sm:py-4 rounded-full bg-amber-500 text-black font-semibold text-base sm:text-lg shadow-lg shadow-amber-500/30 group-hover:bg-amber-400 transition-colors">
@@ -76,7 +76,7 @@ export default function WatchSection() {
                   <path d="M8 5v14l11-7z" />
                 </svg>
                 Watch the story
-                <span className="font-normal text-black/60">2:23</span>
+                <span className="font-normal text-black/60">2:44</span>
               </span>
             </button>
           )}

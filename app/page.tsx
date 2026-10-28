@@ -127,7 +127,7 @@ export default function LandingPage() {
               href="#watch"
               className="px-8 py-4 bg-amber-500 text-black text-lg font-semibold rounded-full shadow-lg shadow-amber-500/20 hover:bg-amber-400 hover:shadow-amber-400/30 transition-all"
             >
-              Watch the 2-minute video
+              Watch the 3-minute video
             </a>
             <Link
               href="/demo"
